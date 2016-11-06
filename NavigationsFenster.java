@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JWindow;
 
 public class NavigationsFenster extends JWindow {
@@ -35,19 +36,20 @@ public class NavigationsFenster extends JWindow {
 		this.setLocation((int) fenster.getLocation().getX() + fenster.getWidth()
 				+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT, (int) fenster.getLocation().getY());
 
-		tast = new Tastatur(panelMitRand, Color.red);
+		tast = new Tastatur(fenster, panelMitRand, Color.red);
 
 		navigationsFlaeche.add(panelMitRand);
 		this.pack();
 		this.setVisible(true);
 
+		super.requestFocus();
 		
-		
+
 		// tastaturErnuernMitSharp();
 
 	}
 
-	// * nicht für Übung 1 *
+	/* nicht für Übung 1 
 	private void tastaturErnuernMitSharp() {
 		String[] buttonText = new String[9];
 		for (int i = 0; i < 9; i++)
@@ -60,5 +62,5 @@ public class NavigationsFenster extends JWindow {
 		this.setVisible(true);
 
 	}
-
+	*/
 }

@@ -48,6 +48,11 @@ public class SpielBrett extends JFrame {
 
 		NavigationsFenster navisFenster = new NavigationsFenster(this);
 		this.addComponentListener(new SpielBrettListener(navisFenster));
+		
+		ListenerKeyPressed keyPressed = new ListenerKeyPressed();
+		this.addKeyListener(keyPressed);
+		
+		this.requestFocus();
 
 	}
 
