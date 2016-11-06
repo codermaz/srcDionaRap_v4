@@ -69,7 +69,7 @@ public class Tastatur {
 				break;
 			}
 			if ((i + 1) == 5) {
-				tastatur[i].setActionCommand("shoot");
+				tastatur[i].setActionCommand("schiessen");
 				tastatur[i].addActionListener(new ListenerWaffe(brett));				
 			}
 			else
