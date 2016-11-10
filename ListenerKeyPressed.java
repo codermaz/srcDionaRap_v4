@@ -5,33 +5,33 @@ public class ListenerKeyPressed implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-
+		//System.out.println("keyCode :"+e.getKeyCode());
 		switch (keyCode) {
-		case KeyEvent.VK_UP: case 73: // 73=i
+		case KeyEvent.VK_UP: case 73: case 104: case 224: // 73=i
 			System.out.println("oben");
 			break;
-		case KeyEvent.VK_DOWN: case 78: // 78=n
+		case KeyEvent.VK_DOWN: case 78: case 98: case 225: // 78=n
 			System.out.println("unten");
 			break;
-		case KeyEvent.VK_LEFT: case 72: // 72=h 
+		case KeyEvent.VK_LEFT: case 72: case 100: case 226: // 72=h 
 			System.out.println("links");
-			break;
-		case KeyEvent.VK_RIGHT: case 75: // 75=k
+			break;   
+		case KeyEvent.VK_RIGHT: case 75: case 102: case 227: // 75=k
 			System.out.println("rechts");
 			break;
-		 case 85: // 85=u 
+		 case 85: case 36: case 103:  // 85=u 
 			System.out.println("links_oben");
 			break;
-		case 66: // 66=b
+		case 66: case 35: case 97: // 66=b
 			System.out.println("links_down");
 			break;
-		 case 79: // 79=o 
+		 case 79: case 33: case 105: // 79=o 
 			System.out.println("rechts_oben");
 			break;
-		 case 77: // 77=m
+		 case 77: case 34: case 99: // 77=m
 			System.out.println("rechts_down");
 			break;	
-		 case 32: case 74: // 32=space  und 74=j
+		 case 32: case 74: case 101: case 65368: // 32=space  und 74=j
 			System.out.println("shiessen");
 			break;	
 		}
