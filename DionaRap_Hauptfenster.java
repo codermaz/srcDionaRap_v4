@@ -12,7 +12,9 @@ public class DionaRap_Hauptfenster {
 	public static void spielStart() {
 		//Brett initialisieren
 		new SpielBrett();
+		
 		DionaRapModel drm = new DionaRapModel(zeilenA, spaltenA, gegnerA, hindernisA);
+		// Brett vorbreiten 
 		AbstractPawn[] allePawns = drm.getAllPawns();
 		for (int i = 0; i < allePawns.length; i++) {
 			if (allePawns[i] instanceof Obstacle) {
@@ -24,10 +26,9 @@ public class DionaRap_Hauptfenster {
 			} else if (allePawns[i] instanceof Vortex) {
 				SpielBrett.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "V");
 			}
-
 		}
 		
-	
+		
 		
 
 	}
