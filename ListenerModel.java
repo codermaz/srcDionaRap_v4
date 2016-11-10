@@ -6,6 +6,13 @@ import de.fhwgt.dionarap.model.listener.DionaRapListener;
 
 public class ListenerModel implements DionaRapListener{
 
+	
+	
+	public ListenerModel(SpielBrett spielBrett) {
+		//spielBrett.
+	}
+
+	
 	@Override
 	public void modelChanged(DionaRapChangedEvent arg0) {
 		
@@ -16,7 +23,7 @@ public class ListenerModel implements DionaRapListener{
 	@Override
 	public void statusChanged(GameStatusEvent arg0) {
 		
-		
+		arg0.isGameWon();
 		
 	}
 

@@ -11,7 +11,9 @@ public class DionaRap_Hauptfenster {
 
 	public static void spielStart() {
 		//Brett initialisieren
-		new SpielBrett();
+		SpielBrett spielBrett = new SpielBrett();
+		
+		ListenerModel listenerModel = new ListenerModel(spielBrett);
 		
 		DionaRapModel drm = new DionaRapModel(zeilenA, spaltenA, gegnerA, hindernisA);
 		// Brett vorbreiten 

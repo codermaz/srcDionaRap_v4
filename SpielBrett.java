@@ -90,8 +90,8 @@ public class SpielBrett extends JFrame {
 				spielFelder[j][i].setOpaque(true);
 				spielBrett.add(spielFelder[j][i]);
 			}
-			// nochmal die Hintergrundfarbe wechseln, wenn die Spaltenanzahl
-			// ungerade ist.
+			
+			// nochmal die Hintergrundfarbe wechseln, wenn die Spaltenanzahl ungerade ist.
 			if ((spalten % 2) == 0) {
 				if (farbeWechsel == 0)
 					farbeWechsel = 1;
