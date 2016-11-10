@@ -32,7 +32,7 @@ public class ListenerKeyPressed implements KeyListener {
 			System.out.println("rechts_down");
 			break;	
 		 case 32: case 74: // 32=space  und 74=j
-			System.out.println("shiessen***");
+			System.out.println("shiessen");
 			break;	
 		}
 		
