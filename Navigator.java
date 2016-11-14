@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JWindow;
 
-public class ListenerFenster extends JWindow {
-	private Tastatur tast;
+public class Navigator extends JWindow {
+	//private Tastatur tast;
 	private JPanel panelMitRand = new JPanel();
 
 	Container navigationsFlaeche = this.getContentPane();
@@ -29,20 +28,21 @@ public class ListenerFenster extends JWindow {
 	 *            Das Vaterfenster zu diesem Object
 	 */
 
-	public ListenerFenster(SpielBrett fenster) {
+	public Navigator(DionaRap_Hauptfenster fenster) {
 		super(fenster); // JWindow ist Kindfester zum JFrame. Es entfällt ein
 						// Windowlistener !
 
 		this.setLocation((int) fenster.getLocation().getX() + fenster.getWidth()
 				+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT, (int) fenster.getLocation().getY());
-
-		tast = new Tastatur(fenster, panelMitRand, Color.red);
+System.out.println(" Xcoor : "+(int) fenster.getLocation().getX() + fenster.getWidth()
+				+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT);
+		new Tastatur (fenster, panelMitRand, Color.red);
 
 		navigationsFlaeche.add(panelMitRand);
 		this.pack();
 		this.setVisible(true);
 
-		super.requestFocus();
+		//super.requestFocus();
 		
 
 		// tastaturErnuernMitSharp();

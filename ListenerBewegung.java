@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListenerBewegung implements ActionListener {
-	private SpielBrett brett;
+	private DionaRap_Hauptfenster brett;
 
-	public ListenerBewegung(SpielBrett brett) {
+	public ListenerBewegung(DionaRap_Hauptfenster brett) {
 		this.brett=brett;
 	}
 	

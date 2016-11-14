@@ -15,44 +15,43 @@ import javax.swing.JPanel;
  *
  */
 
-public class SpielBrett extends JFrame {
+public class Spielfeld extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static int spalten = SpielBrettEigenschaften.SPALTEN_ANZAHL;
 	private static int zeilen = SpielBrettEigenschaften.ZEILEN_ANZAHL;
 
-	private Container spielFlaeche = this.getContentPane();
+	private Container spielFlaeche;
 	private JPanel spielBrett = new JPanel();
 	private static JLabel[][] spielFelder = new JLabel[spalten][zeilen];
+	private DionaRap_Hauptfenster fenster;
 
 	/**
 	 * Konstruktor der Klasse <br>
 	 * Erzeugt ein Kindfenster vom Typ JWindow
 	 */
 
-	public SpielBrett() {
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("DionaRap");
-		this.setResizable(false);
+	public Spielfeld(DionaRap_Hauptfenster _fenster) {
+		this.fenster= _fenster; 
+		
+		fenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		fenster.setTitle("DionaRap");
+		fenster.setResizable(false);
 
-		this.setSize(spalten * SpielBrettEigenschaften.LABEL_DIMENSION, zeilen * SpielBrettEigenschaften.LABEL_DIMENSION);
-		this.setLocationRelativeTo(null);
+		fenster.setSize(spalten * SpielBrettEigenschaften.LABEL_DIMENSION, zeilen * SpielBrettEigenschaften.LABEL_DIMENSION);
+		fenster.setLocationRelativeTo(null);
 
 		spielBrett.setLayout(new GridLayout(zeilen, spalten, 0, 0));
-
+		spielFlaeche = fenster.getContentPane();
 		spielFlaeche.setLayout(new BorderLayout());
 		spielFlaeche.add(spielBrett);
-		this.setVisible(true);
+		fenster.setVisible(true);
 
 		zeichneErstesBrett();
 
-		ListenerFenster navisFenster = new ListenerFenster(this);
-		this.addComponentListener(new SpielBrettListener(navisFenster));
-		
 		ListenerKeyPressed keyPressed = new ListenerKeyPressed();
-		this.addKeyListener(keyPressed);
+		fenster.addKeyListener(keyPressed);
 		
-		this.requestFocus();
 
 	}
 

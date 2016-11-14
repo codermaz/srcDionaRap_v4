@@ -6,10 +6,10 @@ import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 import javax.swing.JWindow;
 
-public class SpielBrettListener implements ComponentListener {
+public class ListenerSpielBrett implements ComponentListener {
 	private JWindow fenster;
 
-	public SpielBrettListener(JWindow fenster) {
+	public ListenerSpielBrett(JWindow fenster) {
 		this.fenster = fenster;
 	}
 

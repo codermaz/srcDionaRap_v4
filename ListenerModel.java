@@ -8,7 +8,7 @@ public class ListenerModel implements DionaRapListener{
 
 	
 	
-	public ListenerModel(SpielBrett spielBrett) {
+	public ListenerModel(Spielfeld spielBrett) {
 		//spielBrett.
 	}
 

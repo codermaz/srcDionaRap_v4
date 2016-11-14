@@ -12,11 +12,11 @@ import javax.swing.JPanel;
 
 public class Tastatur {
 	private JPanel panel;
-	private SpielBrett brett;
+	private DionaRap_Hauptfenster brett;
 	private JButton[] tastatur = new JButton[9];
 	private String[] buttonText = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-	Tastatur(SpielBrett fenster, JPanel panel, Color randColor) {
+	Tastatur(DionaRap_Hauptfenster fenster, JPanel panel, Color randColor) {
 		this.panel = panel;
 		this.brett= fenster;
 		TastaturInsFenster( randColor);
@@ -32,7 +32,7 @@ public class Tastatur {
 
 	}
 
-	// getter und setters
+	// getters und setters
 	public void setTastatur(String[] buttonText) {
 		panel.removeAll();
 		for (int i = 0; i < 9; i++) {

@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListenerWaffe implements ActionListener{
-	private SpielBrett brett;
+	private DionaRap_Hauptfenster brett;
 	
-	public ListenerWaffe(SpielBrett brett) {
+	public ListenerWaffe(DionaRap_Hauptfenster brett) {
 		this.brett= brett;
 	}
 	

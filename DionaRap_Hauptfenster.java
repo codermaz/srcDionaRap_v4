@@ -1,32 +1,43 @@
 
 
+import javax.swing.JFrame;
+
 import de.fhwgt.dionarap.model.data.*;
 import de.fhwgt.dionarap.model.objects.*;
 
-public class DionaRap_Hauptfenster {
+public class DionaRap_Hauptfenster extends JFrame {
 	private static int spaltenA = SpielBrettEigenschaften.SPALTEN_ANZAHL;
 	private static int zeilenA = SpielBrettEigenschaften.ZEILEN_ANZAHL;
 	private static int gegnerA = SpielBrettEigenschaften.GEGNER_ANZAHL;
 	private static int hindernisA = SpielBrettEigenschaften.HINDERNIS_ANZAHL;
 
-	public static void spielStart() {
+	public DionaRap_Hauptfenster () {
+		spielStart();
+	}
+	
+	public void spielStart() {
 		//Brett initialisieren
-		SpielBrett spielBrett = new SpielBrett();
+		Spielfeld spielfeld = new Spielfeld(this);
 		
-		ListenerModel listenerModel = new ListenerModel(spielBrett);
+		System.out.println("height: "+this.getHeight());
+		ListenerModel listenerModel = new ListenerModel(spielfeld);
+		
+		Navigator navisFenster = new Navigator(this);
+		
+		this.addComponentListener(new ListenerSpielBrett(navisFenster));
 		
 		DionaRapModel drm = new DionaRapModel(zeilenA, spaltenA, gegnerA, hindernisA);
 		// Brett vorbreiten 
 		AbstractPawn[] allePawns = drm.getAllPawns();
 		for (int i = 0; i < allePawns.length; i++) {
 			if (allePawns[i] instanceof Obstacle) {
-				SpielBrett.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "H");
+				Spielfeld.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "H");
 			} else if (allePawns[i] instanceof Opponent) {
-				SpielBrett.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "G");
+				Spielfeld.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "G");
 			} else if (allePawns[i] instanceof Player) {
-				SpielBrett.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "S");
+				Spielfeld.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "S");
 			} else if (allePawns[i] instanceof Vortex) {
-				SpielBrett.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "V");
+				Spielfeld.setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "V");
 			}
 		}
 		
@@ -36,7 +47,7 @@ public class DionaRap_Hauptfenster {
 	}
 
 	public static void main(String[] args) {
-		spielStart();
+		new DionaRap_Hauptfenster ();
 	}
 
 }
