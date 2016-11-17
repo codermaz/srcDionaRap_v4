@@ -9,6 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import de.fhwgt.dionarap.controller.DionaRapController;
+import de.fhwgt.dionarap.model.data.DionaRapModel;
+import de.fhwgt.dionarap.model.objects.AbstractPawn;
+import de.fhwgt.dionarap.model.objects.Obstacle;
+import de.fhwgt.dionarap.model.objects.Opponent;
+import de.fhwgt.dionarap.model.objects.Player;
+import de.fhwgt.dionarap.model.objects.Vortex;
+
 /**
  * 
  * Dieses Fenster besitzt ein Kindfenster vom Typ JWindow
@@ -18,12 +26,14 @@ import javax.swing.JPanel;
 public class Spielfeld extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static int spalten = SpielBrettEigenschaften.SPALTEN_ANZAHL;
-	private static int zeilen = SpielBrettEigenschaften.ZEILEN_ANZAHL;
+	private static int spaltenA = SpielBrettEigenschaften.SPALTEN_ANZAHL;
+	private static int zeilenA = SpielBrettEigenschaften.ZEILEN_ANZAHL;
+	
 
 	private Container spielFlaeche;
 	private JPanel spielBrett = new JPanel();
-	private static JLabel[][] spielFelder = new JLabel[spalten][zeilen];
+	private static JLabel[][] spielFelder = new JLabel[spaltenA][zeilenA];
+
 	private DionaRap_Hauptfenster fenster;
 
 	/**
@@ -32,16 +42,16 @@ public class Spielfeld extends JFrame {
 	 */
 
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
-		this.fenster= _fenster; 
+		fenster= _fenster; 
 		
 		fenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		fenster.setTitle("DionaRap");
 		fenster.setResizable(false);
 
-		fenster.setSize(spalten * SpielBrettEigenschaften.LABEL_DIMENSION, zeilen * SpielBrettEigenschaften.LABEL_DIMENSION);
+		fenster.setSize(spaltenA * SpielBrettEigenschaften.LABEL_DIMENSION, zeilenA * SpielBrettEigenschaften.LABEL_DIMENSION);
 		fenster.setLocationRelativeTo(null);
 
-		spielBrett.setLayout(new GridLayout(zeilen, spalten, 0, 0));
+		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
 		spielFlaeche = fenster.getContentPane();
 		spielFlaeche.setLayout(new BorderLayout());
 		spielFlaeche.add(spielBrett);
@@ -52,13 +62,33 @@ public class Spielfeld extends JFrame {
 		ListenerKeyPressed keyPressed = new ListenerKeyPressed();
 		fenster.addKeyListener(keyPressed);
 		
+	
+		
 
 	}
 
 	public void leereBrett() {
-		for (int i = 0; i < zeilen; i++) // für Zeilen
-			for (int j = 0; j < spalten; j++) // für Spalten
+		for (int i = 0; i < zeilenA; i++) // für Zeilen
+			for (int j = 0; j < spaltenA; j++) // für Spalten
 				spielFelder[j][i].setText("");
+	}
+	
+	public void setzeAllePawns() {
+	   DionaRapModel drm = fenster.getDrm();
+		
+		// Brett vorbreiten 
+		AbstractPawn[] allePawns = drm.getAllPawns();
+		for (int i = 0; i < allePawns.length; i++) {
+			if (allePawns[i] instanceof Obstacle) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "H");
+			} else if (allePawns[i] instanceof Opponent) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "G");
+			} else if (allePawns[i] instanceof Player) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "S");
+			} else if (allePawns[i] instanceof Vortex) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "V");
+			}
+		}
 	}
 	
 	private static Color getInverseFarbe(Color in) {
@@ -76,8 +106,8 @@ public class Spielfeld extends JFrame {
 	public void zeichneErstesBrett() {
 		// Lables für Brett vorbreiten
 		int farbeWechsel = 0;
-		for (int i = 0; i < zeilen; i++) { // für Zeilen
-			for (int j = 0; j < spalten; j++) { // für Spalten
+		for (int i = 0; i < zeilenA; i++) { // für Zeilen
+			for (int j = 0; j < spaltenA; j++) { // für Spalten
 				spielFelder[j][i] = new JLabel("", JLabel.CENTER);
 				if (farbeWechsel == 1) {
 					spielFelder[j][i].setBackground(SpielBrettEigenschaften.BRETT_COLOR1);
@@ -91,7 +121,7 @@ public class Spielfeld extends JFrame {
 			}
 			
 			// nochmal die Hintergrundfarbe wechseln, wenn die Spaltenanzahl ungerade ist.
-			if ((spalten % 2) == 0) {
+			if ((spaltenA % 2) == 0) {
 				if (farbeWechsel == 0)
 					farbeWechsel = 1;
 				else
