@@ -34,8 +34,6 @@ public class Navigator extends JWindow {
 
 		this.setLocation((int) fenster.getLocation().getX() + fenster.getWidth()
 				+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT, (int) fenster.getLocation().getY());
-System.out.println(" Xcoor : "+(int) fenster.getLocation().getX() + fenster.getWidth()
-				+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT);
 		new Tastatur (fenster, panelMitRand, Color.red);
 
 		navigationsFlaeche.add(panelMitRand);

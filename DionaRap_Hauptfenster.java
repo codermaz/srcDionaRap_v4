@@ -19,8 +19,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		//Brett initialisieren
 		Spielfeld spielfeld = new Spielfeld(this);
 		
-		System.out.println("height: "+this.getHeight());
 		ListenerModel listenerModel = new ListenerModel(spielfeld);
+		
 		
 		Navigator navisFenster = new Navigator(this);
 		
@@ -49,5 +49,5 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public static void main(String[] args) {
 		new DionaRap_Hauptfenster ();
 	}
-
+ 
 }
