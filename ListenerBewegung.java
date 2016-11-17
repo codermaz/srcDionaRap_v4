@@ -13,7 +13,7 @@ public class ListenerBewegung implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) { // Auslöser des ActionEvent besorgen
 		String befehl = event.getActionCommand();
-		System.out.println(befehl);
+		System.out.println("Action: "+befehl);
 		brett.requestFocus(); // um KeyListener aktiv zu lassen
 
 	}

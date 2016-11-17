@@ -5,7 +5,7 @@ public class ListenerKeyPressed implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		//System.out.println("keyCode :"+e.getKeyCode());
+		//System.out.println("keyCode :"+  e.getKeyCode());
 		switch (keyCode) {
 		case KeyEvent.VK_UP: case 73: case 104: case 224: // 73=i
 			System.out.println("oben");
