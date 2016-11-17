@@ -4,11 +4,15 @@ import javax.swing.JFrame;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.*;
-import de.fhwgt.dionarap.model.objects.*;
+
 
 
 public class DionaRap_Hauptfenster extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	SpielSteuern spielSteuern;
 	
 	

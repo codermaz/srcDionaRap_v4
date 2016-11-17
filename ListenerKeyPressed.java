@@ -39,7 +39,7 @@ public class ListenerKeyPressed implements KeyListener {
 			drc.movePlayer(7);
 			break;
 		case 66: case 35: case 97: // 66=b
-			System.out.println("links_down");
+			System.out.println("links_unten");
 			drc.movePlayer(1);
 			break;
 		 case 79: case 33: case 105: // 79=o 
@@ -47,7 +47,7 @@ public class ListenerKeyPressed implements KeyListener {
 			drc.movePlayer(9);
 			break;
 		 case 77: case 34: case 99: // 77=m
-			System.out.println("rechts_down");
+			System.out.println("rechts_unten");
 			drc.movePlayer(3);
 			break;	
 		 case 32: case 74: case 101: case 65368: // 32=space  und 74=j

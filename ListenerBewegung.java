@@ -36,13 +36,13 @@ public class ListenerBewegung implements ActionListener {
 		case "links_oben":
 			drc.movePlayer(7);
 			break;
-		case "links_down":
+		case "links_unten":
 			drc.movePlayer(1);
 			break;
 		case "rechts_oben":
 			drc.movePlayer(9);
 			break;
-		case "rechts_down":
+		case "rechts_unten":
 			drc.movePlayer(3);
 			break;
 
