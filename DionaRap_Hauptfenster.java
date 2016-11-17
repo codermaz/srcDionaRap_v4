@@ -2,6 +2,7 @@
 
 import javax.swing.JFrame;
 
+import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.*;
 import de.fhwgt.dionarap.model.objects.*;
 
@@ -29,6 +30,9 @@ public class DionaRap_Hauptfenster extends JFrame {
 		return spielSteuern.getDrm();
 	}
 
+	public DionaRapController getController() {
+		return spielSteuern.getController();
+	}
 	
 	public SpielSteuern getSpielSteuern() {
 		return spielSteuern;

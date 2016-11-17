@@ -1,20 +1,58 @@
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ListenerBewegung implements ActionListener {
-	private DionaRap_Hauptfenster brett;
+import de.fhwgt.dionarap.controller.DionaRapController;
 
-	public ListenerBewegung(DionaRap_Hauptfenster brett) {
-		this.brett=brett;
+public class ListenerBewegung implements ActionListener {
+	private DionaRap_Hauptfenster fenster;
+
+	public ListenerBewegung(DionaRap_Hauptfenster _fenster) {
+		fenster = _fenster;
 	}
-	
+
 	@Override
-	public void actionPerformed(ActionEvent event) { // Auslöser des ActionEvent besorgen
+	public void actionPerformed(ActionEvent event) { // Auslöser des ActionEvent
+														// besorgen
 		String befehl = event.getActionCommand();
-		System.out.println("Action: "+befehl);
-		brett.requestFocus(); // um KeyListener aktiv zu lassen
+		DionaRapController drc = fenster.getController();
+
+		System.out.println(befehl);
+		switch (befehl) {
+
+		case "links":
+			drc.movePlayer(4);
+			break;
+		case "oben":
+			drc.movePlayer(8);
+			break;
+		case "unten":
+			drc.movePlayer(2);
+			break;
+		case "rechts":
+			drc.movePlayer(6);
+			break;
+
+		case "links_oben":
+			drc.movePlayer(7);
+			break;
+		case "links_down":
+			drc.movePlayer(1);
+			break;
+		case "rechts_oben":
+			drc.movePlayer(9);
+			break;
+		case "rechts_down":
+			drc.movePlayer(3);
+			break;
+
+		case "shiessen":
+			drc.shoot();
+			break;
+
+		}
+
+		fenster.requestFocus(); // um KeyListener aktiv zu lassen
 
 	}
 

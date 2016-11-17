@@ -33,6 +33,10 @@ public class SpielSteuern {
 		return drm;
 	}
 
+	public DionaRapController getController() {
+		return controller;
+	}
+
 	public Spielfeld getSpielfeld() {
 		return spielfeld;
 	}

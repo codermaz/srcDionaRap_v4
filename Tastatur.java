@@ -14,7 +14,7 @@ public class Tastatur {
 	private JPanel panel;
 	private DionaRap_Hauptfenster brett;
 	private JButton[] tastatur = new JButton[9];
-	private String[] buttonText = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+	private String[] buttonText = { "7", "8", "9", "4", "5", "6", "1", "2", "3" };
 
 	Tastatur(DionaRap_Hauptfenster fenster, JPanel panel, Color randColor) {
 		this.panel = panel;
@@ -37,6 +37,7 @@ public class Tastatur {
 		panel.removeAll();
 		for (int i = 0; i < 9; i++) {
 			tastatur[i] = new JButton(buttonText[i]);
+			
 			tastatur[i].setPreferredSize(
 					new Dimension(SpielBrettEigenschaften.BUTTONS_GROESSE, SpielBrettEigenschaften.BUTTONS_GROESSE));
 			panel.add(tastatur[i]);

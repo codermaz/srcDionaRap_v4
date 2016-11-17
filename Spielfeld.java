@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.DionaRapModel;
 import de.fhwgt.dionarap.model.objects.AbstractPawn;
 import de.fhwgt.dionarap.model.objects.Obstacle;
@@ -60,7 +59,7 @@ public class Spielfeld extends JFrame {
 		zeichneErstesBrett();
 
 		
-		ListenerKeyPressed keyPressed = new ListenerKeyPressed();
+		ListenerKeyPressed keyPressed = new ListenerKeyPressed(fenster);
 		fenster.addKeyListener(keyPressed);
 		
 		
