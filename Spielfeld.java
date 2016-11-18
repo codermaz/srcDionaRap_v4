@@ -10,11 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.fhwgt.dionarap.model.data.DionaRapModel;
-import de.fhwgt.dionarap.model.objects.AbstractPawn;
-import de.fhwgt.dionarap.model.objects.Obstacle;
-import de.fhwgt.dionarap.model.objects.Opponent;
-import de.fhwgt.dionarap.model.objects.Player;
-import de.fhwgt.dionarap.model.objects.Vortex;
+import de.fhwgt.dionarap.model.objects.*;
 
 /**
  * 
@@ -61,7 +57,7 @@ public class Spielfeld extends JFrame {
 		
 		ListenerKeyPressed keyPressed = new ListenerKeyPressed(fenster);
 		fenster.addKeyListener(keyPressed);
-		
+
 		
 		
 
@@ -87,8 +83,11 @@ public class Spielfeld extends JFrame {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "S");
 			} else if (allePawns[i] instanceof Vortex) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "V");
+			} else if (allePawns[i] instanceof Destruction) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "*");
 			}
 		}
+		fenster.requestFocus();
 	}
 	
 	private static Color getInverseFarbe(Color in) {

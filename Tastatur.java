@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 
 public class Tastatur {
 	private JPanel panel;
-	private DionaRap_Hauptfenster brett;
+	private DionaRap_Hauptfenster fenster;
 	private JButton[] tastatur = new JButton[9];
 	private String[] buttonText = { "7", "8", "9", "4", "5", "6", "1", "2", "3" };
 
 	Tastatur(DionaRap_Hauptfenster fenster, JPanel panel, Color randColor) {
 		this.panel = panel;
-		this.brett= fenster;
+		this.fenster= fenster;
 		TastaturInsFenster( randColor);
 	}
 
@@ -71,10 +71,10 @@ public class Tastatur {
 			}
 			if ((i + 1) == 5) {
 				tastatur[i].setActionCommand("schiessen");
-				tastatur[i].addActionListener(new ListenerWaffe(brett));				
+				tastatur[i].addActionListener(new ListenerWaffe(fenster));				
 			}
 			else
-				tastatur[i].addActionListener(new ListenerBewegung(brett));
+				tastatur[i].addActionListener(new ListenerBewegung(fenster));
 		}
 	}
 

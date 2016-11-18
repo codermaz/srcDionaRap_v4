@@ -11,6 +11,6 @@ public class SpielBrettEigenschaften {
 	public static int ENTFERNUNG_ZUM_SPIELBRETT = 20; // Die Entfernung zwichen Navigationsfenster und Spielbrett in pixels bei X Acshe
 	public static int BUTTONS_GROESSE = 80; // Set die Grösse of JButtons in pixels im Navigationsfenster
 	
-	public static int GEGNER_ANZAHL = 4;
-	public static int HINDERNIS_ANZAHL = 8;	
+	public static int GEGNER_ANZAHL = 2;
+	public static int HINDERNIS_ANZAHL = 4;	
 }

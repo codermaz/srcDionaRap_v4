@@ -17,7 +17,7 @@ public class ListenerBewegung implements ActionListener {
 		String befehl = event.getActionCommand();
 		DionaRapController drc = fenster.getController();
 
-		System.out.println(befehl);
+		//System.out.println(befehl);
 		switch (befehl) {
 
 		case "links":

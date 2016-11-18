@@ -33,7 +33,9 @@ public class ListenerModel implements DionaRapListener{
 			setDialog("Du hast verloren...");
 		}
 		
-		
+		// vorübergehend: 
+		//fenster.getSpielSteuern().getSpielfeld().leereBrett();
+		//fenster.spielStart();
 	}
  	
  	public void setDialog (String message) {
