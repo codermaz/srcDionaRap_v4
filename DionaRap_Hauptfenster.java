@@ -10,7 +10,7 @@ import de.fhwgt.dionarap.model.data.*;
 public class DionaRap_Hauptfenster extends JFrame {
 
 	/**
-	 * 
+	 *  
 	 */
 	private static final long serialVersionUID = 1L;
 	SpielSteuern spielSteuern;

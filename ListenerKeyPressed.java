@@ -2,6 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
+import de.fhwgt.dionarap.model.objects.Player;
 
 public class ListenerKeyPressed implements KeyListener {
 
