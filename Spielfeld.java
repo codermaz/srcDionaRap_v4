@@ -102,7 +102,7 @@ public class Spielfeld extends JFrame {
 		if (figur == "vortex.gif")
 			spielFelder[spalteX][spalteY].setBackground(Color.red);
 		if (figur.contains("player"))
-System.out.println("dir: " + System.getProperty("user.dir") + "/images/"+theme+"/" + figur);
+System.out.println("dir: " + System.getProperty("user.dir") + fs +"images" + fs + theme + fs +  figur);
 		spielFelder[spalteX][spalteY].setIcon(image );
 		
 		//spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
