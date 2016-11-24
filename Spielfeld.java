@@ -63,6 +63,10 @@ public class Spielfeld extends JFrame {
 
 	}
 
+	public void nullBrett() {
+		spielBrett.removeAll();
+	}
+	
 	public void leereBrett() {
 		for (int i = 0; i < zeilenA; i++) // für Zeilen
 			for (int j = 0; j < spaltenA; j++) // für Spalten

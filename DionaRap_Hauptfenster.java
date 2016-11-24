@@ -9,7 +9,7 @@ import de.fhwgt.dionarap.model.data.*;
 
 public class DionaRap_Hauptfenster extends JFrame {
 
-	/** *
+	/** 
 	 *  
 	 */
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		Navigator navisFenster = new Navigator(this);
 		this.addComponentListener(new ListenerSpielBrett(navisFenster));
 		
-		spielSteuern.getSpielfeld().setzeAllePawns();
+		this.getSpielSteuern().getSpielfeld().setzeAllePawns();
 
 	}
 	
@@ -41,6 +41,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public SpielSteuern getSpielSteuern() {
 		return spielSteuern;
 	}
+
 
 	public static void main(String[] args) {
 		new DionaRap_Hauptfenster ();

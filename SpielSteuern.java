@@ -9,8 +9,8 @@ public class SpielSteuern {
 	private static int hindernisA = SpielBrettEigenschaften.HINDERNIS_ANZAHL;
 
 	private DionaRap_Hauptfenster fenster;
-	private final Spielfeld spielfeld;
-	private final DionaRapModel drm;
+	private Spielfeld spielfeld;
+	private DionaRapModel drm;
 	private DionaRapController controller;
 	ListenerModel listenerModel;
 
@@ -20,12 +20,11 @@ public class SpielSteuern {
 		drm = new DionaRapModel(zeilenA, spaltenA, gegnerA, hindernisA);
 
 		controller = new DionaRapController(drm);
-		
+
 		listenerModel = new ListenerModel(fenster);
 		drm.addModelChangedEventListener(listenerModel);
-		//Brett initialisieren
+		// Brett initialisieren
 		spielfeld = new Spielfeld(fenster);
-		
 
 	}
 
@@ -41,7 +40,9 @@ public class SpielSteuern {
 		return spielfeld;
 	}
 
+	public void setSpielfeldLeer() {
+	//	spielfeld.removeAll();
+		spielfeld.leereBrett();
+	}
 
-	
-	
 }
