@@ -33,6 +33,7 @@ public class Spielfeld extends JFrame {
 
 	private DionaRap_Hauptfenster fenster;
 
+
 	/**
 	 * Konstruktor der Klasse <br>
 	 * Erzeugt ein Kindfenster vom Typ JWindow
@@ -57,10 +58,18 @@ public class Spielfeld extends JFrame {
 		fenster.setVisible(true);
 
 		zeichneErstesBrett();
+		initListener();
+	
+	}
 
-		ListenerKeyPressed keyPressed = new ListenerKeyPressed(fenster);
-		fenster.addKeyListener(keyPressed);
+	private void initListener() {
 
+		if (!fenster.keyListenerAktiviert) {
+			ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
+			fenster.addKeyListener(listenerKeyPressed);
+			fenster.keyListenerAktiviert=true;
+		}
+		
 	}
 
 	public void nullBrett() {
@@ -105,15 +114,12 @@ public class Spielfeld extends JFrame {
 		ImageIcon image= new ImageIcon(System.getProperty("user.dir") + fs +"images" + fs + theme + fs + figur);
 		if (figur == "vortex.gif")
 			spielFelder[spalteX][spalteY].setBackground(Color.red);
-		if (figur.contains("player"))
-System.out.println("dir: " + System.getProperty("user.dir") + fs +"images" + fs + theme + fs +  figur);
-		spielFelder[spalteX][spalteY].setIcon(image );
+		
+		spielFelder[spalteX][spalteY].setIcon(image);
 		
 		//spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
-		
 		//spielFelder[spalteX][spalteY].setForeground(getInverseFarbe(spielFelder[spalteX][spalteY].getBackground()));
 		//spielFelder[spalteX][spalteY].setText(figur);
-
 	}
 
 	public void zeichneErstesBrett() {

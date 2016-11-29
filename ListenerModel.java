@@ -15,11 +15,9 @@ public class ListenerModel implements DionaRapListener{
 
 	
 	@Override
-	public void modelChanged(DionaRapChangedEvent arg0) {
-		
-		fenster.getSpielSteuern().getSpielfeld().leereBrett();
-		
-		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();		
+	public void modelChanged(DionaRapChangedEvent arg0) {	
+		fenster.getSpielSteuern().getSpielfeld().leereBrett();	
+		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();	
 	}
 
  	@Override
@@ -41,22 +39,16 @@ public class ListenerModel implements DionaRapListener{
 			
 			switch(dwo.getAuswahl()) {
 			case 0: // Neues Spiel
-				System.out.println("neue " );
 				fenster.getSpielSteuern().getSpielfeld().nullBrett();
 				fenster.spielStart();
 				break;
 			case 1: // Abbrechen
 				System.out.println("Tschüss..." );
-				dwo=null;
 				break;
 			}
 			
 		}
 		
-		
-		
-		//fenster.getSpielSteuern().getSpielfeld().leereBrett();
-		//fenster.spielStart();
 	}
  	
  	public void setDialog (String message) {

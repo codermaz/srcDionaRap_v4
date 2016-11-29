@@ -14,6 +14,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	SpielSteuern spielSteuern;
+	public boolean keyListenerAktiviert=false;
 	
 	
 	public DionaRap_Hauptfenster () {

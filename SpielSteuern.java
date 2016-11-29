@@ -25,7 +25,8 @@ public class SpielSteuern {
 		drm.addModelChangedEventListener(listenerModel);
 		// Brett initialisieren
 		spielfeld = new Spielfeld(fenster);
-
+		System.out.println("#####");
+		
 	}
 
 	public DionaRapModel getDrm() {
@@ -40,9 +41,5 @@ public class SpielSteuern {
 		return spielfeld;
 	}
 
-	public void setSpielfeldLeer() {
-	//	spielfeld.removeAll();
-		spielfeld.leereBrett();
-	}
 
 }

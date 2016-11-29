@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/kabc/git/sourceDionaRap_v3/GameLogicDoc/gamelogic.jar"/>
+	<classpathentry kind="lib" path="/Users/a/srcDionaRap_v4/GameLogicDoc/gamelogic.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
