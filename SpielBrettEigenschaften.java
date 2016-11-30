@@ -14,4 +14,6 @@ public class SpielBrettEigenschaften {
 	
 	public static int GEGNER_ANZAHL = 2;
 	public static int HINDERNIS_ANZAHL = 4;	
+	
+	public static int TOOLBAR_PANEL_ANZAHL=5;
 }

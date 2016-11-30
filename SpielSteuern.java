@@ -1,3 +1,10 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+
 import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.DionaRapModel;
 
@@ -12,8 +19,12 @@ public class SpielSteuern {
 	private Spielfeld spielfeld;
 	private DionaRapModel drm;
 	private DionaRapController controller;
-	ListenerModel listenerModel;
+	private ToolBarMenu toolBarMenu;
+	private ListenerModel listenerModel;
 
+	private Container spielFlaeche;
+	
+	
 	SpielSteuern(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
 
@@ -23,9 +34,18 @@ public class SpielSteuern {
 
 		listenerModel = new ListenerModel(fenster);
 		drm.addModelChangedEventListener(listenerModel);
+		
+		spielFlaeche = fenster.getContentPane();
 		// Brett initialisieren
 		spielfeld = new Spielfeld(fenster);
-		System.out.println("#####");
+
+		// ToolBar initialisieren
+		toolBarMenu= new ToolBarMenu(fenster);
+		
+
+		spielFlaeche.add(toolBarMenu, BorderLayout.NORTH);
+		
+		
 		
 	}
 

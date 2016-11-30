@@ -5,14 +5,18 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.io.File;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.fhwgt.dionarap.model.data.DionaRapModel;
-import de.fhwgt.dionarap.model.objects.*;
+import de.fhwgt.dionarap.model.objects.AbstractPawn;
+import de.fhwgt.dionarap.model.objects.Destruction;
+import de.fhwgt.dionarap.model.objects.Obstacle;
+import de.fhwgt.dionarap.model.objects.Opponent;
+import de.fhwgt.dionarap.model.objects.Player;
+import de.fhwgt.dionarap.model.objects.Vortex;
 
 /**
  * 
@@ -54,15 +58,15 @@ public class Spielfeld extends JFrame {
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
 		spielFlaeche = fenster.getContentPane();
 		spielFlaeche.setLayout(new BorderLayout());
-		spielFlaeche.add(spielBrett);
-		fenster.setVisible(true);
+		spielFlaeche.add(spielBrett, BorderLayout.SOUTH);
 
+		fenster.setVisible(true);
+		
 		zeichneErstesBrett();
 		initListener();
-	
 	}
-
-	private void initListener() {
+	
+	void initListener() {
 
 		if (!fenster.keyListenerAktiviert) {
 			ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
