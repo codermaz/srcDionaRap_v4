@@ -21,9 +21,11 @@ public class ToolBarMenu extends JPanel{
 	private JPanel pSpielFortschritt = new JPanel();
 	private JPanel pSettings = new JPanel();
 
-	private float panelBreite = SpielBrettEigenschaften.SPALTEN_ANZAHL * SpielBrettEigenschaften.BUTTONS_GROESSE
-			/ SpielBrettEigenschaften.TOOLBAR_PANEL_ANZAHL;
+	private float panelBreite = SpielBrettEigenschaften.SPALTEN_ANZAHL * SpielBrettEigenschaften.LABEL_DIMENSION
+	 	/ SpielBrettEigenschaften.TOOLBAR_PANEL_ANZAHL;
+	
 	private int panelHeight = 30;
+	
 	private Dimension pDim = new Dimension ((int) panelBreite, panelHeight);
 	
 	private JButton bNeuSpiel = new JButton("Neues Spiel");
@@ -37,9 +39,9 @@ public class ToolBarMenu extends JPanel{
 		
 		initToolBar();
 		initPanelNeuSpiel();
-		initPanelPunkteStand();
-		initPanelMunition();
-		initPanelFortschritt();
+		//initPanelPunkteStand();
+		//initPanelMunition();
+		//initPanelFortschritt();
 		initPanelSettings();
 		
 		tBar.setLayout(new GridLayout(1,5));
@@ -50,14 +52,15 @@ public class ToolBarMenu extends JPanel{
 		tBar.add(pSpielFortschritt);
 		tBar.add(pSettings);
 		
-		//fenster.add(tBar);
 	}
 
 	private void initPanelNeuSpiel() {
-		pNeuSpiel.setPreferredSize(pDim);
+	
+		//pNeuSpiel.setPreferredSize(pDim);
+		pNeuSpiel.setSize(pDim);
 		pNeuSpiel.setLayout(new BoxLayout(pNeuSpiel, BoxLayout.Y_AXIS));
-		bNeuSpiel.setActionCommand("Settings");
 		
+		bNeuSpiel.setActionCommand("NeuSpiel");		
 		//bNeuSpiel.setEnabled(false);
 		bNeuSpiel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -65,6 +68,7 @@ public class ToolBarMenu extends JPanel{
 		pNeuSpiel.add(bNeuSpiel);
 		pNeuSpiel.add(Box.createGlue());
 
+		System.out.println(" pDim Width"+pNeuSpiel.getWidth()+" pDim Heigth"+pNeuSpiel.getHeight());
 	}
 
 	private void initPanelPunkteStand() {
@@ -80,7 +84,8 @@ public class ToolBarMenu extends JPanel{
 	}
 
 	private void initPanelSettings() {
-		pSettings.setPreferredSize(pDim);
+		//pSettings.setPreferredSize(pDim);
+		pSettings.setSize(pDim);
 		pSettings.setLayout(new BoxLayout(pSettings, BoxLayout.Y_AXIS));
 		bSettings.setActionCommand("Settings");
 		
@@ -93,10 +98,11 @@ public class ToolBarMenu extends JPanel{
 
 	private void initToolBar() {
 
-		tBar.setSize(SpielBrettEigenschaften.SPALTEN_ANZAHL * SpielBrettEigenschaften.BUTTONS_GROESSE,
-				SpielBrettEigenschaften.ZEILEN_ANZAHL * SpielBrettEigenschaften.BUTTONS_GROESSE);
-
-		
+		tBar.setSize(SpielBrettEigenschaften.SPALTEN_ANZAHL * SpielBrettEigenschaften.LABEL_DIMENSION,
+			SpielBrettEigenschaften.TOOLBAR_HEIGHT);
+	
+	System.out.println("tBar xsize "+tBar.getSize().width+" ysize"+tBar.getSize().height);
+	System.out.println("fenster xsize "+fenster.getSize().width+" ysize"+fenster.getSize().height);
 	}
 
 }

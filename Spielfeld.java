@@ -58,12 +58,13 @@ public class Spielfeld extends JFrame {
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
 		spielFlaeche = fenster.getContentPane();
 		spielFlaeche.setLayout(new BorderLayout());
-		spielFlaeche.add(spielBrett, BorderLayout.SOUTH);
-
-		fenster.setVisible(true);
 		
 		zeichneErstesBrett();
 		initListener();
+	}
+	
+	public JPanel getSpielBrett() {
+		return spielBrett;
 	}
 	
 	void initListener() {

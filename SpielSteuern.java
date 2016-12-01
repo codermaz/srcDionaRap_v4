@@ -16,7 +16,7 @@ public class SpielSteuern {
 	private static int hindernisA = SpielBrettEigenschaften.HINDERNIS_ANZAHL;
 
 	private DionaRap_Hauptfenster fenster;
-	private Spielfeld spielfeld;
+	private Spielfeld spielFeld;
 	private DionaRapModel drm;
 	private DionaRapController controller;
 	private ToolBarMenu toolBarMenu;
@@ -37,15 +37,17 @@ public class SpielSteuern {
 		
 		spielFlaeche = fenster.getContentPane();
 		// Brett initialisieren
-		spielfeld = new Spielfeld(fenster);
+		spielFeld = new Spielfeld(fenster);
 
 		// ToolBar initialisieren
 		toolBarMenu= new ToolBarMenu(fenster);
 		
-
+		//spielFlaeche.add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
 		spielFlaeche.add(toolBarMenu, BorderLayout.NORTH);
 		
-		
+		fenster.setVisible(true);
+		//fenster.pack();
+		fenster.requestFocus();
 		
 	}
 
@@ -58,7 +60,7 @@ public class SpielSteuern {
 	}
 
 	public Spielfeld getSpielfeld() {
-		return spielfeld;
+		return spielFeld;
 	}
 
 

@@ -16,4 +16,5 @@ public class SpielBrettEigenschaften {
 	public static int HINDERNIS_ANZAHL = 4;	
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
+	public static int TOOLBAR_HEIGHT=50;
 }
