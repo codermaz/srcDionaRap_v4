@@ -1,5 +1,9 @@
   
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
@@ -18,7 +22,23 @@ public class DionaRap_Hauptfenster extends JFrame {
 	
 	
 	public DionaRap_Hauptfenster () {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("DionaRap");
+		setResizable(false);
+		
+		addWindowFocusListener();
 		spielStart();
+	}
+
+	private void addWindowFocusListener() {
+		addWindowFocusListener(new WindowFocusListener() {
+			@Override
+			public void windowLostFocus(WindowEvent e) {
+				DionaRap_Hauptfenster.this.requestFocus();
+			}
+			@Override
+			public void windowGainedFocus(WindowEvent e) {}
+		});
 	}
 	
 	public void spielStart() {
@@ -28,7 +48,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.addComponentListener(new ListenerSpielBrett(navisFenster));
 		
 		this.getSpielSteuern().getSpielfeld().setzeAllePawns();
-
 	}
 	
 	public DionaRapModel getDrm () {

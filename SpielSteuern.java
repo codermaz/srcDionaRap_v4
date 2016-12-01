@@ -42,11 +42,12 @@ public class SpielSteuern {
 		// ToolBar initialisieren
 		toolBarMenu= new ToolBarMenu(fenster);
 		
-		//spielFlaeche.add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
+		spielFlaeche.add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
 		spielFlaeche.add(toolBarMenu, BorderLayout.NORTH);
 		
+		
 		fenster.setVisible(true);
-		//fenster.pack();
+		fenster.pack();
 		fenster.requestFocus();
 		
 	}

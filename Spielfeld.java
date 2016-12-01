@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 
@@ -24,7 +25,7 @@ import de.fhwgt.dionarap.model.objects.Vortex;
  *
  */
 
-public class Spielfeld extends JFrame {
+public class Spielfeld extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static int spaltenA = SpielBrettEigenschaften.SPALTEN_ANZAHL;
@@ -37,7 +38,6 @@ public class Spielfeld extends JFrame {
 
 	private DionaRap_Hauptfenster fenster;
 
-
 	/**
 	 * Konstruktor der Klasse <br>
 	 * Erzeugt ein Kindfenster vom Typ JWindow
@@ -46,13 +46,9 @@ public class Spielfeld extends JFrame {
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
 		theme=SpielBrettEigenschaften.THEME;
 		fenster = _fenster;
-
-		fenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		fenster.setTitle("DionaRap");
-		fenster.setResizable(false);
-
-		fenster.setSize(spaltenA * SpielBrettEigenschaften.LABEL_DIMENSION,
-				zeilenA * SpielBrettEigenschaften.LABEL_DIMENSION);
+		
+		fenster.setPreferredSize(new Dimension(spaltenA * SpielBrettEigenschaften.LABEL_DIMENSION,
+				zeilenA * SpielBrettEigenschaften.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
 
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
