@@ -17,7 +17,7 @@ public class ListenerSpielBrett implements ComponentListener {
 	public void componentResized(ComponentEvent event) {
 		JFrame gui = (JFrame) event.getSource();
 		fenster.setLocation(
-				(int) gui.getLocation().getX() + gui.getWidth() + SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT,
+				(int) gui.getLocation().getX() + gui.getWidth() + SpielfeldEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT,
 				(int) gui.getLocation().getY());
 	}
 
@@ -25,7 +25,7 @@ public class ListenerSpielBrett implements ComponentListener {
 	public void componentMoved(ComponentEvent event) {
 		JFrame gui = (JFrame) event.getSource();
 		fenster.setLocation(
-				(int) gui.getLocation().getX() + gui.getWidth() + SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT,
+				(int) gui.getLocation().getX() + gui.getWidth() + SpielfeldEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT,
 				(int) gui.getLocation().getY());
 		fenster.repaint();
 	}

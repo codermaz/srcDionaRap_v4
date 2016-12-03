@@ -64,14 +64,14 @@ public class Navigator extends JWindow {
 		
 
 		// Fenster muss so gross sein, damit das Dreieck vollständig dargestellt werden kann
-		Achteck polygon = new Achteck(SpielBrettEigenschaften.BUTTONS_GROESSE);
+		Achteck polygon = new Achteck(SpielfeldEigenschaften.BUTTONS_GROESSE);
 		this.setShape(polygon);
 		// Das ist die Grösse des Fensters und wird für setSize() gebraucht
 		Rectangle umschiessendesrechteck = polygon.getBounds();
 		this.setSize(umschiessendesrechteck.width, umschiessendesrechteck.height);
 		
 		this.setLocation((int) fenster.getLocation().getX() + fenster.getWidth()
-			+ SpielBrettEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT, (int) fenster.getLocation().getY());
+			+ SpielfeldEigenschaften.ENTFERNUNG_ZUM_SPIELBRETT, (int) fenster.getLocation().getY());
 		
 		panelMitRand = new JPanel();
 		panelMitRand.setLayout(new BorderLayout());

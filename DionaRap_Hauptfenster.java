@@ -28,6 +28,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 		
 		addWindowFocusListener();
 		spielStart();
+		
+		this.setVisible(true);
+		this.pack();
+		this.requestFocus();
 	}
 
 	private void addWindowFocusListener() {

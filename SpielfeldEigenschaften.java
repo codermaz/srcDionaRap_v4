@@ -2,7 +2,7 @@
 
 import java.awt.Color;
 
-public class SpielBrettEigenschaften {
+public class SpielfeldEigenschaften {
 	public static int SPALTEN_ANZAHL = 10;
 	public static int ZEILEN_ANZAHL = 10;	
 	public static int LABEL_DIMENSION = 50 ; // in pixel, quadratisch

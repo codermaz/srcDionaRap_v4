@@ -28,8 +28,8 @@ import de.fhwgt.dionarap.model.objects.Vortex;
 public class Spielfeld extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static int spaltenA = SpielBrettEigenschaften.SPALTEN_ANZAHL;
-	private static int zeilenA = SpielBrettEigenschaften.ZEILEN_ANZAHL;
+	private static int spaltenA = SpielfeldEigenschaften.SPALTEN_ANZAHL;
+	private static int zeilenA = SpielfeldEigenschaften.ZEILEN_ANZAHL;
 
 	private Container spielFlaeche;
 	private JPanel spielBrett = new JPanel();
@@ -44,11 +44,11 @@ public class Spielfeld extends JPanel {
 	 */
 
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
-		theme=SpielBrettEigenschaften.THEME;
+		theme=SpielfeldEigenschaften.THEME;
 		fenster = _fenster;
 		
-		fenster.setPreferredSize(new Dimension(spaltenA * SpielBrettEigenschaften.LABEL_DIMENSION,
-				zeilenA * SpielBrettEigenschaften.LABEL_DIMENSION));
+		fenster.setPreferredSize(new Dimension(spaltenA * SpielfeldEigenschaften.LABEL_DIMENSION,
+				zeilenA * SpielfeldEigenschaften.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
 
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
@@ -130,10 +130,10 @@ public class Spielfeld extends JPanel {
 			for (int j = 0; j < spaltenA; j++) { // für Spalten
 				spielFelder[j][i] = new JLabel("", JLabel.CENTER);
 				if (farbeWechsel == 1) {
-					spielFelder[j][i].setBackground(SpielBrettEigenschaften.BRETT_COLOR1);
+					spielFelder[j][i].setBackground(SpielfeldEigenschaften.BRETT_COLOR1);
 					farbeWechsel = 0;
 				} else {
-					spielFelder[j][i].setBackground(SpielBrettEigenschaften.BRETT_COLOR2);
+					spielFelder[j][i].setBackground(SpielfeldEigenschaften.BRETT_COLOR2);
 					farbeWechsel = 1;
 				}
 				spielFelder[j][i].setOpaque(true);
