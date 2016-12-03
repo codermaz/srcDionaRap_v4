@@ -103,7 +103,6 @@ public class Spielfeld extends JPanel {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "destruction.gif");
 			}
 		}
-		fenster.requestFocus();
 	}
 
 	private static Color getInverseFarbe(Color in) {

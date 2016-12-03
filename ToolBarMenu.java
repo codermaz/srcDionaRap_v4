@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -13,13 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.border.TitledBorder;
 
 
 public class ToolBarMenu extends JToolBar {
 
 	private static final long serialVersionUID = 1L;
 
-	private DionaRap_Hauptfenster fenster;
 	private JPanel pNeuSpiel = new JPanel();
 	private JPanel pPunkteStand = new JPanel();
 	private JPanel pMunition = new JPanel();
@@ -30,46 +33,39 @@ public class ToolBarMenu extends JToolBar {
 			/ SpielfeldEigenschaften.TOOLBAR_PANEL_ANZAHL;
 	private int panelHeight = SpielfeldEigenschaften.TOOLBAR_HEIGHT;
 	private Dimension pDim = new Dimension((int) panelBreite, panelHeight);
-//	Color PR_FARBE = new Color(0xD0DFEF);  // PanelRandfarbe himmelblau
-	Color PR_FARBE = new Color(0x6DB45D);  // PanelRandfarbe grün
-
+	Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
+	Color PR_FARBE_grün = new Color(0x6DB45D);  // PanelRandfarbe grün
+	Font panelFont = new Font("times new roman",Font.PLAIN,12);
+	
 	private JButton bNeuSpiel = new JButton("Neues Spiel");
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
-	private JLabel lMunition[] = new JLabel[3];
+	private JLabel lMunition[] = new JLabel[4];
 	private JProgressBar pbSpielFortschritt = new JProgressBar();
 
-	ToolBarMenu(DionaRap_Hauptfenster _fenster) {
-		fenster = _fenster;
-
+	ToolBarMenu() {
+	
 		initToolBar();
+		
 		initPanelNeuSpiel();
 		initPanelPunkteStand();
 		initPanelMunition();
 		initPanelFortschritt();
 		initPanelSettings();
 		
-		// TODO check if works fine
-		// setLayout(new GridLayout(1, 7));
-		setLayout(new BoxLayout(this,BoxLayout.X_AXIS)); 
-
+		setLayout(new GridLayout(1, 5));
 		add(pNeuSpiel);
-		add(new Box.Filler(new Dimension(0,0), new Dimension(3,3), new Dimension(6,3)));
 		add(pPunkteStand);
-		add(new Box.Filler(new Dimension(0,0), new Dimension(3,3), new Dimension(6,3)));
 		add(pMunition);
-		add(new Box.Filler(new Dimension(0,0), new Dimension(3,3), new Dimension(6,3)));
 		add(pSpielFortschritt);
-		add(new Box.Filler(new Dimension(0,0), new Dimension(3,3), new Dimension(6,3)));
 		add(pSettings);
-
 	}
 
 	private void initPanelNeuSpiel() {
 		bNeuSpiel.setActionCommand("NeuSpiel");
 		bNeuSpiel.setEnabled(false);
 		bNeuSpiel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+		bNeuSpiel.setFont(panelFont);
 		pNeuSpiel.setLayout(new BoxLayout(pNeuSpiel, BoxLayout.Y_AXIS));
 		pNeuSpiel.setPreferredSize(pDim);
 
@@ -77,52 +73,72 @@ public class ToolBarMenu extends JToolBar {
 		pNeuSpiel.add(bNeuSpiel);
 		pNeuSpiel.add(Box.createGlue());
 	}
+	
+	public void setButtonNeuEnabled(Boolean b) {
+		bNeuSpiel.setEnabled(b);
+	}
 
 	private void initPanelPunkteStand() {
 		tPunkte.setAlignmentX(Component.CENTER_ALIGNMENT);
+		tPunkte.setEditable(false);
 
 		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.Y_AXIS));
+		pPunkteStand.setBorder(BorderFactory.createTitledBorder(null,"Punktestand",
+						TitledBorder.CENTER, TitledBorder.TOP, 
+						panelFont, PR_FARBE_blau));
 
-		pPunkteStand.setBorder(BorderFactory.createLineBorder(PR_FARBE));
-		pPunkteStand.setBorder(BorderFactory.createTitledBorder("Punktestand"));
 		pPunkteStand.setPreferredSize(pDim);
 
 		pPunkteStand.add(Box.createGlue());
 		pPunkteStand.add(tPunkte);
 		pPunkteStand.add(Box.createGlue());
 	}
+	
+	public void setPunkteStand(String Punkte) {
+		tPunkte.setText(Punkte);
+	}
 
 	private void initPanelMunition() {
 		String fs= File.separator;
 		String theme=SpielfeldEigenschaften.THEME;
 		String figur = "ammo.png";
+		lMunition[0] = new JLabel();
+		lMunition[0].setPreferredSize(new Dimension(30,30));
 		ImageIcon image= new ImageIcon(System.getProperty("user.dir") 
-				+ fs +"images" + fs + theme + fs + figur);
-		
+				+ fs +"images" + fs + theme + fs + figur) {
+			//Resize the icon to fit a JLabel
+			@Override
+			public void paintIcon( Component c, Graphics g, int x, int y ) {
+				g.drawImage(getImage(), 0, 0, lMunition[0].getWidth(),lMunition[0].getHeight(), c);
+			}
+		};
+
 		for (int i = 0; i < 3; i++) {
 			lMunition[i] = new JLabel();
-			lMunition[i].setAlignmentX(Component.CENTER_ALIGNMENT);
 			lMunition[i].setIcon(image);
+			lMunition[i].setBorder(BorderFactory.createLineBorder(PR_FARBE_grün));
 		}
-		
-		//pMunition.setBorder(BorderFactory.createLineBorder(PR_FARBE));
-		pMunition.setBorder(BorderFactory.createTitledBorder("Munition"));
-		pMunition.setLayout(new BoxLayout(pMunition, BoxLayout.X_AXIS));
+		lMunition[3]=new JLabel();
+		lMunition[3].setText("  ");
+		pMunition.add(lMunition[3]);
+		pMunition.setBorder(BorderFactory.createTitledBorder(null,"Munition",
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				panelFont, PR_FARBE_blau));
+		pMunition.setLayout(new GridLayout(1,4));
 		pMunition.setPreferredSize(pDim);
 	
-		pMunition.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
-		}
-		pMunition.add(Box.createHorizontalGlue());
+	
 		
 	}
 
 	private void initPanelFortschritt() {
 		pbSpielFortschritt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pSpielFortschritt.setLayout(new BoxLayout(pSpielFortschritt, BoxLayout.Y_AXIS));
-	//	pSpielFortschritt.setBorder(BorderFactory.createLineBorder(PR_FARBE));
-		pbSpielFortschritt.setBorder(BorderFactory.createTitledBorder("Spielfortschritt"));
+		pSpielFortschritt.setBorder(BorderFactory.createTitledBorder(null,"Spielfortschritt",
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				panelFont, PR_FARBE_blau));
 
 		pSpielFortschritt.add(Box.createGlue());
 		pSpielFortschritt.add(pbSpielFortschritt);
@@ -134,7 +150,8 @@ public class ToolBarMenu extends JToolBar {
 		bSettings.setActionCommand("Settings");
 		bSettings.setEnabled(true);
 		bSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+		bSettings.setFont(panelFont);
+		
 		pSettings.setLayout(new BoxLayout(pSettings, BoxLayout.Y_AXIS));
 		pSettings.setPreferredSize(pDim);
 

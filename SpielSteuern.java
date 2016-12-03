@@ -17,9 +17,9 @@ public class SpielSteuern {
 
 	private DionaRap_Hauptfenster fenster;
 	private Spielfeld spielFeld;
-	private DionaRapModel drm;
+	DionaRapModel drm;
 	private DionaRapController controller;
-	private ToolBarMenu toolBarMenu;
+	ToolBarMenu toolBarMenu;
 	private ListenerModel listenerModel;
 
 	private Container spielFlaeche;
@@ -40,7 +40,7 @@ public class SpielSteuern {
 		spielFeld = new Spielfeld(fenster);
 
 		// ToolBar initialisieren
-		toolBarMenu= new ToolBarMenu(fenster);
+		toolBarMenu= new ToolBarMenu();
 		
 		spielFlaeche.add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
 		spielFlaeche.add(toolBarMenu, BorderLayout.NORTH);
