@@ -10,7 +10,11 @@ import de.fhwgt.dionarap.model.listener.DionaRapListener;
 public class ListenerModel implements DionaRapListener{
 	
 	private DionaRap_Hauptfenster fenster;
-	String punkteStand;
+	private int gegnerAnfang= SpielfeldEigenschaften.GEGNER_ANZAHL;
+	private String punkteStand;
+	private int gegnerAktuell;
+	private int gegnerProzent;
+	private int munitionAnzahl;
 	
 	
 	public ListenerModel(DionaRap_Hauptfenster _fenster) {
@@ -21,18 +25,24 @@ public class ListenerModel implements DionaRapListener{
 	public void modelChanged(DionaRapChangedEvent arg0) {	
 		fenster.getSpielSteuern().getSpielfeld().leereBrett();	
 		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();	
-		int Punkte=fenster.getSpielSteuern().drm.getScore();
-		//PunteStand bei ToolBarMenu aktualisieren
-		JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
-		((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
+		DionaRapModel drm = SpielSteuern.getDrm(); 
+		
+		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
+		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
+		//PunkteStand bei ToolBarMenu aktualisieren
+		int Punkte=drm.getScore();
+		ToolBarMenu tBar = fenster.getSpielSteuern().getToolBarMenu();
+		tBar.setPunkteStand(Integer.toString(Punkte));		
 		
 		//ProgressStand bei ToolBarMenu aktualisieren
-		int gegnerAnfang= SpielfeldEigenschaften.GEGNER_ANZAHL;
-		DionaRapModel drm = (DionaRapModel) SpielSteuern.getDrm(); 
-		int gegnerAktuell= drm.getOpponentCount();
-		int gegnerProzent=(int) (100-((double)gegnerAktuell / (double)gegnerAnfang)*100);
-		((ToolBarMenu) tBar).setSpielfortschritWert(gegnerProzent);
+		gegnerAktuell= drm.getOpponentCount();
+		gegnerProzent=(int) (100-((double)gegnerAktuell / (double)gegnerAnfang)*100);
+		tBar.setSpielfortschritWert(gegnerProzent);
 		
+		//TODO Munition Anzahl aktualisieren
+		munitionAnzahl= drm.getAmmoValue();
+		tBar.setMunitionAnzahl(munitionAnzahl);
+		System.out.println(" mm : " +munitionAnzahl);
 	}
 
  	@Override

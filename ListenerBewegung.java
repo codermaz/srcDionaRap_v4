@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
+import de.fhwgt.dionarap.model.data.DionaRapModel;
 
 public class ListenerBewegung implements ActionListener {
 	private DionaRap_Hauptfenster fenster;

@@ -31,15 +31,9 @@ public class ListenerSpielBrett implements ComponentListener {
 	}
 
 	@Override
-	public void componentShown(ComponentEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void componentShown(ComponentEvent e) { }
 
 	@Override
-	public void componentHidden(ComponentEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void componentHidden(ComponentEvent e) {	}
 
 }

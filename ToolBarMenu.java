@@ -43,6 +43,9 @@ public class ToolBarMenu extends JToolBar {
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
 	private JLabel lMunition[] = new JLabel[4];
+	private ImageIcon imageMunition;
+	private int dimensionXLabelMunition=30;
+	private int dimensionYLabelMunition=30;
 	private JProgressBar pbSpielFortschritt = new JProgressBar(0,100);
 
 	ToolBarMenu() {
@@ -108,9 +111,11 @@ public class ToolBarMenu extends JToolBar {
 		String fs= File.separator;
 		String theme=SpielfeldEigenschaften.THEME;
 		String figur = "ammo.png";
+		
+		//redimension for Icon
 		lMunition[0] = new JLabel();
-		lMunition[0].setPreferredSize(new Dimension(30,30));
-		ImageIcon image= new ImageIcon(System.getProperty("user.dir") 
+		lMunition[0].setPreferredSize(new Dimension(dimensionXLabelMunition,dimensionYLabelMunition));
+		imageMunition= new ImageIcon(System.getProperty("user.dir") 
 				+ fs +"images" + fs + theme + fs + figur) {
 			//Resize the icon to fit a JLabel
 			@Override
@@ -121,25 +126,52 @@ public class ToolBarMenu extends JToolBar {
 
 		for (int i = 0; i < 3; i++) {
 			lMunition[i] = new JLabel();
-			lMunition[i].setIcon(image);
+			lMunition[i].setIcon(imageMunition);
 			lMunition[i].setBorder(BorderFactory.createLineBorder(PR_FARBE_grün));
 		}
 		lMunition[3]=new JLabel();
 		lMunition[3].setText("  ");
+		pMunition.setLayout(new GridLayout(1,4,2,2));
 		pMunition.add(lMunition[3]);
 		pMunition.setBorder(BorderFactory.createTitledBorder(null,"Munition",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
-		pMunition.setLayout(new GridLayout(1,4,2,2));
 		pMunition.setPreferredSize(pDim);
 		pMunition.setToolTipText("aktueller Munitionsvorrat");
-	
+
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
-	
 		
+		DionaRapModel drm = SpielSteuern.getDrm(); 
+		setMunitionAnzahl(drm.getAmmoValue());
 	}
 
+	public void setMunitionAnzahl(int Anzahl) {
+		//Munitionsanzeige entleeren
+		for (int i = 0; i < 3; i++) 
+			lMunition[i].setIcon(null);
+		lMunition[3].setText(null);
+		
+		//Munitionsanzeige wieder füllen
+		if (Anzahl>3) {
+			lMunition[3].setText("+"+Integer.toString(Anzahl));
+			for (int i = 0; i < 3; i++) 
+				lMunition[i].setIcon(imageMunition);
+		}
+		switch (Anzahl) {
+		case 3: 
+			lMunition[0].setIcon(imageMunition);
+			break;
+		case 2:
+			lMunition[1].setIcon(imageMunition);
+			break;
+		case 1:
+			lMunition[2].setIcon(imageMunition);
+			break;
+		}
+		pMunition.updateUI();
+	}
+	
 	private void initPanelFortschritt() {
 		pbSpielFortschritt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pSpielFortschritt.setLayout(new BoxLayout(pSpielFortschritt, BoxLayout.Y_AXIS));
@@ -153,7 +185,6 @@ public class ToolBarMenu extends JToolBar {
 		pSpielFortschritt.setPreferredSize(pDim);
 		
 		pbSpielFortschritt.setStringPainted(true);
-		
 	}
 	
 	public void setSpielfortschritWert(int Wert) {
@@ -181,7 +212,4 @@ public class ToolBarMenu extends JToolBar {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 	}
 	
-	public JToolBar getToolBar() {
-		return this;
-	}
 }

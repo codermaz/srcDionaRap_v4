@@ -14,6 +14,7 @@ public class SpielfeldEigenschaften {
 	
 	public static int GEGNER_ANZAHL = 3;
 	public static int HINDERNIS_ANZAHL = 4;	
+//	public static int MUNITION_ANZAHL = 5;	
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
 	public static int TOOLBAR_HEIGHT=50;
