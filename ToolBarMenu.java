@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
+import de.fhwgt.dionarap.model.data.DionaRapModel;
+
 
 public class ToolBarMenu extends JToolBar {
 
@@ -33,15 +35,15 @@ public class ToolBarMenu extends JToolBar {
 			/ SpielfeldEigenschaften.TOOLBAR_PANEL_ANZAHL;
 	private int panelHeight = SpielfeldEigenschaften.TOOLBAR_HEIGHT;
 	private Dimension pDim = new Dimension((int) panelBreite, panelHeight);
-	Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
-	Color PR_FARBE_grün = new Color(0x6DB45D);  // PanelRandfarbe grün
-	Font panelFont = new Font("times new roman",Font.PLAIN,12);
+	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
+	private Color PR_FARBE_grün = new Color(0x6DB45D);  // PanelRandfarbe grün
+	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
 	
-	private JButton bNeuSpiel = new JButton("Neues Spiel");
+	private JButton bNeuSpiel;
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
 	private JLabel lMunition[] = new JLabel[4];
-	private JProgressBar pbSpielFortschritt = new JProgressBar();
+	private JProgressBar pbSpielFortschritt = new JProgressBar(0,100);
 
 	ToolBarMenu() {
 	
@@ -62,10 +64,13 @@ public class ToolBarMenu extends JToolBar {
 	}
 
 	private void initPanelNeuSpiel() {
+		bNeuSpiel = new JButton("Neues Spiel");
 		bNeuSpiel.setActionCommand("NeuSpiel");
 		bNeuSpiel.setEnabled(false);
 		bNeuSpiel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bNeuSpiel.setFont(panelFont);
+		bNeuSpiel.addActionListener(new ListenerToolBarButtons());
+		
 		pNeuSpiel.setLayout(new BoxLayout(pNeuSpiel, BoxLayout.Y_AXIS));
 		pNeuSpiel.setPreferredSize(pDim);
 
@@ -81,6 +86,7 @@ public class ToolBarMenu extends JToolBar {
 	private void initPanelPunkteStand() {
 		tPunkte.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tPunkte.setEditable(false);
+		tPunkte.setColumns(5);
 
 		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.Y_AXIS));
 		pPunkteStand.setBorder(BorderFactory.createTitledBorder(null,"Punktestand",
@@ -124,8 +130,9 @@ public class ToolBarMenu extends JToolBar {
 		pMunition.setBorder(BorderFactory.createTitledBorder(null,"Munition",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
-		pMunition.setLayout(new GridLayout(1,4));
+		pMunition.setLayout(new GridLayout(1,4,2,2));
 		pMunition.setPreferredSize(pDim);
+		pMunition.setToolTipText("aktueller Munitionsvorrat");
 	
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
@@ -144,6 +151,13 @@ public class ToolBarMenu extends JToolBar {
 		pSpielFortschritt.add(pbSpielFortschritt);
 		pSpielFortschritt.add(Box.createGlue());
 		pSpielFortschritt.setPreferredSize(pDim);
+		
+		pbSpielFortschritt.setStringPainted(true);
+		
+	}
+	
+	public void setSpielfortschritWert(int Wert) {
+		pbSpielFortschritt.setValue(Wert);
 	}
 
 	private void initPanelSettings() {
@@ -151,6 +165,7 @@ public class ToolBarMenu extends JToolBar {
 		bSettings.setEnabled(true);
 		bSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bSettings.setFont(panelFont);
+		bSettings.addActionListener(new ListenerToolBarButtons());
 		
 		pSettings.setLayout(new BoxLayout(pSettings, BoxLayout.Y_AXIS));
 		pSettings.setPreferredSize(pDim);
@@ -164,5 +179,9 @@ public class ToolBarMenu extends JToolBar {
 		setPreferredSize(new Dimension(SpielfeldEigenschaften.SPALTEN_ANZAHL * SpielfeldEigenschaften.LABEL_DIMENSION,
 				SpielfeldEigenschaften.TOOLBAR_HEIGHT));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+	}
+	
+	public JToolBar getToolBar() {
+		return this;
 	}
 }

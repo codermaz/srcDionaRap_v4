@@ -12,7 +12,7 @@ public class SpielfeldEigenschaften {
 	public static int BUTTONS_GROESSE = 80; // Set die Grösse of JButtons in pixels im Navigationsfenster
 	public static String THEME="alien";
 	
-	public static int GEGNER_ANZAHL = 2;
+	public static int GEGNER_ANZAHL = 3;
 	public static int HINDERNIS_ANZAHL = 4;	
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;

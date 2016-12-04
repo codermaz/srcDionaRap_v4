@@ -1,5 +1,8 @@
   
 
+import javax.swing.JToolBar;
+
+import de.fhwgt.dionarap.model.data.DionaRapModel;
 import de.fhwgt.dionarap.model.events.DionaRapChangedEvent;
 import de.fhwgt.dionarap.model.events.GameStatusEvent;
 import de.fhwgt.dionarap.model.listener.DionaRapListener;
@@ -19,7 +22,17 @@ public class ListenerModel implements DionaRapListener{
 		fenster.getSpielSteuern().getSpielfeld().leereBrett();	
 		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();	
 		int Punkte=fenster.getSpielSteuern().drm.getScore();
-		fenster.getSpielSteuern().toolBarMenu.setPunkteStand(Integer.toString(Punkte));
+		//PunteStand bei ToolBarMenu aktualisieren
+		JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
+		((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
+		
+		//ProgressStand bei ToolBarMenu aktualisieren
+		int gegnerAnfang= SpielfeldEigenschaften.GEGNER_ANZAHL;
+		DionaRapModel drm = (DionaRapModel) SpielSteuern.getDrm(); 
+		int gegnerAktuell= drm.getOpponentCount();
+		int gegnerProzent=(int) (100-((double)gegnerAktuell / (double)gegnerAnfang)*100);
+		((ToolBarMenu) tBar).setSpielfortschritWert(gegnerProzent);
+		
 	}
 
  	@Override
@@ -43,7 +56,6 @@ public class ListenerModel implements DionaRapListener{
 				fenster.spielStart();
 				break;
 			case 1: // Abbrechen
-				System.out.println("Tschüss..." );
 				fenster.getSpielSteuern().toolBarMenu.setButtonNeuEnabled(true);
 				break;
 			}

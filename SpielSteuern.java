@@ -17,9 +17,10 @@ public class SpielSteuern {
 
 	private DionaRap_Hauptfenster fenster;
 	private Spielfeld spielFeld;
-	DionaRapModel drm;
+	static DionaRapModel drm;
 	private DionaRapController controller;
-	ToolBarMenu toolBarMenu;
+
+	public ToolBarMenu toolBarMenu;
 	private ListenerModel listenerModel;
 
 	private Container spielFlaeche;
@@ -36,6 +37,7 @@ public class SpielSteuern {
 		drm.addModelChangedEventListener(listenerModel);
 		
 		spielFlaeche = fenster.getContentPane();
+		
 		// Brett initialisieren
 		spielFeld = new Spielfeld(fenster);
 
@@ -48,7 +50,7 @@ public class SpielSteuern {
 		
 	}
 
-	public DionaRapModel getDrm() {
+	public static DionaRapModel getDrm() {
 		return drm;
 	}
 
@@ -60,5 +62,8 @@ public class SpielSteuern {
 		return spielFeld;
 	}
 
+	public ToolBarMenu getToolBarMenu() {
+		return toolBarMenu;
+	}
 
 }
