@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import de.fhwgt.dionarap.model.data.DionaRapModel;
@@ -90,7 +91,9 @@ public class ToolBarMenu extends JToolBar {
 		tPunkte.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tPunkte.setEditable(false);
 		tPunkte.setColumns(5);
-
+		tPunkte.setHorizontalAlignment(JTextField.CENTER);
+		tPunkte.setForeground(PR_FARBE_blau);
+		
 		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.Y_AXIS));
 		pPunkteStand.setBorder(BorderFactory.createTitledBorder(null,"Punktestand",
 						TitledBorder.CENTER, TitledBorder.TOP, 
@@ -165,6 +168,7 @@ public class ToolBarMenu extends JToolBar {
 		if (Anzahl>3) {
 			lMunition[0].setIcon(null);
 			lMunition[0].setText("*"+Integer.toString(Anzahl));
+			lMunition[0].setHorizontalAlignment(SwingConstants.CENTER); 
 			for (int i = 1; i < 3; i++) 
 				lMunition[i].setIcon(imageMunition);
 		}
