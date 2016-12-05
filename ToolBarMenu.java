@@ -36,13 +36,13 @@ public class ToolBarMenu extends JToolBar {
 	private int panelHeight = SpielfeldEigenschaften.TOOLBAR_HEIGHT;
 	private Dimension pDim = new Dimension((int) panelBreite, panelHeight);
 	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
-	private Color PR_FARBE_grün = new Color(0x6DB45D);  // PanelRandfarbe grün
+	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe grün
 	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
 	
 	private JButton bNeuSpiel;
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
-	private JLabel lMunition[] = new JLabel[4];
+	private JLabel lMunition[] = new JLabel[3];
 	private ImageIcon imageMunition;
 	private int dimensionXLabelMunition=30;
 	private int dimensionYLabelMunition=30;
@@ -127,12 +127,10 @@ public class ToolBarMenu extends JToolBar {
 		for (int i = 0; i < 3; i++) {
 			lMunition[i] = new JLabel();
 			lMunition[i].setIcon(imageMunition);
-			lMunition[i].setBorder(BorderFactory.createLineBorder(PR_FARBE_grün));
+			lMunition[i].setBorder(BorderFactory.createLineBorder(PR_FARBE_gruen));
 		}
-		lMunition[3]=new JLabel();
-		lMunition[3].setText("  ");
-		pMunition.setLayout(new GridLayout(1,4,2,2));
-		pMunition.add(lMunition[3]);
+		pMunition.setLayout(new GridLayout(1,3,2,2));
+
 		pMunition.setBorder(BorderFactory.createTitledBorder(null,"Munition",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
@@ -150,14 +148,9 @@ public class ToolBarMenu extends JToolBar {
 		//Munitionsanzeige entleeren
 		for (int i = 0; i < 3; i++) 
 			lMunition[i].setIcon(null);
-		lMunition[3].setText(null);
+		lMunition[0].setText(null);
 		
 		//Munitionsanzeige wieder füllen
-		if (Anzahl>3) {
-			lMunition[3].setText("+"+Integer.toString(Anzahl));
-			for (int i = 0; i < 3; i++) 
-				lMunition[i].setIcon(imageMunition);
-		}
 		switch (Anzahl) {
 		case 3: 
 			lMunition[0].setIcon(imageMunition);
@@ -169,6 +162,13 @@ public class ToolBarMenu extends JToolBar {
 			lMunition[2].setIcon(imageMunition);
 			break;
 		}
+		if (Anzahl>3) {
+			lMunition[0].setIcon(null);
+			lMunition[0].setText("*"+Integer.toString(Anzahl));
+			for (int i = 1; i < 3; i++) 
+				lMunition[i].setIcon(imageMunition);
+		}
+
 		pMunition.updateUI();
 	}
 	

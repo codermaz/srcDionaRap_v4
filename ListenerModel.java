@@ -26,12 +26,12 @@ public class ListenerModel implements DionaRapListener{
 		fenster.getSpielSteuern().getSpielfeld().leereBrett();	
 		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();	
 		DionaRapModel drm = SpielSteuern.getDrm(); 
+		ToolBarMenu tBar = fenster.getSpielSteuern().getToolBarMenu();
 		
 		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
 		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
 		//PunkteStand bei ToolBarMenu aktualisieren
 		int Punkte=drm.getScore();
-		ToolBarMenu tBar = fenster.getSpielSteuern().getToolBarMenu();
 		tBar.setPunkteStand(Integer.toString(Punkte));		
 		
 		//ProgressStand bei ToolBarMenu aktualisieren
