@@ -42,7 +42,7 @@ public class ListenerModel implements DionaRapListener{
 		//TODO Munition Anzahl aktualisieren
 		munitionAnzahl= drm.getAmmoValue();
 		tBar.setMunitionAnzahl(munitionAnzahl);
-		System.out.println(" mm : " +munitionAnzahl);
+		System.out.println(" Munitionsanzahl : " +munitionAnzahl);
 	}
 
  	@Override

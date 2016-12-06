@@ -24,7 +24,7 @@ public class SpielSteuern {
 	private ListenerModel listenerModel;
 
 	private Container spielFlaeche;
-	
+	private MenuBarLeiste menuBarLeiste;
 	
 	SpielSteuern(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
@@ -43,6 +43,9 @@ public class SpielSteuern {
 
 		// ToolBar initialisieren
 		toolBarMenu= new ToolBarMenu();
+		
+		// Menuleiste initialisieren
+		menuBarLeiste = new MenuBarLeiste();
 		
 		spielFlaeche.add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
 		spielFlaeche.add(toolBarMenu, BorderLayout.NORTH);
