@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class DialogWonOver {
 	private DionaRap_Hauptfenster fenster;
 	private String spielerAuswahl[]= {"Neues Spiel", "Abbrechen"};
-	private int spielerAusgewaehlt; // 0 für Neues Spiel , 1 für Abbrechen
+	private int spielerAusgewaehlt; // 0 fur Neues Spiel , 1 fuer Abbrechen
 	private int status;
 	private String spielStatusMsg[] = {"Game Over","Sie haben verloren!","Gewonnen","Sie haben gewonnen :)","gameover.gif","gewonnen.gif"};
 	private String spielStatus[]=new String[3];

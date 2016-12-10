@@ -4,18 +4,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class ListenerToolBarButtons implements ActionListener {
+	
+DionaRap_Hauptfenster fenster;
+	
+	ListenerToolBarButtons(DionaRap_Hauptfenster _fenster) {
+		fenster=_fenster;
+	}
 
 	// TODO ?NeuSpiel-Button funktioniert nicht beim zweiten,dritten ... Mal
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		JButton btn = (JButton) event.getSource();
-		DionaRap_Hauptfenster fenster = (DionaRap_Hauptfenster) btn.getTopLevelAncestor();
-
+	
 		if (event.getActionCommand() == "NeuSpiel") {
 			System.out.println("neu spiel");
-			fenster.getSpielSteuern().toolBarMenu.setButtonNeuEnabled(false);
+			fenster.getToolBarMenu().setButtonNeuEnabled(false);
 			// Spielfeld saubern
-			fenster.getSpielSteuern().getSpielfeld().nullBrett();
+			fenster.getSpielfeld().nullBrett();
 			// Neues Spiel anfangen
 			fenster.spielStart();
 		}

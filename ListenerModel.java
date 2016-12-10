@@ -1,7 +1,4 @@
   
-
-import javax.swing.JToolBar;
-
 import de.fhwgt.dionarap.model.data.DionaRapModel;
 import de.fhwgt.dionarap.model.events.DionaRapChangedEvent;
 import de.fhwgt.dionarap.model.events.GameStatusEvent;
@@ -11,7 +8,6 @@ public class ListenerModel implements DionaRapListener{
 	
 	private DionaRap_Hauptfenster fenster;
 	private int gegnerAnfang= SpielfeldEigenschaften.GEGNER_ANZAHL;
-	private String punkteStand;
 	private int gegnerAktuell;
 	private int gegnerProzent;
 	private int munitionAnzahl;
@@ -23,10 +19,10 @@ public class ListenerModel implements DionaRapListener{
 	
 	@Override
 	public void modelChanged(DionaRapChangedEvent arg0) {	
-		fenster.getSpielSteuern().getSpielfeld().leereBrett();	
-		fenster.getSpielSteuern().getSpielfeld().setzeAllePawns();	
-		DionaRapModel drm = SpielSteuern.getDrm(); 
-		ToolBarMenu tBar = fenster.getSpielSteuern().getToolBarMenu();
+		fenster.getSpielfeld().leereBrett();	
+		fenster.getSpielfeld().setzeAllePawns();	
+		DionaRapModel drm = fenster.getDrm(); 
+		ToolBarMenu tBar = fenster.getToolBarMenu();
 		
 		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
 		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
@@ -62,11 +58,12 @@ public class ListenerModel implements DionaRapListener{
 			
 			switch(dwo.getAuswahl()) {
 			case 0: // Neues Spiel
-				fenster.getSpielSteuern().getSpielfeld().nullBrett();
+				//fenster.getSpielSteuern().toolBarMenu.setButtonNeuEnabled(false);
+				fenster.getSpielfeld().nullBrett();
 				fenster.spielStart();
 				break;
 			case 1: // Abbrechen
-				fenster.getSpielSteuern().toolBarMenu.setButtonNeuEnabled(true);
+				fenster.getToolBarMenu().setButtonNeuEnabled(true);
 				break;
 			}
 			

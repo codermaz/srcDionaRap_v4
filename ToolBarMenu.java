@@ -19,13 +19,13 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-import de.fhwgt.dionarap.model.data.DionaRapModel;
 
 
 public class ToolBarMenu extends JToolBar {
 
 	private static final long serialVersionUID = 1L;
-
+	private DionaRap_Hauptfenster fenster;
+	
 	private JPanel pNeuSpiel = new JPanel();
 	private JPanel pPunkteStand = new JPanel();
 	private JPanel pMunition = new JPanel();
@@ -49,8 +49,8 @@ public class ToolBarMenu extends JToolBar {
 	private int dimensionYLabelMunition=30;
 	private JProgressBar pbSpielFortschritt = new JProgressBar(0,100);
 
-	ToolBarMenu() {
-	
+	ToolBarMenu(DionaRap_Hauptfenster _fenster) {
+		fenster = _fenster;
 		initToolBar();
 		
 		initPanelNeuSpiel();
@@ -73,7 +73,7 @@ public class ToolBarMenu extends JToolBar {
 		bNeuSpiel.setEnabled(false);
 		bNeuSpiel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bNeuSpiel.setFont(panelFont);
-		bNeuSpiel.addActionListener(new ListenerToolBarButtons());
+		bNeuSpiel.addActionListener(new ListenerToolBarButtons(fenster));
 		
 		pNeuSpiel.setLayout(new BoxLayout(pNeuSpiel, BoxLayout.Y_AXIS));
 		pNeuSpiel.setPreferredSize(pDim);
@@ -120,6 +120,8 @@ public class ToolBarMenu extends JToolBar {
 		lMunition[0].setPreferredSize(new Dimension(dimensionXLabelMunition,dimensionYLabelMunition));
 		imageMunition= new ImageIcon(System.getProperty("user.dir") 
 				+ fs +"images" + fs + theme + fs + figur) {
+		private static final long serialVersionUID = 1L;
+
 			//Resize the icon to fit a JLabel
 			@Override
 			public void paintIcon( Component c, Graphics g, int x, int y ) {
@@ -143,8 +145,7 @@ public class ToolBarMenu extends JToolBar {
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
 		
-		DionaRapModel drm = SpielSteuern.getDrm(); 
-		setMunitionAnzahl(drm.getAmmoValue());
+		setMunitionAnzahl(fenster.getDrm().getAmmoValue());
 	}
 
 	public void setMunitionAnzahl(int Anzahl) {
@@ -200,7 +201,7 @@ public class ToolBarMenu extends JToolBar {
 		bSettings.setEnabled(true);
 		bSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bSettings.setFont(panelFont);
-		bSettings.addActionListener(new ListenerToolBarButtons());
+		bSettings.addActionListener(new ListenerToolBarButtons(fenster));
 		
 		pSettings.setLayout(new BoxLayout(pSettings, BoxLayout.Y_AXIS));
 		pSettings.setPreferredSize(pDim);
