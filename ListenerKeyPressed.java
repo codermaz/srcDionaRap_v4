@@ -56,11 +56,6 @@ public class ListenerKeyPressed implements KeyListener {
 			drc.shoot();
 			break;	
 		}
-		
-	
-		
-		
-		
 	}
 
 	public void keyReleased(KeyEvent e) {

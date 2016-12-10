@@ -21,11 +21,11 @@ public class MenuLeiste extends JMenuBar {
 	private JCheckBoxMenuItem cbMenuItem;
 	private DionaRap_Hauptfenster fenster;
 	private ListenerMenuLeiste listenerMenu;
-	
+
 	MenuLeiste(DionaRap_Hauptfenster _fenster) {
-		fenster= _fenster;
-		listenerMenu= new ListenerMenuLeiste(fenster);
-		
+		fenster = _fenster;
+		listenerMenu = new ListenerMenuLeiste(fenster);
+
 		// Menu Ansicht
 		mAnsicht = new JMenu("Ansicht");
 		mAnsicht.setMnemonic(KeyEvent.VK_A);
@@ -76,18 +76,18 @@ public class MenuLeiste extends JMenuBar {
 		} else {
 			cbMenuItem.setText("Navigator ist eingeblendet.");
 		}
-	
+
 		cbMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenster.navigatorSichtWechsel();
-				if (!cbMenuItem.isSelected()) 
+				if (!cbMenuItem.isSelected())
 					cbMenuItem.setText("Navigator ist ausgeblendet.");
-				else 
+				else
 					cbMenuItem.setText("Navigator ist eingeblendet.");
 			}
 		});
-		
+
 		mNavigator.add(cbMenuItem);
 	}
 
@@ -102,7 +102,7 @@ public class MenuLeiste extends JMenuBar {
 		LookAndFeelInfo[] laFInfo = UIManager.getInstalledLookAndFeels();
 		ButtonGroup gLaF = new ButtonGroup();
 		String laf = UIManager.getLookAndFeel().getName();
-		for (int i = 0; i < laf.length(); i++) {
+		for (int i = 0; i < laFInfo.length; i++) {
 			mLaF.add(this.createRadioMenuItem(laFInfo[i].getName(), laFInfo[i].getClassName(), gLaF,
 					laf.equals(laFInfo[i].getName())));
 		}
@@ -119,6 +119,4 @@ public class MenuLeiste extends JMenuBar {
 		return rbMenuItem;
 	}
 
-
-	
 }

@@ -44,9 +44,9 @@ public class Spielfeld extends JPanel {
 	 */
 
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
-		theme=SpielfeldEigenschaften.THEME;
+		theme = SpielfeldEigenschaften.THEME;
 		fenster = _fenster;
-		
+
 		fenster.setPreferredSize(new Dimension(spaltenA * SpielfeldEigenschaften.LABEL_DIMENSION,
 				zeilenA * SpielfeldEigenschaften.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
@@ -54,29 +54,24 @@ public class Spielfeld extends JPanel {
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
 		spielFlaeche = fenster.getContentPane();
 		spielFlaeche.setLayout(new BorderLayout());
-		
+
 		zeichneErstesBrett();
 		initListener();
 	}
-	
+
 	public JPanel getSpielBrett() {
 		return spielBrett;
 	}
-	
-	void initListener() {
 
-		if (!fenster.keyListenerAktiviert) {
-			ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
-			fenster.addKeyListener(listenerKeyPressed);
-			fenster.keyListenerAktiviert=true;
-		}
-		
+	void initListener() {
+		ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
+		fenster.addKeyListener(listenerKeyPressed);
 	}
 
 	public void nullBrett() {
 		spielBrett.removeAll();
 	}
-	
+
 	public void leereBrett() {
 		for (int i = 0; i < zeilenA; i++) // für Zeilen
 			for (int j = 0; j < spaltenA; j++) // für Spalten
@@ -90,13 +85,13 @@ public class Spielfeld extends JPanel {
 		AbstractPawn[] allePawns = drm.getAllPawns();
 		for (int i = 0; i < allePawns.length; i++) {
 			if (allePawns[i] instanceof Obstacle) {
-				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "obstacle.gif"); 
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "obstacle.gif");
 			} else if (allePawns[i] instanceof Opponent) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "opponent.gif");
 			} else if (allePawns[i] instanceof Player) {
-				Player player= (Player) allePawns[i];
-				String dir=Integer.toString(player.getViewDirection());
-				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "player"+dir+".gif");
+				Player player = (Player) allePawns[i];
+				String dir = Integer.toString(player.getViewDirection());
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "player" + dir + ".gif");
 			} else if (allePawns[i] instanceof Vortex) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "vortex.gif");
 			} else if (allePawns[i] instanceof Destruction) {
@@ -110,16 +105,16 @@ public class Spielfeld extends JPanel {
 	}
 
 	public static void setzeFigur(int spalteX, int spalteY, String figur) {
-		String fs= File.separator;
-		ImageIcon image= new ImageIcon(System.getProperty("user.dir") + fs +"images" + fs + theme + fs + figur);
+		String fs = File.separator;
+		ImageIcon image = new ImageIcon(System.getProperty("user.dir") + fs + "images" + fs + theme + fs + figur);
 		if (figur == "vortex.gif")
 			spielFelder[spalteX][spalteY].setBackground(Color.red);
-		
+
 		spielFelder[spalteX][spalteY].setIcon(image);
-		
-		//spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
-		//spielFelder[spalteX][spalteY].setForeground(getInverseFarbe(spielFelder[spalteX][spalteY].getBackground()));
-		//spielFelder[spalteX][spalteY].setText(figur);
+
+		// spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
+		// spielFelder[spalteX][spalteY].setForeground(getInverseFarbe(spielFelder[spalteX][spalteY].getBackground()));
+		// spielFelder[spalteX][spalteY].setText(figur);
 	}
 
 	public void zeichneErstesBrett() {

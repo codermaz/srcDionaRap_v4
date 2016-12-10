@@ -26,11 +26,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private static int hindernisA = SpielfeldEigenschaften.HINDERNIS_ANZAHL;
 
 	private Navigator navisFenster;
-	public boolean keyListenerAktiviert = false;
 	private MenuLeiste menuLeiste;
 	private ToolBarMenu toolBarMenu;
-	private  String toolbarLocation = "Oben";
-	private  Point fensterLocation = null;
+	private String toolbarLocation = "Oben";
+	private Point fensterLocation = null;
 
 	private DionaRapModel drm;
 	private DionaRapController controller;
