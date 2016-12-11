@@ -37,6 +37,7 @@ public class Spielfeld extends JPanel {
 	private static String theme;
 
 	private DionaRap_Hauptfenster fenster;
+	private ListenerMouse listenerMouse;
 
 	/**
 	 * Konstruktor der Klasse <br>
@@ -44,9 +45,8 @@ public class Spielfeld extends JPanel {
 	 */
 
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
-		theme = SpielfeldEigenschaften.THEME;
 		fenster = _fenster;
-
+		
 		fenster.setPreferredSize(new Dimension(spaltenA * SpielfeldEigenschaften.LABEL_DIMENSION,
 				zeilenA * SpielfeldEigenschaften.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
@@ -63,7 +63,13 @@ public class Spielfeld extends JPanel {
 		return spielBrett;
 	}
 
-	void initListener() {
+	public void setTheme(String _theme){
+		theme=_theme;
+	}
+	
+	private void initListener() {
+		listenerMouse = new ListenerMouse(fenster);
+		fenster.addMouseListener(listenerMouse);
 		ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
 		fenster.addKeyListener(listenerKeyPressed);
 	}
@@ -104,24 +110,25 @@ public class Spielfeld extends JPanel {
 		return new Color(255 - in.getRed(), 255 - in.getGreen(), 255 - in.getBlue(), in.getAlpha());
 	}
 
-	public static void setzeFigur(int spalteX, int spalteY, String figur) {
+	public void setzeFigur(int spalteX, int spalteY, String figur) {
 		String fs = File.separator;
+		theme = SpielfeldEigenschaften.THEME;
 		ImageIcon image = new ImageIcon(System.getProperty("user.dir") + fs + "images" + fs + theme + fs + figur);
 		if (figur == "vortex.gif")
 			spielFelder[spalteX][spalteY].setBackground(Color.red);
 
 		spielFelder[spalteX][spalteY].setIcon(image);
-
+	
 		// spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
 		// spielFelder[spalteX][spalteY].setForeground(getInverseFarbe(spielFelder[spalteX][spalteY].getBackground()));
 		// spielFelder[spalteX][spalteY].setText(figur);
 	}
 
 	public void zeichneErstesBrett() {
-		// Lables für Brett vorbreiten
+		// Lables fuer Brett vorbreiten
 		int farbeWechsel = 0;
-		for (int i = 0; i < zeilenA; i++) { // für Zeilen
-			for (int j = 0; j < spaltenA; j++) { // für Spalten
+		for (int i = 0; i < zeilenA; i++) { // fuer Zeilen
+			for (int j = 0; j < spaltenA; j++) { // fuer Spalten
 				spielFelder[j][i] = new JLabel("", JLabel.CENTER);
 				if (farbeWechsel == 1) {
 					spielFelder[j][i].setBackground(SpielfeldEigenschaften.BRETT_COLOR1);
@@ -131,6 +138,7 @@ public class Spielfeld extends JPanel {
 					farbeWechsel = 1;
 				}
 				spielFelder[j][i].setOpaque(true);
+				//spielFelder[j][i].addMouseListener(listenerMouse);
 				spielBrett.add(spielFelder[j][i]);
 			}
 

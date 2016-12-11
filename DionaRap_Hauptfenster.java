@@ -50,6 +50,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		// Brett initialisieren
 		spielFeld = new Spielfeld(this);
 		add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
+	
 
 		// Navigator initialisieren
 		navisFenster = new Navigator(this);

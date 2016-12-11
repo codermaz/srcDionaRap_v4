@@ -66,6 +66,10 @@ public class ToolBarMenu extends JToolBar {
 		add(pSpielFortschritt);
 		add(pSettings);
 	}
+	
+	public JToolBar getToolBarMenu() {
+		return this;
+	}
 
 	private void initPanelNeuSpiel() {
 		bNeuSpiel = new JButton("Neues Spiel");
@@ -110,7 +114,7 @@ public class ToolBarMenu extends JToolBar {
 		tPunkte.setText(Punkte);
 	}
 
-	private void initPanelMunition() {
+	public void initPanelMunition() {
 		String fs= File.separator;
 		String theme=SpielfeldEigenschaften.THEME;
 		String figur = "ammo.png";
@@ -141,7 +145,8 @@ public class ToolBarMenu extends JToolBar {
 				panelFont, PR_FARBE_blau));
 		pMunition.setPreferredSize(pDim);
 		pMunition.setToolTipText("aktueller Munitionsvorrat");
-
+		
+		pMunition.removeAll();
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
 		

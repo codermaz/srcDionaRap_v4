@@ -3,7 +3,12 @@ import java.awt.Polygon;
 //Die Klasse Polygon implementiert das Interface Shape
 public class Achteck extends Polygon {
 
-	// a : Länge der Kante
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// a : Laenge der Kante
 	Achteck(int a) {
 		int b = (int) (a / Math.sqrt(2)); 
 
