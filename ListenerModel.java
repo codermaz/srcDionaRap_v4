@@ -46,34 +46,15 @@ public class ListenerModel implements DionaRapListener{
  		
  		DialogWonOver dwo = null;
  		
-		if (arg0.isGameWon()) {
+		if (arg0.isGameWon()) 
 			dwo = new DialogWonOver(fenster, 1);
-		}
-		
-		if (arg0.isGameOver()) {
+	
+		if (arg0.isGameOver()) 
 			dwo = new DialogWonOver(fenster, 0);
-		}
 		
-		if (dwo!=null) {
-			
-			switch(dwo.getAuswahl()) {
-			case 0: // Neues Spiel
-				//fenster.getSpielSteuern().toolBarMenu.setButtonNeuEnabled(false);
-				fenster.getSpielfeld().nullBrett();
-				fenster.spielStart();
-				break;
-			case 1: // Abbrechen
-				fenster.getToolBarMenu().setButtonNeuEnabled(true);
-				break;
-			}
-			
-		}
-		
+		if (dwo.getAuswahl()==0)
+			fenster.spielStart();
+		else 
+			fenster.getToolBarMenu().setButtonNeuEnabled(true);
 	}
- 	
- 	public void setDialog (String message) {
- 		
- 		System.out.println(message);
- 	}
-
 }

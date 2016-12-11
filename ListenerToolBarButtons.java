@@ -11,21 +11,15 @@ DionaRap_Hauptfenster fenster;
 		fenster=_fenster;
 	}
 
-	// TODO ?NeuSpiel-Button funktioniert nicht beim zweiten,dritten ... Mal
 	@Override
 	public void actionPerformed(ActionEvent event) {
-	
 		if (event.getActionCommand() == "NeuSpiel") {
-			System.out.println("neu spiel");
 			fenster.getToolBarMenu().setButtonNeuEnabled(false);
-			// Spielfeld saubern
-			fenster.getSpielfeld().nullBrett();
 			// Neues Spiel anfangen
 			fenster.spielStart();
 		}
 		if (event.getActionCommand() == "Settings") {
 			System.out.println("settings");
-
 		}
 	}
 
