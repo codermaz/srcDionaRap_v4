@@ -19,7 +19,7 @@ DionaRap_Hauptfenster fenster;
 			fenster.spielStart();
 		}
 		if (event.getActionCommand() == "Settings") {
-			System.out.println("settings");
+			new DialogSettings(fenster);
 		}
 	}
 

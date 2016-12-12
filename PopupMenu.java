@@ -35,7 +35,7 @@ public class PopupMenu extends JPopupMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String theme =  e.getActionCommand();
-				SpielfeldEigenschaften.THEME = theme;
+				Settings.THEME = theme;
 				fenster.getSpielfeld().setzeAllePawns();
 				fenster.getToolBarMenu().initPanelMunition();
 			}

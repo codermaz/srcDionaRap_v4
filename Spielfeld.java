@@ -7,12 +7,12 @@ import java.awt.GridLayout;
 import java.io.File;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.fhwgt.dionarap.model.data.DionaRapModel;
 import de.fhwgt.dionarap.model.objects.AbstractPawn;
+import de.fhwgt.dionarap.model.objects.Ammo;
 import de.fhwgt.dionarap.model.objects.Destruction;
 import de.fhwgt.dionarap.model.objects.Obstacle;
 import de.fhwgt.dionarap.model.objects.Opponent;
@@ -28,8 +28,8 @@ import de.fhwgt.dionarap.model.objects.Vortex;
 public class Spielfeld extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static int spaltenA = SpielfeldEigenschaften.SPALTEN_ANZAHL;
-	private static int zeilenA = SpielfeldEigenschaften.ZEILEN_ANZAHL;
+	private static int spaltenA = Settings.SPALTEN_ANZAHL;
+	private static int zeilenA = Settings.ZEILEN_ANZAHL;
 
 	private Container spielFlaeche;
 	private JPanel spielBrett = new JPanel();
@@ -47,8 +47,8 @@ public class Spielfeld extends JPanel {
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
 		
-		fenster.setPreferredSize(new Dimension(spaltenA * SpielfeldEigenschaften.LABEL_DIMENSION,
-				zeilenA * SpielfeldEigenschaften.LABEL_DIMENSION));
+		fenster.setPreferredSize(new Dimension(spaltenA * Settings.LABEL_DIMENSION,
+				zeilenA * Settings.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
 
 		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
@@ -79,8 +79,8 @@ public class Spielfeld extends JPanel {
 	}
 
 	public void leereBrett() {
-		for (int i = 0; i < zeilenA; i++) // für Zeilen
-			for (int j = 0; j < spaltenA; j++) // für Spalten
+		for (int i = 0; i < zeilenA; i++) // fuer Zeilen
+			for (int j = 0; j < spaltenA; j++) // fuer Spalten
 				spielFelder[j][i].setIcon(null);
 	}
 
@@ -102,6 +102,8 @@ public class Spielfeld extends JPanel {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "vortex.gif");
 			} else if (allePawns[i] instanceof Destruction) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "destruction.gif");
+			}  else if (allePawns[i] instanceof Ammo) {
+				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "ammo.png");
 			}
 		}
 	}
@@ -112,7 +114,7 @@ public class Spielfeld extends JPanel {
 
 	public void setzeFigur(int spalteX, int spalteY, String figur) {
 		String fs = File.separator;
-		theme = SpielfeldEigenschaften.THEME;
+		theme = Settings.THEME;
 		ImageIcon image = new ImageIcon(System.getProperty("user.dir") + fs + "images" + fs + theme + fs + figur);
 		if (figur == "vortex.gif")
 			spielFelder[spalteX][spalteY].setBackground(Color.red);
@@ -131,10 +133,10 @@ public class Spielfeld extends JPanel {
 			for (int j = 0; j < spaltenA; j++) { // fuer Spalten
 				spielFelder[j][i] = new JLabel("", JLabel.CENTER);
 				if (farbeWechsel == 1) {
-					spielFelder[j][i].setBackground(SpielfeldEigenschaften.BRETT_COLOR1);
+					spielFelder[j][i].setBackground(Settings.BRETT_COLOR1);
 					farbeWechsel = 0;
 				} else {
-					spielFelder[j][i].setBackground(SpielfeldEigenschaften.BRETT_COLOR2);
+					spielFelder[j][i].setBackground(Settings.BRETT_COLOR2);
 					farbeWechsel = 1;
 				}
 				spielFelder[j][i].setOpaque(true);

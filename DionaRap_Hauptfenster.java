@@ -10,6 +10,7 @@ import javax.swing.UIManager;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.*;
+import de.fhwgt.dionarap.model.objects.Ammo;
 
 public class DionaRap_Hauptfenster extends JFrame {
 
@@ -19,11 +20,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 	// TODO KeyListener Nummer 5 nicht funktioniert
 
 	private static final long serialVersionUID = 1L;
-
-	private static int spaltenA = SpielfeldEigenschaften.SPALTEN_ANZAHL;
-	private static int zeilenA = SpielfeldEigenschaften.ZEILEN_ANZAHL;
-	private static int gegnerA = SpielfeldEigenschaften.GEGNER_ANZAHL;
-	private static int hindernisA = SpielfeldEigenschaften.HINDERNIS_ANZAHL;
 
 	private Navigator navisFenster;
 	private MenuLeiste menuLeiste;
@@ -35,22 +31,35 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private DionaRapController controller;
 	private ListenerModel listenerModel;
 	private Spielfeld spielFeld;
+	private Settings settings;
 
 	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
 
+		//Settings 
+		settings= new Settings();
+		
 		// Model und Controller
-		drm = new DionaRapModel(zeilenA, spaltenA, gegnerA, hindernisA);
+		drm = new DionaRapModel(settings.ZEILEN_ANZAHL, settings.SPALTEN_ANZAHL, settings.GEGNER_ANZAHL,
+				settings.HINDERNIS_ANZAHL);
 		controller = new DionaRapController(drm);
 		listenerModel = new ListenerModel(this);
 		drm.addModelChangedEventListener(listenerModel);
 
+		// Multithreading
+		controller.setMultiThreaded(new MultiThreadKonfiguration(this).getMTKonfiguration());
+		drm.setShootAmount(Settings.MUNITION_ANZAHL);
+		for (int i = 0; i < Settings.MUNITION_ANZAHL; i++)
+			drm.addAmmo(new Ammo());
+		drm.setAmmoValue(Settings.MUNITION_ANZAHL);
+		// TODO ?AmmoValue stimmt nicht
+		System.out.println("anfang muniton:" + drm.getAmmoValue());
+
 		// Brett initialisieren
 		spielFeld = new Spielfeld(this);
 		add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
-	
 
 		// Navigator initialisieren
 		navisFenster = new Navigator(this);
@@ -93,6 +102,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public void spielStart() {
 		navisFenster.dispose();
 		this.dispose();
+		controller.deactivateMultiThreading();
 		fensterLocation = getLocation();
 		new DionaRap_Hauptfenster(toolbarLocation, fensterLocation);
 
@@ -123,6 +133,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 		return controller;
 	}
 
+	public Settings getSettings() {
+		return settings;
+	}
+	
 	public Spielfeld getSpielfeld() {
 		return spielFeld;
 	}

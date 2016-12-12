@@ -32,9 +32,9 @@ public class ToolBarMenu extends JToolBar {
 	private JPanel pSpielFortschritt = new JPanel();
 	private JPanel pSettings = new JPanel();
 
-	private float panelBreite = SpielfeldEigenschaften.SPALTEN_ANZAHL * SpielfeldEigenschaften.LABEL_DIMENSION
-			/ SpielfeldEigenschaften.TOOLBAR_PANEL_ANZAHL;
-	private int panelHeight = SpielfeldEigenschaften.TOOLBAR_HEIGHT;
+	private float panelBreite = Settings.SPALTEN_ANZAHL * Settings.LABEL_DIMENSION
+			/ Settings.TOOLBAR_PANEL_ANZAHL;
+	private int panelHeight = Settings.TOOLBAR_HEIGHT;
 	private Dimension pDim = new Dimension((int) panelBreite, panelHeight);
 	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
 	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe grün
@@ -116,7 +116,7 @@ public class ToolBarMenu extends JToolBar {
 
 	public void initPanelMunition() {
 		String fs= File.separator;
-		String theme=SpielfeldEigenschaften.THEME;
+		String theme=Settings.THEME;
 		String figur = "ammo.png";
 		
 		//redimension for Icon
@@ -163,10 +163,8 @@ public class ToolBarMenu extends JToolBar {
 		switch (Anzahl) {
 		case 3: 
 			lMunition[0].setIcon(imageMunition);
-			break;
 		case 2:
 			lMunition[1].setIcon(imageMunition);
-			break;
 		case 1:
 			lMunition[2].setIcon(imageMunition);
 			break;
@@ -217,9 +215,10 @@ public class ToolBarMenu extends JToolBar {
 	}
 
 	private void initToolBar() {
-		setPreferredSize(new Dimension(SpielfeldEigenschaften.SPALTEN_ANZAHL * SpielfeldEigenschaften.LABEL_DIMENSION,
-				SpielfeldEigenschaften.TOOLBAR_HEIGHT));
+		setPreferredSize(new Dimension(Settings.SPALTEN_ANZAHL * Settings.LABEL_DIMENSION,
+				Settings.TOOLBAR_HEIGHT));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setFloatable(false);
 	}
 	
 }
