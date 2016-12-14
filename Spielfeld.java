@@ -28,12 +28,12 @@ import de.fhwgt.dionarap.model.objects.Vortex;
 public class Spielfeld extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static int spaltenA = Settings.SPALTEN_ANZAHL;
-	private static int zeilenA = Settings.ZEILEN_ANZAHL;
+	private static int spaltenA;
+	private static int zeilenA;
 
 	private Container spielFlaeche;
 	private JPanel spielBrett = new JPanel();
-	private static JLabel[][] spielFelder = new JLabel[spaltenA][zeilenA];
+	private static JLabel[][] spielFelder;
 	private static String theme;
 
 	private DionaRap_Hauptfenster fenster;
@@ -46,6 +46,9 @@ public class Spielfeld extends JPanel {
 
 	public Spielfeld(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
+		zeilenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.zeilenA));
+		spaltenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA)); 
+		spielFelder = new JLabel[spaltenA][zeilenA];
 		
 		fenster.setPreferredSize(new Dimension(spaltenA * Settings.LABEL_DIMENSION,
 				zeilenA * Settings.LABEL_DIMENSION));

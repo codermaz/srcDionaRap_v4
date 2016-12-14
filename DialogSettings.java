@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -8,12 +12,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu.Separator;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class DialogSettings extends JDialog implements ChangeListener {
+public class DialogSettings extends JDialog implements ChangeListener, FocusListener, ItemListener {
 
 	/**
 	 * 
@@ -28,12 +34,12 @@ public class DialogSettings extends JDialog implements ChangeListener {
 	private ListenerSettingsDialog lSettings;
 	private JPanel pButtons;
 	private JSlider jsoStartWT, jsoWaitT, jssWaitT;
-	private JCheckBox c;
+	private JCheckBox jcheck[] = new JCheckBox[4];
 	private HashMap<String, String> neuEinstellungen;
 
 	/*
-	 * ActionListener : für Button, ChangeListener : für Slider
-	 * ItemListener : für Checkbox, FocusListener : für TextField
+	 * ActionListener : für Button, ChangeListener : für Slider ItemListener :
+	 * für Checkbox, TextEvent : für TextField , FocusListener
 	 */
 
 	DialogSettings(DionaRap_Hauptfenster _fenster) {
@@ -47,12 +53,11 @@ public class DialogSettings extends JDialog implements ChangeListener {
 		lSettings = new ListenerSettingsDialog(fenster, this);
 		fenster.getController().deactivateMultiThreading();
 		neuEinstellungen = ((HashMap<String, String>) fenster.getSettings().getEinstellungen().clone());
-//		neuEinstellungen = fenster.getSettings().getEinstellungen();
 
 		pSettings.setLayout(new GridLayout(11, 2, 5, 7));
 
 		initLabels();
-		initTexts();
+		initTextFields();
 		initSliders();
 		initCheckBoxes();
 
@@ -75,20 +80,19 @@ public class DialogSettings extends JDialog implements ChangeListener {
 
 	private void addComponentsToPanel() {
 
-		// pSettings.add(labels[0]);
+		// JSlider Group
 		pSettings.add(labels[0]);
 		pSettings.add(jsoStartWT);
 		pSettings.add(labels[1]);
 		pSettings.add(jsoWaitT);
 		pSettings.add(labels[2]);
 		pSettings.add(jssWaitT);
-		
-		pSettings.add(labels[3]);
-		pSettings.add(texts[3]);
-		pSettings.add(labels[4]);
-		pSettings.add(texts[4]);
-		pSettings.add(labels[5]);
-		pSettings.add(texts[5]);
+		// JCehckBox Group
+		pSettings.add(jcheck[0]);
+		pSettings.add(jcheck[1]);
+		pSettings.add(jcheck[2]);
+		pSettings.add(jcheck[3]);
+		// JTextField Group
 		pSettings.add(labels[6]);
 		pSettings.add(texts[6]);
 		pSettings.add(labels[7]);
@@ -97,35 +101,46 @@ public class DialogSettings extends JDialog implements ChangeListener {
 		pSettings.add(texts[8]);
 		pSettings.add(labels[9]);
 		pSettings.add(texts[9]);
+
+		// JComboBoxModel
 		pSettings.add(labels[10]);
 		pSettings.add(texts[10]);
-		
-		
+
 	}
 
 	private void initCheckBoxes() {
+		for (int i = 0; i < 4; i++) {
+			jcheck[i] = new JCheckBox();
+			jcheck[i].setPreferredSize(prefSize);
+			jcheck[i].setName(Integer.toString(i));
+			jcheck[i].addItemListener(this);
+		}
+		jcheck[0].setText("Zufällige Wartezeit der Gegner");
+		jcheck[0].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.rOppWT)));
+		jcheck[1].setText("Gegner meiden Kollision mit Hindernis");
+		jcheck[1].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.aColWObs)));
+		jcheck[2].setText("Gegner meiden Kollision mit anderen Gegnern");
+		jcheck[2].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.aColWOpp)));
+		jcheck[3].setText("nicht unbegrenzte Anzahl Schüsse");
+		jcheck[3].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.sGetsOT)));
 
 	}
 
 	private void initSliders() {
 		jsoStartWT = new JSlider();
-		int v= Integer.parseInt(neuEinstellungen.get(Settings.oStartWT));
-		erstelleJSlider(jsoStartWT, Settings.oStartWT, v );
+		int v = Integer.parseInt(neuEinstellungen.get(Settings.oStartWT));
+		erstelleJSlider(jsoStartWT, Settings.oStartWT, v);
 		jsoWaitT = new JSlider();
 		erstelleJSlider(jsoWaitT, Settings.oWaitT, Integer.parseInt(neuEinstellungen.get(Settings.oWaitT)));
 		jssWaitT = new JSlider();
 		erstelleJSlider(jssWaitT, Settings.sWaitT, Integer.parseInt(neuEinstellungen.get(Settings.sWaitT)));
-
-		System.out.println(Settings.oStartWT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.oStartWT)));
-		System.out.println(Settings.oWaitT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.oWaitT)));
-		System.out.println(fenster.getSettings().sWaitT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.sWaitT)));
 	}
 
 	private void erstelleJSlider(JSlider js, String jsName, int value) {
 		js.setName(jsName);
 		js.setPreferredSize(prefSize);
 		js.addChangeListener(this);
-		//Orientation
+		// Orientation
 		js.setOrientation(JSlider.HORIZONTAL);
 		// Mindestwert wird gesetzt
 		js.setMinimum(0);
@@ -141,31 +156,28 @@ public class DialogSettings extends JDialog implements ChangeListener {
 		// Zeichnen der Labels wird aktiviert
 		js.setPaintLabels(true);
 		// Schiebebalken wird auf den Wert "value" gesetzt
-		js.setValue(value);
+		js.setValue(value); // <***>
 	}
 
-    //für JSlider
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        JSlider source = (JSlider) e.getSource();
-        int value = source.getValue();
- 
-        if(source.getName().equals(Settings.oStartWT)){          
-            neuEinstellungen.put(Settings.oStartWT, Integer.toString(value));
-    		System.out.println(Settings.oStartWT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.oStartWT)));
-        }
-        if(source.getName().equals(Settings.oWaitT)){
-            neuEinstellungen.put(Settings.oWaitT, Integer.toString(value));
-    		System.out.println(Settings.oWaitT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.oWaitT)));
+	// für JSlider
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JSlider source = (JSlider) e.getSource();
+		int value = source.getValue();
 
-        }
-        if(source.getName().equals(Settings.sWaitT)){
-            neuEinstellungen.put(Settings.sWaitT, Integer.toString(value));
-    		System.out.println(Settings.sWaitT+">>"+Integer.parseInt(neuEinstellungen.get(Settings.sWaitT)));
+		if (source.getName().equals(Settings.oStartWT)) {
+			neuEinstellungen.put(Settings.oStartWT, Integer.toString(value));
+		}
+		if (source.getName().equals(Settings.oWaitT)) {
+			neuEinstellungen.put(Settings.oWaitT, Integer.toString(value));
 
-        } 
-}
-	
+		}
+		if (source.getName().equals(Settings.sWaitT)) {
+			neuEinstellungen.put(Settings.sWaitT, Integer.toString(value));
+
+		}
+	}
+
 	private void initButtons() {
 		pButtons = new JPanel();
 		JButton bOK = new JButton("OK");
@@ -179,15 +191,18 @@ public class DialogSettings extends JDialog implements ChangeListener {
 
 	}
 
-	private void initTexts() {
-		for (int i = 0; i < 11; i++) {
+	private void initTextFields() {
+		for (int i = 3; i < 11; i++) {
 			texts[i] = new JTextField();
 			texts[i].setPreferredSize(prefSize);
-			texts[i].setText("->"+i);
+			texts[i].setName(Integer.toString(i));
+			texts[i].addFocusListener(this);
 		}
 
-//		pSettings.remove(texts[10]);
-//		pSettings.remove(texts[9]);
+		texts[6].setText(neuEinstellungen.get(Settings.zeilenA));
+		texts[7].setText(neuEinstellungen.get(Settings.spaltenA));
+		texts[8].setText(neuEinstellungen.get(Settings.gegnerA));
+		texts[9].setText(neuEinstellungen.get(Settings.hindernisA));
 
 	}
 
@@ -207,6 +222,59 @@ public class DialogSettings extends JDialog implements ChangeListener {
 		labels[8].setText("Anzahl Hindernisse");
 		labels[9].setText("Anzahl der Gegner");
 		labels[10].setText("Schwierigkeitsstufe");
+
+	}
+
+	public void performNeuEinstellungen() {
+		fenster.getSettings().setEinstellungen(neuEinstellungen);
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		JTextField jtext = (JTextField) e.getSource();
+		int itext = Integer.parseInt(jtext.getName());
+
+		switch (itext) {
+		case 6: // "Anzahl Zeilen des Spielfelds
+			neuEinstellungen.put(Settings.zeilenA, jtext.getText());
+			break;
+		case 7: // "Anzahl Spalten des Spielfelds
+			neuEinstellungen.put(Settings.spaltenA, jtext.getText());
+			break;
+		case 8: // "Anzahl Hindernisse
+			neuEinstellungen.put(Settings.hindernisA, jtext.getText());
+			break;
+		case 9: // "Anzahl der Gegner
+			neuEinstellungen.put(Settings.gegnerA, jtext.getText());
+			break;
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		JCheckBox jcBox = (JCheckBox) e.getSource();
+		String sJCBox = Boolean.toString(jcBox.isSelected());
+		int icBox = Integer.parseInt(jcBox.getName());
+
+		switch (icBox) {
+		case 0: // "Zufällige Wartezeit der Gegner"
+			neuEinstellungen.put(Settings.rOppWT, sJCBox);
+			break;
+		case 1: // "Gegner meiden Kollision mit Hindernis"
+			neuEinstellungen.put(Settings.aColWObs, sJCBox);
+			break;
+		case 2: // "Gegner meiden Kollision mit anderen Gegnern"
+			neuEinstellungen.put(Settings.aColWOpp, sJCBox);
+			break;
+		case 3: // "nicht unbegrenzte Anzahl Schüsse"
+			neuEinstellungen.put(Settings.sGetsOT, sJCBox);
+			break;
+		}
 
 	}
 

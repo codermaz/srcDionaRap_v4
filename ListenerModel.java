@@ -7,7 +7,7 @@ import de.fhwgt.dionarap.model.listener.DionaRapListener;
 public class ListenerModel implements DionaRapListener{
 	
 	private DionaRap_Hauptfenster fenster;
-	private int gegnerAnfang= Settings.GEGNER_ANZAHL;
+	private int gegnerAnfang;
 	private int gegnerAktuell;
 	private int gegnerProzent;
 	private int munitionAnzahl;
@@ -15,6 +15,7 @@ public class ListenerModel implements DionaRapListener{
 	
 	public ListenerModel(DionaRap_Hauptfenster _fenster) {
 		fenster= _fenster;
+		 gegnerAnfang= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.gegnerA));
  	}
 	
 	@Override

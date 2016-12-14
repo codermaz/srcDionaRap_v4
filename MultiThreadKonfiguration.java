@@ -10,10 +10,10 @@ public class MultiThreadKonfiguration {
 	MultiThreadKonfiguration (DionaRap_Hauptfenster _fenster) {
 		fenster=_fenster;
 		conf = new MTConfiguration();
-		initKonfiguration();
+		setKonfiguration();
 	}
 	
-	private void initKonfiguration() {
+	private void setKonfiguration() {
 		Settings settings = fenster.getSettings();
 		HashMap<String, String> sets = settings.getEinstellungen();
 

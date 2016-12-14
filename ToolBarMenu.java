@@ -32,10 +32,9 @@ public class ToolBarMenu extends JToolBar {
 	private JPanel pSpielFortschritt = new JPanel();
 	private JPanel pSettings = new JPanel();
 
-	private float panelBreite = Settings.SPALTEN_ANZAHL * Settings.LABEL_DIMENSION
-			/ Settings.TOOLBAR_PANEL_ANZAHL;
+	private float panelBreite;
 	private int panelHeight = Settings.TOOLBAR_HEIGHT;
-	private Dimension pDim = new Dimension((int) panelBreite, panelHeight);
+	private Dimension pDim;
 	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
 	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe grün
 	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
@@ -51,6 +50,10 @@ public class ToolBarMenu extends JToolBar {
 
 	ToolBarMenu(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
+		panelBreite = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA))
+				* Settings.LABEL_DIMENSION
+				/ Settings.TOOLBAR_PANEL_ANZAHL;
+		 pDim = new Dimension((int) panelBreite, panelHeight);
 		initToolBar();
 		
 		initPanelNeuSpiel();
@@ -215,8 +218,8 @@ public class ToolBarMenu extends JToolBar {
 	}
 
 	private void initToolBar() {
-		setPreferredSize(new Dimension(Settings.SPALTEN_ANZAHL * Settings.LABEL_DIMENSION,
-				Settings.TOOLBAR_HEIGHT));
+		setPreferredSize(new Dimension(Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA))
+				* Settings.LABEL_DIMENSION,	Settings.TOOLBAR_HEIGHT));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setFloatable(false);
 	}

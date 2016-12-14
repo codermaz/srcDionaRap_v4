@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.HashMap;
 
 public class Settings {
-	public static int ZEILEN_ANZAHL = 10;	
-	public static int SPALTEN_ANZAHL = 10;
+
+
 	public static int LABEL_DIMENSION = 50 ; // in pixel, quadratisch
 	public static int BUTTONS_GROESSE = 80; // Set die Grösse of JButtons in pixels im Navigationsfenster
 	public static int ENTFERNUNG_ZUM_SPIELBRETT = 20; // Die Entfernung zwichen Navigationsfenster und Spielbrett in pixels bei X Acshe
@@ -13,36 +13,36 @@ public class Settings {
 	public static Color BRETT_COLOR2= Color.black;
 	public static String THEME="alien";
 	
-	public static int GEGNER_ANZAHL = 3;
-	public static int HINDERNIS_ANZAHL = 4;	
 	public static int MUNITION_ANZAHL = 3;	
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
 	public static int TOOLBAR_HEIGHT=50;
 	
 	public static final String oStartWT = "OpponentStartWaitTime"; //= 3000 > 5 Sekunden am Anfang Schlaf
-	public static final String sWaitT = "ShotWaitTime"; //=500  ein Schuss benötigt eine halbe Sekunde
 	public static final String oWaitT = "OpponentWaitTime"; //=2000 Gegner warten vor jedem Zug 2 Sekunden
+	public static final String sWaitT = "ShotWaitTime"; //=500  ein Schuss benötigt eine halbe Sekunde
 
 	public static final String rOppWT = "RandomOpponentWaitTime"; //=false   keine zufällige Wartezeit
 	public static final String aColWObs = "AvoidCollisionWithObstacles"; // = true;
 	public static final String aColWOpp = "AvoidCollisionWithOpponent"; //=false;
+	public static final String sGetsOT = "ShotGetsOwnThread"; //=true 	nicht unbegrenzte Anzahl Schüsse
 
 	public static final String aAlgSA = "AlgorithmAStarActive"; //= true;
 	public static final String mTime = "MinimumTime"; //=800 > 0,8 Sekunden
-	public static final String sGetsOT = "ShotGetsOwnThread"; //=true nicht unbegrenzte Anzahl Schüsse
-	public static final String dOppWT = "DynamicOpponentWaitTime"; //=false    immer gleichlang warten
+	public static final String dOppWT = "DynamicOpponentWaitTime"; //=false  immer gleichlang warten
 
 	public static final String zeilenA = "ZeilenAnzahl";
 	public static final String spaltenA = "SpaltenAnzahl";
 	public static final String gegnerA = "GegnerAnzahl";
 	public static final String hindernisA = "HindernisAnzahl";
 	
-	public HashMap<String, String> einstellungen = new HashMap<>();
+	public HashMap<String, String> einstellungen;
 	private int level=1;
 
-	Settings() {
-		initMapMTKonfig(level);
+	Settings(HashMap<String, String> _einstellungen) {
+		einstellungen=_einstellungen;
+		if (einstellungen.isEmpty())
+			initMapMTKonfig(level);
 	}
 
 

@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -36,17 +37,19 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private Spielfeld spielFeld;
 	private Settings settings;
 
-	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation) {
+	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation, HashMap <String,String> einstellungen) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
 
 		//Settings 
-		settings= new Settings();
+		settings= new Settings(einstellungen);
 		
 		// Model und Controller
-		drm = new DionaRapModel(settings.ZEILEN_ANZAHL, settings.SPALTEN_ANZAHL, settings.GEGNER_ANZAHL,
-				settings.HINDERNIS_ANZAHL);
+		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)), 
+				Integer.parseInt(settings.getEinstellungen().get(Settings.spaltenA)), 
+				Integer.parseInt(settings.getEinstellungen().get(Settings.gegnerA)), 
+				Integer.parseInt(settings.getEinstellungen().get(Settings.hindernisA)) );
 		controller = new DionaRapController(drm);
 		listenerModel = new ListenerModel(this);
 		drm.addModelChangedEventListener(listenerModel);
@@ -54,6 +57,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		// Multithreading
 		conf = new MultiThreadKonfiguration(this).getMTKonfiguration();
 		controller.setMultiThreaded(conf);
+		
 		drm.setShootAmount(Settings.MUNITION_ANZAHL);
 		for (int i = 0; i < Settings.MUNITION_ANZAHL; i++)
 			drm.addAmmo(new Ammo());
@@ -107,8 +111,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		navisFenster.dispose();
 		this.dispose();
 		controller.deactivateMultiThreading();
-		fensterLocation = getLocation();
-		new DionaRap_Hauptfenster(toolbarLocation, fensterLocation);
+		fensterLocation = getLocation();	
+		new DionaRap_Hauptfenster(toolbarLocation, fensterLocation, settings.getEinstellungen());
 
 	}
 
@@ -166,7 +170,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	}
 
 	DionaRap_Hauptfenster() {
-		this("Oben", null);
+		this("Oben", null, new HashMap<String,String>());
 	}
 
 	public static void main(String[] args) {

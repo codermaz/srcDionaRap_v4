@@ -18,15 +18,14 @@ public class ListenerSettingsDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String Befehl= e.getActionCommand();
+
+		dSettings.dispose();
+		fenster.getController().setMultiThreaded(conf);
 		
-		switch (Befehl) {
-			case "OK" : 
-				System.out.println("OK");
-				break;
-			case "Abbrechen" : 
-				dSettings.dispose();
-				fenster.getController().setMultiThreaded(conf);
-				break;
+		if ("OK".equals(Befehl)) {			
+			System.out.println("OK");
+			dSettings.performNeuEinstellungen();
+			fenster.spielStart();
 		}
 
 	}
