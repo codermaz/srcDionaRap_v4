@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,27 +21,24 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class DialogSettings extends JDialog implements ChangeListener, FocusListener, ItemListener {
-
-	/**
-	 * 
+	/*
+	 * ActionListener : für Button, ChangeListener : für Slider ItemListener :
+	 * für Checkbox, TextEvent, FocusListener : für TextField  
 	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private DionaRap_Hauptfenster fenster;
-	private JPanel pSettings = new JPanel();
-	private JLabel[] labels = new JLabel[12];
-	private JTextField[] texts = new JTextField[12];
 	private Dimension prefSize = new Dimension(250, 30);
 	private ListenerSettingsDialog lSettings;
-	private JPanel pButtons;
+	private JPanel pSettings = new JPanel();
+	private JLabel[] labels = new JLabel[12];
 	private JSlider jsoStartWT, jsoWaitT, jssWaitT;
 	private JCheckBox jcheck[] = new JCheckBox[4];
+	private JTextField[] texts = new JTextField[12];
+	private JComboBox jcbLevel;
+	private JPanel pButtons;
 	private HashMap<String, String> neuEinstellungen;
-
-	/*
-	 * ActionListener : für Button, ChangeListener : für Slider ItemListener :
-	 * für Checkbox, TextEvent : für TextField , FocusListener
-	 */
 
 	DialogSettings(DionaRap_Hauptfenster _fenster) {
 
@@ -57,10 +55,10 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		pSettings.setLayout(new GridLayout(11, 2, 5, 7));
 
 		initLabels();
-		initTextFields();
 		initSliders();
 		initCheckBoxes();
-
+		initTextFields();
+		initComboBox();
 		addComponentsToPanel();
 		this.add(pSettings, BorderLayout.CENTER);
 
@@ -76,6 +74,20 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		this.pack();
 		this.setVisible(true);
 
+	}
+
+	private void initComboBox() {
+	     // Array für unsere JComboBox
+        String jcbListe[] = {"A- Level 1", "A- Level 2", "A- Level 3", 
+        		"B- Level 1", "B- Level 2", "B- Level 3",
+        		"C- Level 1", "C- Level 2", "C- Level 3"};
+ 
+        jcbLevel= new JComboBox(jcbListe);
+        jcbLevel.setActionCommand("Level");
+        int itemNo= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.levelS)); 
+        jcbLevel.setSelectedIndex(itemNo);
+        jcbLevel.addActionListener(lSettings);
+        
 	}
 
 	private void addComponentsToPanel() {
@@ -104,10 +116,26 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 
 		// JComboBoxModel
 		pSettings.add(labels[10]);
-		pSettings.add(texts[10]);
+		pSettings.add(jcbLevel);
 
 	}
 
+	public void updateWerte(HashMap <String, String> updEinstellungen) {
+		jsoStartWT.setValue(Integer.parseInt(updEinstellungen.get(Settings.oStartWT)));
+		jsoWaitT.setValue(Integer.parseInt(updEinstellungen.get(Settings.oWaitT)));
+		jssWaitT.setValue(Integer.parseInt(updEinstellungen.get(Settings.sWaitT)));
+		jcheck[0].setSelected(Boolean.parseBoolean(updEinstellungen.get(Settings.rOppWT)));
+		jcheck[1].setSelected(Boolean.parseBoolean(updEinstellungen.get(Settings.aColWObs)));
+		jcheck[2].setSelected(Boolean.parseBoolean(updEinstellungen.get(Settings.aColWOpp)));
+		jcheck[3].setSelected(Boolean.parseBoolean(updEinstellungen.get(Settings.sGetsOT)));
+		texts[6].setText(updEinstellungen.get(Settings.zeilenA));
+		texts[7].setText(updEinstellungen.get(Settings.spaltenA));
+		texts[8].setText(updEinstellungen.get(Settings.gegnerA));
+		texts[9].setText(updEinstellungen.get(Settings.hindernisA));
+		jcbLevel.setSelectedIndex(Integer.parseInt(updEinstellungen.get(Settings.levelS)));
+		neuEinstellungen = updEinstellungen;
+	}
+	
 	private void initCheckBoxes() {
 		for (int i = 0; i < 4; i++) {
 			jcheck[i] = new JCheckBox();
@@ -192,7 +220,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	}
 
 	private void initTextFields() {
-		for (int i = 3; i < 11; i++) {
+		for (int i = 6; i < 10; i++) {
 			texts[i] = new JTextField();
 			texts[i].setPreferredSize(prefSize);
 			texts[i].setName(Integer.toString(i));
@@ -229,6 +257,30 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		fenster.getSettings().setEinstellungen(neuEinstellungen);
 	}
 
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		JCheckBox jcBox = (JCheckBox) e.getSource();
+		String sJCBox = Boolean.toString(jcBox.isSelected());
+		int icBox = Integer.parseInt(jcBox.getName());
+		
+		switch (icBox) {
+		case 0: // "Zufällige Wartezeit der Gegner"
+			neuEinstellungen.put(Settings.rOppWT, sJCBox);
+			break;
+		case 1: // "Gegner meiden Kollision mit Hindernis"
+			neuEinstellungen.put(Settings.aColWObs, sJCBox);
+			break;
+		case 2: // "Gegner meiden Kollision mit anderen Gegnern"
+			neuEinstellungen.put(Settings.aColWOpp, sJCBox);
+			break;
+		case 3: // "nicht unbegrenzte Anzahl Schüsse"
+			neuEinstellungen.put(Settings.sGetsOT, sJCBox);
+			break;
+		}
+		
+	}
+
 	@Override
 	public void focusGained(FocusEvent e) {
 
@@ -253,29 +305,6 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 			neuEinstellungen.put(Settings.gegnerA, jtext.getText());
 			break;
 		}
-	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		JCheckBox jcBox = (JCheckBox) e.getSource();
-		String sJCBox = Boolean.toString(jcBox.isSelected());
-		int icBox = Integer.parseInt(jcBox.getName());
-
-		switch (icBox) {
-		case 0: // "Zufällige Wartezeit der Gegner"
-			neuEinstellungen.put(Settings.rOppWT, sJCBox);
-			break;
-		case 1: // "Gegner meiden Kollision mit Hindernis"
-			neuEinstellungen.put(Settings.aColWObs, sJCBox);
-			break;
-		case 2: // "Gegner meiden Kollision mit anderen Gegnern"
-			neuEinstellungen.put(Settings.aColWOpp, sJCBox);
-			break;
-		case 3: // "nicht unbegrenzte Anzahl Schüsse"
-			neuEinstellungen.put(Settings.sGetsOT, sJCBox);
-			break;
-		}
-
 	}
 
 }
