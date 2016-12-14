@@ -30,6 +30,9 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private DionaRapModel drm;
 	private DionaRapController controller;
 	private ListenerModel listenerModel;
+	private MTConfiguration conf;
+	
+
 	private Spielfeld spielFeld;
 	private Settings settings;
 
@@ -49,7 +52,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		drm.addModelChangedEventListener(listenerModel);
 
 		// Multithreading
-		controller.setMultiThreaded(new MultiThreadKonfiguration(this).getMTKonfiguration());
+		conf = new MultiThreadKonfiguration(this).getMTKonfiguration();
+		controller.setMultiThreaded(conf);
 		drm.setShootAmount(Settings.MUNITION_ANZAHL);
 		for (int i = 0; i < Settings.MUNITION_ANZAHL; i++)
 			drm.addAmmo(new Ammo());
@@ -123,6 +127,14 @@ public class DionaRap_Hauptfenster extends JFrame {
 			System.out.println("setLookAndFeel Exception " + e);
 		}
 
+	}
+
+	public MTConfiguration getConf() {
+		return conf;
+	}
+	
+	public void setConf(MTConfiguration conf) {
+		this.conf = conf;
 	}
 
 	public DionaRapModel getDrm() {
