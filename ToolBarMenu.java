@@ -36,7 +36,7 @@ public class ToolBarMenu extends JToolBar {
 	private int panelHeight = Settings.TOOLBAR_HEIGHT;
 	private Dimension pDim;
 	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
-	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe grün
+	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe grï¿½n
 	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
 	
 	private JButton bNeuSpiel;
@@ -153,7 +153,8 @@ public class ToolBarMenu extends JToolBar {
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
 		
-		setMunitionAnzahl(fenster.getDrm().getAmmoValue());
+		setMunitionAnzahl(fenster.getDrm().getShootAmount());
+		
 	}
 
 	public void setMunitionAnzahl(int Anzahl) {
@@ -162,7 +163,7 @@ public class ToolBarMenu extends JToolBar {
 			lMunition[i].setIcon(null);
 		lMunition[0].setText(null);
 		
-		//Munitionsanzeige wieder füllen
+		//Munitionsanzeige wieder fï¿½llen
 		switch (Anzahl) {
 		case 3: 
 			lMunition[0].setIcon(imageMunition);
@@ -180,7 +181,7 @@ public class ToolBarMenu extends JToolBar {
 				lMunition[i].setIcon(imageMunition);
 		}
 
-		pMunition.updateUI();
+		pMunition.updateUI();  //###
 	}
 	
 	private void initPanelFortschritt() {

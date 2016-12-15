@@ -36,10 +36,9 @@ public class ListenerModel implements DionaRapListener{
 		gegnerProzent=(int) (100-((double)gegnerAktuell / (double)gegnerAnfang)*100);
 		tBar.setSpielfortschritWert(gegnerProzent);
 		
-		//TODO Munition Anzahl aktualisieren
-		munitionAnzahl= drm.getAmmoValue();
+		// Munition Anzahl aktualisieren
+		munitionAnzahl= drm.getShootAmount();
 		tBar.setMunitionAnzahl(munitionAnzahl);
-		System.out.println(" Munitionsanzahl : " +munitionAnzahl);
 	}
 
  	@Override

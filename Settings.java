@@ -7,25 +7,27 @@ public class Settings {
 
 
 	public static int LABEL_DIMENSION = 50 ; // in pixel, quadratisch
-	public static int BUTTONS_GROESSE = 80; // Set die Grösse of JButtons in pixels im Navigationsfenster
+	public static int BUTTONS_GROESSE = 80; // Set die Grï¿½sse of JButtons in pixels im Navigationsfenster
 	public static int ENTFERNUNG_ZUM_SPIELBRETT = 20; // Die Entfernung zwichen Navigationsfenster und Spielbrett in pixels bei X Acshe
 	public static Color BRETT_COLOR1 = Color.white;
 	public static Color BRETT_COLOR2= Color.black;
 	public static String THEME="alien";
 	
-	public static int MUNITION_ANZAHL = 3;	
+	public static int MUNITION_ANZAHL_ZUBEGIN = 3;	
+	public static int MUNITION_ANZAHL_FUREINAMMO = 2;	
+	public static int MUNITION_ANZAHL_AUFDEMFELD= 4;	
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
 	public static int TOOLBAR_HEIGHT=50;
 	
 	public static final String oStartWT = "OpponentStartWaitTime"; //= 3000 > 5 Sekunden am Anfang Schlaf
 	public static final String oWaitT = "OpponentWaitTime"; //=2000 Gegner warten vor jedem Zug 2 Sekunden
-	public static final String sWaitT = "ShotWaitTime"; //=500  ein Schuss benötigt eine halbe Sekunde
+	public static final String sWaitT = "ShotWaitTime"; //=500  ein Schuss benï¿½tigt eine halbe Sekunde
 
-	public static final String rOppWT = "RandomOpponentWaitTime"; //=false   keine zufällige Wartezeit
+	public static final String rOppWT = "RandomOpponentWaitTime"; //=false   keine zufï¿½llige Wartezeit
 	public static final String aColWObs = "AvoidCollisionWithObstacles"; // = true;
 	public static final String aColWOpp = "AvoidCollisionWithOpponent"; //=false;
-	public static final String sGetsOT = "ShotGetsOwnThread"; //=true 	nicht unbegrenzte Anzahl Schüsse
+	public static final String sGetsOT = "ShotGetsOwnThread"; //=true 	nicht unbegrenzte Anzahl Schï¿½sse
 
 	public static final String aAlgSA = "AlgorithmAStarActive"; //= true;
 	public static final String mTime = "MinimumTime"; //=800 > 0,8 Sekunden

@@ -32,24 +32,23 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private DionaRapController controller;
 	private ListenerModel listenerModel;
 	private MTConfiguration conf;
-	
 
 	private Spielfeld spielFeld;
 	private Settings settings;
 
-	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation, HashMap <String,String> einstellungen) {
+	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation, HashMap<String, String> einstellungen) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
 
-		//Settings 
-		settings= new Settings(einstellungen);
-		
+		// Settings
+		settings = new Settings(einstellungen);
+
 		// Model und Controller
-		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)), 
-				Integer.parseInt(settings.getEinstellungen().get(Settings.spaltenA)), 
-				Integer.parseInt(settings.getEinstellungen().get(Settings.gegnerA)), 
-				Integer.parseInt(settings.getEinstellungen().get(Settings.hindernisA)) );
+		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)),
+				Integer.parseInt(settings.getEinstellungen().get(Settings.spaltenA)),
+				Integer.parseInt(settings.getEinstellungen().get(Settings.gegnerA)),
+				Integer.parseInt(settings.getEinstellungen().get(Settings.hindernisA)));
 		controller = new DionaRapController(drm);
 		listenerModel = new ListenerModel(this);
 		drm.addModelChangedEventListener(listenerModel);
@@ -57,13 +56,14 @@ public class DionaRap_Hauptfenster extends JFrame {
 		// Multithreading
 		conf = new MultiThreadKonfiguration(this).getMTKonfiguration();
 		controller.setMultiThreaded(conf);
-		
-		drm.setShootAmount(Settings.MUNITION_ANZAHL);
-		for (int i = 0; i < Settings.MUNITION_ANZAHL; i++)
+
+		// ShootAmount : Legt fest, wieviele Schüsse der Spieler zu Beginn hat.
+		// -1 steht für eine unbegrenzte Anzahl an Munition.
+		drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
+		// AmmoValue : Setzt die Anzahl der Munition für ein Ammo-Objekt
+		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);
+		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++)
 			drm.addAmmo(new Ammo());
-		drm.setAmmoValue(Settings.MUNITION_ANZAHL);
-		// TODO ?AmmoValue stimmt nicht
-		System.out.println("anfang muniton:" + drm.getAmmoValue());
 
 		// Brett initialisieren
 		spielFeld = new Spielfeld(this);
@@ -89,7 +89,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 			setLocationRelativeTo(null);
 		setVisible(true);
 
-		// f�r KeyListener
+		// fuer KeyListener
 		this.requestFocus();
 		addWindowFocusListener();
 	}
@@ -111,7 +111,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		navisFenster.dispose();
 		this.dispose();
 		controller.deactivateMultiThreading();
-		fensterLocation = getLocation();	
+		fensterLocation = getLocation();
 		new DionaRap_Hauptfenster(toolbarLocation, fensterLocation, settings.getEinstellungen());
 
 	}
@@ -136,7 +136,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public MTConfiguration getConf() {
 		return conf;
 	}
-	
+
 	public void setConf(MTConfiguration conf) {
 		this.conf = conf;
 	}
@@ -152,7 +152,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public Settings getSettings() {
 		return settings;
 	}
-	
+
 	public Spielfeld getSpielfeld() {
 		return spielFeld;
 	}
@@ -170,7 +170,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	}
 
 	DionaRap_Hauptfenster() {
-		this("Oben", null, new HashMap<String,String>());
+		this("Oben", null, new HashMap<String, String>());
 	}
 
 	public static void main(String[] args) {
