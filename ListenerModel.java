@@ -25,7 +25,7 @@ public class ListenerModel implements DionaRapListener{
 		DionaRapModel drm = fenster.getDrm(); 
 		ToolBarMenu tBar = fenster.getToolBarMenu();
 		
-		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar();
+		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar(); nur für Info
 		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
 		//PunkteStand bei ToolBarMenu aktualisieren
 		int Punkte=drm.getScore();
