@@ -38,7 +38,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	private JSlider jsoStartWT, jsoWaitT, jssWaitT;
 	private JCheckBox jcheck[] = new JCheckBox[4];
 	private JTextField[] texts = new JTextField[12];
-	JComboBox<String> jcbLevel;
+	private JComboBox<String> jcbLevel;
 	private JPanel pButtons;
 	private HashMap<String, String> neuEinstellungen;
   
@@ -97,9 +97,9 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		pSettings.add(labels[0]);
 		pSettings.add(jsoStartWT);
 		pSettings.add(labels[1]);
-		pSettings.add(jsoWaitT);
-		pSettings.add(labels[2]);
 		pSettings.add(jssWaitT);
+		pSettings.add(labels[2]);
+		pSettings.add(jsoWaitT);
 		// JCehckBox Group
 		pSettings.add(jcheck[0]);
 		pSettings.add(jcheck[1]);
@@ -159,10 +159,10 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		jsoStartWT = new JSlider();
 		int v = Integer.parseInt(neuEinstellungen.get(Settings.oStartWT));
 		erstelleJSlider(jsoStartWT, Settings.oStartWT, v);
-		jsoWaitT = new JSlider();
-		erstelleJSlider(jsoWaitT, Settings.oWaitT, Integer.parseInt(neuEinstellungen.get(Settings.oWaitT)));
 		jssWaitT = new JSlider();
 		erstelleJSlider(jssWaitT, Settings.sWaitT, Integer.parseInt(neuEinstellungen.get(Settings.sWaitT)));
+		jsoWaitT = new JSlider();
+		erstelleJSlider(jsoWaitT, Settings.oWaitT, Integer.parseInt(neuEinstellungen.get(Settings.oWaitT)));
 	}
 
 	private void erstelleJSlider(JSlider js, String jsName, int value) {
@@ -202,7 +202,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		} else if (source.getName().equals(Settings.sWaitT)) {
 			neuEinstellungen.put(Settings.sWaitT, Integer.toString(value));
 		}
-    	System.out.println("levelliste  : "+(DialogSettings.this.jcbLevel.getItemAt(9)));
+    	// TODO ?Fehler NullPointer
 //		jcbLevel.setSelectedIndex(9);
 	}
 
