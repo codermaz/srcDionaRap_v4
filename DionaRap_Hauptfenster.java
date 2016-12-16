@@ -57,8 +57,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		conf = new MultiThreadKonfiguration(this).getMTKonfiguration();
 		controller.setMultiThreaded(conf);
 
-		// ShootAmount : Legt fest, wieviele Schüsse der Spieler zu Beginn hat.
-		// -1 steht für eine unbegrenzte Anzahl an Munition.
+		// ShootAmount : Legt fest, wieviele Schuesse der Spieler zu Beginn hat.
+		// -1 steht fuer eine unbegrenzte Anzahl an Munition.
 		drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
 		// AmmoValue : Setzt die Anzahl der Munition für ein Ammo-Objekt
 		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);

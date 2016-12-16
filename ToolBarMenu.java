@@ -35,8 +35,10 @@ public class ToolBarMenu extends JToolBar {
 	private float panelBreite;
 	private int panelHeight = Settings.TOOLBAR_HEIGHT;
 	private Dimension pDim;
-	private Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
-	private Color PR_FARBE_gruen = new Color(0x6DB45D);  // PanelRandfarbe gr�n
+	public Color PR_FARBE_blau = new Color(0x185BAF);  // PanelRandfarbe himmelblau
+	public Color LR_FARBE_gruen = new Color(0x6DB45D); // LabelRandfarbe gruen
+	public Color PR_FARBE_red = new Color(0xC13A55);  	// PanelRandfarbe red
+	
 	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
 	
 	private JButton bNeuSpiel;
@@ -47,6 +49,9 @@ public class ToolBarMenu extends JToolBar {
 	private int dimensionXLabelMunition=30;
 	private int dimensionYLabelMunition=30;
 	private JProgressBar pbSpielFortschritt = new JProgressBar(0,100);
+	
+	private RunnableBlinkingMunition rbm;
+	private Thread threadBlinking = null;
 
 	ToolBarMenu(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
@@ -68,6 +73,33 @@ public class ToolBarMenu extends JToolBar {
 		add(pMunition);
 		add(pSpielFortschritt);
 		add(pSettings);
+		//runnable Instanz 
+		rbm = new RunnableBlinkingMunition(this);
+		//Thread erzeugen mir runnable Instanz 
+		threadBlinking = new Thread(rbm);
+	}
+	
+	public void blinkingMunition(Color farbe,int thickness) { 
+		pMunition.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(farbe, thickness),
+				"Munition",
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				panelFont,farbe));
+	}
+	
+	
+	public void startBlinking() {
+		if (!threadBlinking.isAlive()) {
+			threadBlinking = new Thread(rbm);
+			threadBlinking.start();
+		}
+		j=0;
+	}
+	int j=0;
+	public void stopBlinking(){
+		if (threadBlinking.isAlive()) {
+			threadBlinking.interrupt();
+			System.out.println("stop blinking:" +(++j));
+		}
 	}
 	
 	public JToolBar getToolBarMenu() {
@@ -102,9 +134,10 @@ public class ToolBarMenu extends JToolBar {
 		tPunkte.setForeground(PR_FARBE_blau);
 		
 		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.Y_AXIS));
-		pPunkteStand.setBorder(BorderFactory.createTitledBorder(null,"Punktestand",
-						TitledBorder.CENTER, TitledBorder.TOP, 
-						panelFont, PR_FARBE_blau));
+		pPunkteStand.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
+				"Punktestand",
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				panelFont, PR_FARBE_blau));
 
 		pPunkteStand.setPreferredSize(pDim);
 
@@ -139,11 +172,12 @@ public class ToolBarMenu extends JToolBar {
 		for (int i = 0; i < 3; i++) {
 			lMunition[i] = new JLabel();
 			lMunition[i].setIcon(imageMunition);
-			lMunition[i].setBorder(BorderFactory.createLineBorder(PR_FARBE_gruen));
+			lMunition[i].setBorder(BorderFactory.createLineBorder(LR_FARBE_gruen));
 		}
 		pMunition.setLayout(new GridLayout(1,3,2,2));
 
-		pMunition.setBorder(BorderFactory.createTitledBorder(null,"Munition",
+		pMunition.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
+				"Munition",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
 		pMunition.setPreferredSize(pDim);
@@ -152,18 +186,20 @@ public class ToolBarMenu extends JToolBar {
 		pMunition.removeAll();
 		for (int i = 0; i < 3; i++) 
 			pMunition.add(lMunition[i]);
-		
-		setMunitionAnzahl(fenster.getDrm().getShootAmount());
+		showMunitionAnzahl(fenster.getDrm().getShootAmount());
 		
 	}
 
-	public void setMunitionAnzahl(int Anzahl) {
+	public void showMunitionAnzahl(int Anzahl) {
+		if ( (Anzahl==Settings.MUNITION_ANZAHL_FUREINAMMO) && (threadBlinking.isAlive()) )
+			stopBlinking();
+
 		//Munitionsanzeige entleeren
 		for (int i = 0; i < 3; i++) 
 			lMunition[i].setIcon(null);
 		lMunition[0].setText(null);
 		
-		//Munitionsanzeige wieder f�llen
+		//Munitionsanzeige wieder fuellen
 		switch (Anzahl) {
 		case 3: 
 			lMunition[0].setIcon(imageMunition);
@@ -187,7 +223,8 @@ public class ToolBarMenu extends JToolBar {
 	private void initPanelFortschritt() {
 		pbSpielFortschritt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pSpielFortschritt.setLayout(new BoxLayout(pSpielFortschritt, BoxLayout.Y_AXIS));
-		pSpielFortschritt.setBorder(BorderFactory.createTitledBorder(null,"Spielfortschritt",
+		pSpielFortschritt.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
+				"Spielfortschritt",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
 

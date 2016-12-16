@@ -12,12 +12,13 @@ public class ListenerBewegung implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent event) { // Ausloeser des ActionEvent
+	public void actionPerformed(ActionEvent event) { // Ausloeser des
+														// ActionEvent
 														// besorgen
 		String befehl = event.getActionCommand();
 		DionaRapController drc = fenster.getController();
 
-		//System.out.println(befehl);
+		// System.out.println(befehl);
 		switch (befehl) {
 
 		case "links":
@@ -47,7 +48,10 @@ public class ListenerBewegung implements ActionListener {
 			break;
 
 		case "shiessen":
-			drc.shoot();
+			if (fenster.getDrm().getShootAmount() == 0) // munitionAnzahl
+				fenster.getToolBarMenu().startBlinking();
+			else
+				drc.shoot();
 			break;
 
 		}

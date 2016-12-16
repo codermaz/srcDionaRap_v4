@@ -38,7 +38,7 @@ public class ListenerModel implements DionaRapListener{
 		
 		// Munition Anzahl aktualisieren
 		munitionAnzahl= drm.getShootAmount();
-		tBar.setMunitionAnzahl(munitionAnzahl);
+		tBar.showMunitionAnzahl(munitionAnzahl);
 	}
 
  	@Override
