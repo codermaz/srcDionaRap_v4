@@ -3,6 +3,8 @@
 import java.awt.Color;
 import java.util.HashMap;
 
+import de.fhwgt.dionarap.model.objects.Ammo;
+
 public class Settings {
 
 
@@ -13,9 +15,10 @@ public class Settings {
 	public static Color BRETT_COLOR2= Color.black;
 	public static String THEME="alien";
 	
-	public static int MUNITION_ANZAHL_ZUBEGIN = 3;	
-	public static int MUNITION_ANZAHL_FUREINAMMO = 2;	
-	public static int MUNITION_ANZAHL_AUFDEMFELD= 4;	
+	public static int MUNITION_ANZAHL_ZUBEGIN = 3;	//drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
+	public static int MUNITION_ANZAHL_FUREINAMMO = 2; //drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);	
+	public static int MUNITION_ANZAHL_AUFDEMFELD= 4; // drm.addAmmo(new Ammo());
+	// for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++) drm.addAmmo(new Ammo());
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
 	public static int TOOLBAR_HEIGHT=50;
@@ -39,16 +42,22 @@ public class Settings {
 	public static final String hindernisA = "HindernisAnzahl";
 	public static final String levelS = "level";
 	public int levelNo;
+	private boolean customLevel;
 	
 	public HashMap<String, String> einstellungen;
 
 
-	Settings(HashMap<String, String> _einstellungen) {
+	Settings(HashMap<String, String> _einstellungen, int _levelNo, boolean _customLevel) {
+		levelNo= _levelNo;
+		customLevel = _customLevel;
 		einstellungen=_einstellungen;
-		if (einstellungen.isEmpty()){
-			levelNo=0;
+		if (einstellungen.isEmpty()) {
 			setMapMTKonfig(levelNo);
+		} else {
+			if (!customLevel) 
+				setMapMTKonfig(levelNo);
 		}
+		
 	}
 
 

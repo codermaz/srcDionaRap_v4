@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -44,6 +45,8 @@ public class ToolBarMenu extends JToolBar {
 	private JButton bNeuSpiel;
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
+	private JLabel lPunkte = new JLabel();
+	public ArrayList<String> levelListe; //LevelListe
 	private JLabel lMunition[] = new JLabel[3];
 	private ImageIcon imageMunition;
 	private int dimensionXLabelMunition=30;
@@ -51,14 +54,14 @@ public class ToolBarMenu extends JToolBar {
 	private JProgressBar pbSpielFortschritt = new JProgressBar(0,100);
 	
 	private RunnableBlinkingMunition rbm;
-	private Thread threadBlinking = null;
+	private Thread threadBlinking;
 
 	ToolBarMenu(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
 		panelBreite = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA))
 				* Settings.LABEL_DIMENSION
 				/ Settings.TOOLBAR_PANEL_ANZAHL;
-		 pDim = new Dimension((int) panelBreite, panelHeight);
+		pDim = new Dimension((int) panelBreite, panelHeight);
 		initToolBar();
 		
 		initPanelNeuSpiel();
@@ -75,7 +78,7 @@ public class ToolBarMenu extends JToolBar {
 		add(pSettings);
 		//runnable Instanz 
 		rbm = new RunnableBlinkingMunition(this);
-		//Thread erzeugen mir runnable Instanz 
+		//Thread erzeugen mit runnable Instanz 
 		threadBlinking = new Thread(rbm);
 	}
 	
@@ -127,26 +130,47 @@ public class ToolBarMenu extends JToolBar {
 	}
 
 	private void initPanelPunkteStand() {
-		tPunkte.setAlignmentX(Component.CENTER_ALIGNMENT);
+		Dimension lDim1 = new Dimension(80,30);
+		Dimension lDim2 = new Dimension(20,30);
+		
+		levelListe= new ArrayList<>();
+        levelListe.add("Level A-1"); levelListe.add("Level A-2"); levelListe.add("Level A-3");
+        levelListe.add("Level B-1"); levelListe.add("Level B-2"); levelListe.add("Level B-3");
+        levelListe.add("Level C-1"); levelListe.add("Level C-2"); levelListe.add("Level C-3");
+        levelListe.add("Custom Level");
+    	if (fenster.isCustomLevel())
+			lPunkte.setText("Custom Level");
+		else 
+			lPunkte.setText(levelListe.get(fenster.currentLevel));
+        lPunkte.setFont(panelFont);
+        lPunkte.setHorizontalAlignment(JLabel.CENTER);
+        lPunkte.setPreferredSize(lDim1);
+        //lPunkte.setAlignmentX(Component.LEFT_ALIGNMENT);
+
 		tPunkte.setEditable(false);
 		tPunkte.setColumns(5);
 		tPunkte.setHorizontalAlignment(JTextField.CENTER);
 		tPunkte.setForeground(PR_FARBE_blau);
-		
-		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.Y_AXIS));
+		tPunkte.setPreferredSize(lDim2);
+		tPunkte.setText(Integer.toString(fenster.currentPunkte));
+        
+		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.X_AXIS));
 		pPunkteStand.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
 				"Punktestand",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
 
 		pPunkteStand.setPreferredSize(pDim);
-
-		pPunkteStand.add(Box.createGlue());
+		pPunkteStand.add(lPunkte);
 		pPunkteStand.add(tPunkte);
-		pPunkteStand.add(Box.createGlue());
+		
 	}
 	
 	public void setPunkteStand(String Punkte) {
+		if (fenster.isCustomLevel())
+			lPunkte.setText("Custom");
+		else 
+			lPunkte.setText(levelListe.get(fenster.currentLevel));
 		tPunkte.setText(Punkte);
 	}
 

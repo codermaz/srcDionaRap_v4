@@ -16,6 +16,8 @@ DionaRap_Hauptfenster fenster;
 		if (event.getActionCommand() == "NeuSpiel") {
 			fenster.getToolBarMenu().setButtonNeuEnabled(false);
 			// Neues Spiel anfangen
+			fenster.currentLevel=0;
+			DionaRap_Hauptfenster.currentPunkte = 0; 
 			fenster.spielStart();
 		}
 		if (event.getActionCommand() == "Settings") {

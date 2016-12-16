@@ -35,15 +35,22 @@ public class DionaRap_Hauptfenster extends JFrame {
 
 	private Spielfeld spielFeld;
 	private Settings settings;
+	public int currentLevel;
+	public final int LEVEL_MAX=9;
+	public static int currentPunkte;
+	private boolean customLevel;
 
-	public DionaRap_Hauptfenster(String toolbarLocation, Point fensterLocation, HashMap<String, String> einstellungen) {
+
+	public DionaRap_Hauptfenster(String toolbarLocation, int currentPunkte, 
+			HashMap<String, String> einstellungen, int level, boolean _customLevel) {
+		currentLevel=level;
+		customLevel= _customLevel;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
 
 		// Settings
-		settings = new Settings(einstellungen);
-
+		settings = new Settings(einstellungen, currentLevel, customLevel);
 		// Model und Controller
 		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)),
 				Integer.parseInt(settings.getEinstellungen().get(Settings.spaltenA)),
@@ -60,7 +67,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		// ShootAmount : Legt fest, wieviele Schuesse der Spieler zu Beginn hat.
 		// -1 steht fuer eine unbegrenzte Anzahl an Munition.
 		drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
-		// AmmoValue : Setzt die Anzahl der Munition für ein Ammo-Objekt
+		// AmmoValue : Setzt die Anzahl der Munition fuer ein Ammo-Objekt
 		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);
 		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++)
 			drm.addAmmo(new Ammo());
@@ -83,10 +90,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 		setToolbarPosition(toolbarLocation);
 
 		pack();
-		if (fensterLocation != null)
-			setLocation(fensterLocation);
-		else
-			setLocationRelativeTo(null);
+//		if (fensterLocation != null)
+//			setLocation(fensterLocation);
+//		else
+		setLocationRelativeTo(null);
 		setVisible(true);
 
 		// fuer KeyListener
@@ -112,7 +119,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.dispose();
 		controller.deactivateMultiThreading();
 		fensterLocation = getLocation();
-		new DionaRap_Hauptfenster(toolbarLocation, fensterLocation, settings.getEinstellungen());
+		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel);
 
 	}
 
@@ -169,8 +176,16 @@ public class DionaRap_Hauptfenster extends JFrame {
 		return toolBarMenu;
 	}
 
+	public boolean isCustomLevel() {
+		return customLevel;
+	}
+
+	public void setCustomLevel(boolean customLevel) {
+		this.customLevel = customLevel;
+	}
+
 	DionaRap_Hauptfenster() {
-		this("Oben", null, new HashMap<String, String>());
+		this("Oben", 0, new HashMap<String, String>(), 0, false);
 	}
 
 	public static void main(String[] args) {

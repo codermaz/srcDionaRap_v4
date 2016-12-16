@@ -11,6 +11,8 @@ public class ListenerModel implements DionaRapListener{
 	private int gegnerAktuell;
 	private int gegnerProzent;
 	private int munitionAnzahl;
+	private int Punkte;
+	private DionaRapModel drm;
 	
 	
 	public ListenerModel(DionaRap_Hauptfenster _fenster) {
@@ -22,13 +24,13 @@ public class ListenerModel implements DionaRapListener{
 	public void modelChanged(DionaRapChangedEvent arg0) {	
 		fenster.getSpielfeld().leereBrett();	
 		fenster.getSpielfeld().setzeAllePawns();	
-		DionaRapModel drm = fenster.getDrm(); 
+		drm = fenster.getDrm(); 
 		ToolBarMenu tBar = fenster.getToolBarMenu();
 		
 		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar(); nur für Info
 		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
 		//PunkteStand bei ToolBarMenu aktualisieren
-		int Punkte=drm.getScore();
+		Punkte = drm.getScore() + (fenster.currentPunkte);
 		tBar.setPunkteStand(Integer.toString(Punkte));		
 		
 		//ProgressStand bei ToolBarMenu aktualisieren
@@ -52,9 +54,17 @@ public class ListenerModel implements DionaRapListener{
 		if (arg0.isGameOver()) 
 			dwo = new DialogWonOver(fenster, 0);
 		
-		if (dwo.getAuswahl()==0)
+		if (dwo.getAuswahl()==0) {  // Next Level
+			if (fenster.currentLevel<fenster.LEVEL_MAX) fenster.currentLevel++;
+			DionaRap_Hauptfenster.currentPunkte += drm.getScore(); 
 			fenster.spielStart();
-		else 
+		}
+		else if (dwo.getAuswahl()==1)  // Abbrechen
 			fenster.getToolBarMenu().setButtonNeuEnabled(true);
+		else if (dwo.getAuswahl()==2){ // Neues Spiel
+			fenster.currentLevel=0;
+			DionaRap_Hauptfenster.currentPunkte = 0; 
+			fenster.spielStart();
+		}
 	}
 }

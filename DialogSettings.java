@@ -5,8 +5,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -22,8 +24,8 @@ import javax.swing.event.ChangeListener;
 
 public class DialogSettings extends JDialog implements ChangeListener, FocusListener, ItemListener {
 	/*
-	 * ActionListener : für Button, ChangeListener : für Slider ItemListener :
-	 * für Checkbox, TextEvent, FocusListener : für TextField  
+	 * ActionListener : für Button/ ChangeListener : für Slider / ItemListener :
+	 * für Checkbox/ TextEvent, FocusListener : für TextField  
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -36,9 +38,10 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	private JSlider jsoStartWT, jsoWaitT, jssWaitT;
 	private JCheckBox jcheck[] = new JCheckBox[4];
 	private JTextField[] texts = new JTextField[12];
-	private JComboBox jcbLevel;
+	JComboBox<String> jcbLevel;
 	private JPanel pButtons;
 	private HashMap<String, String> neuEinstellungen;
+  
 
 	DialogSettings(DionaRap_Hauptfenster _fenster) {
 
@@ -47,6 +50,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		initAktuellSettings();
 	}
 
+	
 	private void initAktuellSettings() {
 		lSettings = new ListenerSettingsDialog(fenster, this);
 		fenster.getController().deactivateMultiThreading();
@@ -78,16 +82,13 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 
 	private void initComboBox() {
 	     // Array für unsere JComboBox
-        String jcbListe[] = {"A- Level 1", "A- Level 2", "A- Level 3", 
-        		"B- Level 1", "B- Level 2", "B- Level 3",
-        		"C- Level 1", "C- Level 2", "C- Level 3"};
- 
-        jcbLevel= new JComboBox(jcbListe);
+        jcbLevel= new JComboBox<String>(); 
+        jcbLevel.setModel(new DefaultComboBoxModel (fenster.getToolBarMenu().levelListe.toArray()));//###
         jcbLevel.setActionCommand("Level");
         int itemNo= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.levelS)); 
         jcbLevel.setSelectedIndex(itemNo);
         jcbLevel.addActionListener(lSettings);
-        
+
 	}
 
 	private void addComponentsToPanel() {
@@ -192,18 +193,17 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	public void stateChanged(ChangeEvent e) {
 		JSlider source = (JSlider) e.getSource();
 		int value = source.getValue();
-
+		fenster.setCustomLevel(true);
+		
 		if (source.getName().equals(Settings.oStartWT)) {
 			neuEinstellungen.put(Settings.oStartWT, Integer.toString(value));
-		}
-		if (source.getName().equals(Settings.oWaitT)) {
+		} else if (source.getName().equals(Settings.oWaitT)) {
 			neuEinstellungen.put(Settings.oWaitT, Integer.toString(value));
-
-		}
-		if (source.getName().equals(Settings.sWaitT)) {
+		} else if (source.getName().equals(Settings.sWaitT)) {
 			neuEinstellungen.put(Settings.sWaitT, Integer.toString(value));
-
 		}
+    	System.out.println("levelliste  : "+(DialogSettings.this.jcbLevel.getItemAt(9)));
+//		jcbLevel.setSelectedIndex(9);
 	}
 
 	private void initButtons() {
@@ -226,12 +226,10 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 			texts[i].setName(Integer.toString(i));
 			texts[i].addFocusListener(this);
 		}
-
 		texts[6].setText(neuEinstellungen.get(Settings.zeilenA));
 		texts[7].setText(neuEinstellungen.get(Settings.spaltenA));
 		texts[8].setText(neuEinstellungen.get(Settings.gegnerA));
 		texts[9].setText(neuEinstellungen.get(Settings.hindernisA));
-
 	}
 
 	private void initLabels() {
@@ -263,7 +261,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		JCheckBox jcBox = (JCheckBox) e.getSource();
 		String sJCBox = Boolean.toString(jcBox.isSelected());
 		int icBox = Integer.parseInt(jcBox.getName());
-		
+		fenster.setCustomLevel(true);
 		switch (icBox) {
 		case 0: // "Zufällige Wartezeit der Gegner"
 			neuEinstellungen.put(Settings.rOppWT, sJCBox);
@@ -282,8 +280,8 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-
+	public void focusGained(FocusEvent e) { 
+		fenster.setCustomLevel(true);
 	}
 
 	@Override

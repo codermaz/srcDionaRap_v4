@@ -24,14 +24,14 @@ public class ListenerSettingsDialog implements ActionListener {
 		if ("Level".equals(Befehl)) {  //ComboBox
 			JComboBox jcb = (JComboBox) e.getSource();
 			fenster.getSettings().setMapMTKonfig(jcb.getSelectedIndex());
-			dSettings.updateWerte(fenster.getSettings().getEinstellungen()) ;
+			dSettings.updateWerte(fenster.getSettings().getEinstellungen());
+			fenster.setCustomLevel(false);
 		} else {	//Buttons
 
 			dSettings.dispose();
 			fenster.getController().setMultiThreaded(conf);
 
 			if ("OK".equals(Befehl)) {
-				System.out.println("OK");
 				dSettings.performNeuEinstellungen();
 				fenster.spielStart();
 			}
