@@ -9,7 +9,7 @@ public class Settings {
 
 
 	public static int LABEL_DIMENSION = 50 ; // in pixel, quadratisch
-	public static int BUTTONS_GROESSE = 80; // Set die Gr�sse of JButtons in pixels im Navigationsfenster
+	public static int BUTTONS_GROESSE = 80; // Set die Groesse of JButtons in pixels im Navigationsfenster
 	public static int ENTFERNUNG_ZUM_SPIELBRETT = 20; // Die Entfernung zwichen Navigationsfenster und Spielbrett in pixels bei X Acshe
 	public static Color BRETT_COLOR1 = Color.white;
 	public static Color BRETT_COLOR2= Color.black;
@@ -17,7 +17,7 @@ public class Settings {
 	
 	public static int MUNITION_ANZAHL_ZUBEGIN = 3;	//drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
 	public static int MUNITION_ANZAHL_FUREINAMMO = 2; //drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);	
-	public static int MUNITION_ANZAHL_AUFDEMFELD= 4; // drm.addAmmo(new Ammo());
+	public static int MUNITION_ANZAHL_AUFDEMFELD= 5; // drm.addAmmo(new Ammo());
 	// for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++) drm.addAmmo(new Ammo());
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;
@@ -106,7 +106,7 @@ public class Settings {
 			einstellungen.put(aColWOpp, "true");
 			einstellungen.put(mTime, "800");
 			einstellungen.put(sGetsOT, "true");
-			einstellungen.put(oStartWT, "1000");
+			einstellungen.put(oStartWT, "2000");
 			einstellungen.put(oWaitT, "1000");
 			einstellungen.put(sWaitT, "500");
 			einstellungen.put(rOppWT, "true");
@@ -162,7 +162,7 @@ public class Settings {
 			einstellungen.put(mTime, "800");
 			einstellungen.put(sGetsOT, "true");
 			einstellungen.put(oStartWT, "1000");
-			einstellungen.put(oWaitT, "1000");
+			einstellungen.put(oWaitT, "2000");
 			einstellungen.put(sWaitT, "500");
 			einstellungen.put(rOppWT, "true");
 			einstellungen.put(dOppWT, "true");
@@ -217,7 +217,7 @@ public class Settings {
 			einstellungen.put(mTime, "800");
 			einstellungen.put(sGetsOT, "true");
 			einstellungen.put(oStartWT, "1000");
-			einstellungen.put(oWaitT, "1000");
+			einstellungen.put(oWaitT, "2000");
 			einstellungen.put(sWaitT, "500");
 			einstellungen.put(rOppWT, "true");
 			einstellungen.put(dOppWT, "true");

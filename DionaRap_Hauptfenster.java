@@ -90,9 +90,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		setToolbarPosition(toolbarLocation);
 
 		pack();
-//		if (fensterLocation != null)
-//			setLocation(fensterLocation);
-//		else
+//		if (fensterLocation != null)  setLocation(fensterLocation);  else
 		setLocationRelativeTo(null);
 		setVisible(true);
 
@@ -105,7 +103,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		addWindowFocusListener(new WindowFocusListener() {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				DionaRap_Hauptfenster.this.requestFocus(); // ***
+				DionaRap_Hauptfenster.this.requestFocus(); //###
 			}
 
 			@Override
