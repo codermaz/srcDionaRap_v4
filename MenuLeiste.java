@@ -55,9 +55,10 @@ public class MenuLeiste extends JMenuBar {
 		// ToggleButton
 		jtbMenuItem = new JToggleButton();
 
-		if (fenster.isSoundOn()) {
+		if (fenster.getSettings().isSoundOn()) {
 			jtbMenuItem.setText("Sound Enabled");
 			jtbMenuItem.setSelected(true);
+			jtbMenuItem.setMnemonic(KeyEvent.VK_S);
 		}
 		else {
 			jtbMenuItem.setText("Sound Disabled");

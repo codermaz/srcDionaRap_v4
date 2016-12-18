@@ -44,6 +44,8 @@ public class Settings {
 	public static final String levelS = "level";
 	public int levelNo;
 	private boolean customLevel;
+	private SoundPlay soundError;
+	private SoundPlay soundShoot;
 	
 	public HashMap<String, String> einstellungen;
 	
@@ -58,6 +60,7 @@ public class Settings {
 		levelNo= _levelNo;
 		customLevel = _customLevel;
 		einstellungen=_einstellungen;
+		setSoundDateien();
 		if (einstellungen.isEmpty()) {
 			setMapMTKonfig(levelNo);
 		} else {
@@ -65,6 +68,11 @@ public class Settings {
 				setMapMTKonfig(levelNo);
 		}
 		
+	}
+
+	public void setSoundDateien() {
+		soundError = new SoundPlay(soundOn, new File (fileDir + files[1]));
+		soundShoot = new SoundPlay(soundOn, new File (fileDir + files[6]));
 	}
 
 	public File getFile(int index) {
@@ -266,6 +274,14 @@ public class Settings {
 
 	public void setSoundOn(boolean soundOn) {
 		this.soundOn = soundOn;
+	}
+
+	public SoundPlay getSoundError() {
+		return soundError;
+	}
+
+	public SoundPlay getSoundShoot() {
+		return soundShoot;
 	}
 	
 }

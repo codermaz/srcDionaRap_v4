@@ -8,41 +8,46 @@ import javax.sound.sampled.Clip;
 public class SoundPlay {
 
 	private File datei;
-	private DionaRap_Hauptfenster fenster;
-	
-	SoundPlay(DionaRap_Hauptfenster _fenster, File _datei) {
-		fenster = _fenster;
+	Clip audioClip;
+	private Boolean soundOn;
+
+	SoundPlay(Boolean _soundOn, File _datei) {
+		soundOn = _soundOn;
 		datei = _datei;
-		playSound();
+		initSound();
 	}
 
-	private void playSound() {
+	private void initSound() {
 
-		if (fenster.isSoundOn()) {
+		File sounddatei = datei;
 
-			File sounddatei = datei;
+		try {
+			// Audiofileformat aus einer sounddatei bestimmen
+			// AudioFileFormat audioformat =
+			// AudioSystem.getAudioFileFormat(sounddatei);
+			// Info: System.out.println(audioformat.toString());
 
-			try {
-				// Audiofileformat aus einer sounddatei bestimmen
-				AudioFileFormat audioformat = AudioSystem.getAudioFileFormat(sounddatei);
-				// Info: System.out.println(audioformat.toString());
+			// AudioInputStream erzeugen
+			AudioInputStream sound = AudioSystem.getAudioInputStream(sounddatei);
 
-				// AudioInputStream erzeugen
-				AudioInputStream sound = AudioSystem.getAudioInputStream(sounddatei);
+			// Ein Clip laedt einen AudioInputStream in den Speicher (
+			// preload )
+			audioClip = AudioSystem.getClip();
 
-				// Ein Clip laedt einen AudioInputStream in den Speicher (
-				// preload )
-				Clip audioclip = AudioSystem.getClip();
+			// Sounddatei offnen und laden
+			audioClip.open(sound);
 
-				// Sounddatei offnen und laden
-				audioclip.open(sound);
-
-				// Clip abspielen
-				audioclip.start();
-			} catch (Exception e) {
-				System.out.println("Fehler beim oeffnen der sounddatei :" + datei.toString());
-			}
+		} catch (Exception e) {
+			System.out.println("Fehler beim oeffnen der sounddatei :" + datei.toString());
 		}
+
+	}
+
+	public void play() {
+		if (audioClip.isRunning())
+			audioClip.stop();
+		audioClip.setFramePosition(0);
+		audioClip.start();
 	}
 
 }

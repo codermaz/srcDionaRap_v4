@@ -7,15 +7,15 @@ public class ListenerKeyPressed implements KeyListener {
 
 	DionaRap_Hauptfenster fenster;
 
+	
 	ListenerKeyPressed(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
+	
 	}
 
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		DionaRapController drc = fenster.getController();
-
-
 
 		// System.out.println("keyCode :"+ e.getKeyCode());
 		switch (keyCode) {
@@ -76,12 +76,12 @@ public class ListenerKeyPressed implements KeyListener {
 		case 101: // 74=j
 		case 65368:
 			if (fenster.getDrm().getShootAmount() == 0) { // munitionAnzahl
+				if (fenster.isSoundOn()) fenster.getSettings().getSoundError().play();
 				fenster.getToolBarMenu().startBlinking();
-				SoundPlay play = new SoundPlay(fenster, fenster.getSettings().getFile(1));
 			}
 			else {
+				if (fenster.isSoundOn()) fenster.getSettings().getSoundShoot().play();
 				drc.shoot(); // System.out.println("shiessen");
-				SoundPlay play = new SoundPlay(fenster, fenster.getSettings().getFile(6));
 			}	
 			break;
 		}

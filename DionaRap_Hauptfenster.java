@@ -41,20 +41,18 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public final int LEVEL_MAX=9;
 	public static int currentPunkte;
 	private boolean customLevel;
-	private boolean soundOn;
 
 	public DionaRap_Hauptfenster(String toolbarLocation, int currentPunkte, 
 			HashMap<String, String> einstellungen, int level, boolean _customLevel, boolean _soundOn) {
 		currentLevel=level;
 		customLevel= _customLevel;
-		soundOn= _soundOn;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
 		
 		// Settings
 		settings = new Settings(einstellungen, currentLevel, customLevel);
-		settings.setSoundOn(soundOn);
+		settings.setSoundOn(_soundOn);
 		
 		// Model und Controller
 		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)),
@@ -126,7 +124,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.dispose();
 		controller.deactivateMultiThreading();
 		fensterLocation = getLocation();
-		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel, soundOn);
+		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel, getSettings().isSoundOn());
 
 	}
 
@@ -192,11 +190,11 @@ public class DionaRap_Hauptfenster extends JFrame {
 	}
 
 	public boolean isSoundOn() {
-		return soundOn;
+		return getSettings().isSoundOn();
 	}
 
 	public void setSoundOn(boolean soundOn) {
-		this.soundOn = soundOn;
+		getSettings().setSoundOn (soundOn);
 	}
 
 	public MenuLeiste getMenuLeiste() {
@@ -204,7 +202,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	}
  
 	DionaRap_Hauptfenster() {
-		this("Oben", 0, new HashMap<String, String>(), 0, false, true);
+		this("Oben", 0, new HashMap<String, String>(), 0, false, false);
 	}
 
 	public static void main(String[] args) {
