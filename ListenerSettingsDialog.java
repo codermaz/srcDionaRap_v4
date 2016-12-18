@@ -9,7 +9,7 @@ public class ListenerSettingsDialog implements ActionListener {
 
 	private DionaRap_Hauptfenster fenster;
 	private DialogSettings dSettings;
-	MTConfiguration conf;
+	private MTConfiguration conf;
 
 	public ListenerSettingsDialog(DionaRap_Hauptfenster _fenster, DialogSettings _dSettings) {
 		fenster = _fenster;
@@ -28,7 +28,6 @@ public class ListenerSettingsDialog implements ActionListener {
 			dSettings.updateWerte(fenster.getSettings().getEinstellungen());
 			fenster.setCustomLevel(false);		
 		} else {	//Buttons
-
 			dSettings.dispose();
 			fenster.getController().setMultiThreaded(conf);
 

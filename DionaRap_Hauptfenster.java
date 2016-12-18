@@ -25,6 +25,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 
 	private Navigator navisFenster;
 	private MenuLeiste menuLeiste;
+
 	private ToolBarMenu toolBarMenu;
 	private String toolbarLocation = "Oben";
 	private Point fensterLocation = null;
@@ -40,18 +41,21 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public final int LEVEL_MAX=9;
 	public static int currentPunkte;
 	private boolean customLevel;
-
+	private boolean soundOn;
 
 	public DionaRap_Hauptfenster(String toolbarLocation, int currentPunkte, 
-			HashMap<String, String> einstellungen, int level, boolean _customLevel) {
+			HashMap<String, String> einstellungen, int level, boolean _customLevel, boolean _soundOn) {
 		currentLevel=level;
 		customLevel= _customLevel;
+		soundOn= _soundOn;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
 		setResizable(false);
-
+		
 		// Settings
 		settings = new Settings(einstellungen, currentLevel, customLevel);
+		settings.setSoundOn(soundOn);
+		
 		// Model und Controller
 		drm = new DionaRapModel(Integer.parseInt(settings.getEinstellungen().get(Settings.zeilenA)),
 				Integer.parseInt(settings.getEinstellungen().get(Settings.spaltenA)),
@@ -75,6 +79,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD + ammoZahlfürCustom; i++)
 			drm.addAmmo(new Ammo());
 
+		
+		
 		// Brett initialisieren
 		spielFeld = new Spielfeld(this);
 		add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
@@ -120,7 +126,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.dispose();
 		controller.deactivateMultiThreading();
 		fensterLocation = getLocation();
-		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel);
+		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel, soundOn);
 
 	}
 
@@ -185,8 +191,20 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.customLevel = customLevel;
 	}
 
+	public boolean isSoundOn() {
+		return soundOn;
+	}
+
+	public void setSoundOn(boolean soundOn) {
+		this.soundOn = soundOn;
+	}
+
+	public MenuLeiste getMenuLeiste() {
+		return menuLeiste;
+	}
+ 
 	DionaRap_Hauptfenster() {
-		this("Oben", 0, new HashMap<String, String>(), 0, false);
+		this("Oben", 0, new HashMap<String, String>(), 0, false, true);
 	}
 
 	public static void main(String[] args) {

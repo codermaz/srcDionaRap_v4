@@ -3,11 +3,17 @@ import java.util.HashMap;
 public class FragenUndNotizen { FragenUndNotizen () {
 
 /*
+ * 
+ 5.4 Settings Level hinzugefuegt
+ 5.5 Sounds hinzugefuegt
+  
+ *
 > jnlp : Whelche Host und wie hochladen?
 > validate , repaint, updateUI
 > _variable namen
 > @SuppressWarnings("unchecked") in DialogSettings
 	neuEinstellungen = ((HashMap<String, String>) fenster.getSettings().getEinstellungen().clone());
+> UTF8 in Eclipse Editor
 
 > static : wann?
 > methode rufen aus anderen methoden  
@@ -17,6 +23,7 @@ public class FragenUndNotizen { FragenUndNotizen () {
 > MVC : Folders
 > Eclipse : Strg + Alt + D : Notizen
 > Microsoft Visual Studio
+> Free Audio Files
 
 ##########
 > MVC

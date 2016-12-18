@@ -1,6 +1,7 @@
  
 
 import java.awt.Color;
+import java.io.File;
 import java.util.HashMap;
 
 import de.fhwgt.dionarap.model.objects.Ammo;
@@ -45,6 +46,12 @@ public class Settings {
 	private boolean customLevel;
 	
 	public HashMap<String, String> einstellungen;
+	
+	private boolean soundOn;
+	String[] files = { "Beamer.wav", "Error1.wav", "GameOver.wav", "Gewonnen.wav", "Bewegung.wav",
+			"TreffenHindernis.wav", "Waffe_LASER12-MULTI-BURSTS.wav" };
+	String fs = File.separator;
+	String fileDir = System.getProperty("user.dir") + fs + "sounds" + fs ;
 
 
 	Settings(HashMap<String, String> _einstellungen, int _levelNo, boolean _customLevel) {
@@ -60,6 +67,9 @@ public class Settings {
 		
 	}
 
+	public File getFile(int index) {
+		return ( new File(fileDir + files[index]) );
+	}
 
 	public void setMapMTKonfig(int level) {
 		switch (level) {
@@ -248,6 +258,14 @@ public class Settings {
 	
 	public void setLevel(int level) {
 		einstellungen.put(levelS, Integer.toString(level));
+	}
+
+	public boolean isSoundOn() {
+		return soundOn;
+	}
+
+	public void setSoundOn(boolean soundOn) {
+		this.soundOn = soundOn;
 	}
 	
 }

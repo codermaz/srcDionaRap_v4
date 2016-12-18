@@ -1,6 +1,9 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//fuer sound dateien
+import javax.sound.sampled.*;
+import java.io.*;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
 
@@ -18,7 +21,7 @@ public class ListenerBewegung implements ActionListener {
 		String befehl = event.getActionCommand();
 		DionaRapController drc = fenster.getController();
 
-		// System.out.println(befehl);
+		
 		switch (befehl) {
 
 		case "links":

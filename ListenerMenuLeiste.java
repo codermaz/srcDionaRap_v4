@@ -16,12 +16,22 @@ public class ListenerMenuLeiste implements ActionListener {
 		if (aktionBefehl.contains("swing.")){
             fenster.setLookAndFeel(aktionBefehl);
             return;
-		}    
-		if (aktionBefehl.contains("Unten") || aktionBefehl.contains("Oben")){
+		} else if (aktionBefehl.contains("Unten") || aktionBefehl.contains("Oben")){
             fenster.setToolbarPosition(aktionBefehl);
             fenster.pack();
             return;
-		}    
+		} else if(aktionBefehl.contains("Sound")) {
+			if (fenster.isSoundOn()) {
+				fenster.getMenuLeiste().getJtbMenuItem().setText("Sound Disabled");
+				fenster.setSoundOn(false);
+			}
+			else {
+				fenster.getMenuLeiste().getJtbMenuItem().setText("Sound Enabled");
+				fenster.setSoundOn(true);
+				
+			}
+		}
+		
 	}
 	
 }

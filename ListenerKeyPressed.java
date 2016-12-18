@@ -2,7 +2,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
-import de.fhwgt.dionarap.model.objects.Player;
 
 public class ListenerKeyPressed implements KeyListener {
 
@@ -14,8 +13,9 @@ public class ListenerKeyPressed implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-
 		DionaRapController drc = fenster.getController();
+
+
 
 		// System.out.println("keyCode :"+ e.getKeyCode());
 		switch (keyCode) {
@@ -71,14 +71,18 @@ public class ListenerKeyPressed implements KeyListener {
 			// System.out.println("rechts_unten");
 			drc.movePlayer(3);
 			break;
-		case 32:
-		case 74:
-		case 101:
-		case 65368: // 32=space und 74=j
-			if (fenster.getDrm().getShootAmount() == 0) // munitionAnzahl
+		case 32: // 32=space
+		case 74: // 74=J
+		case 101: // 74=j
+		case 65368:
+			if (fenster.getDrm().getShootAmount() == 0) { // munitionAnzahl
 				fenster.getToolBarMenu().startBlinking();
-			else
+				SoundPlay play = new SoundPlay(fenster, fenster.getSettings().getFile(1));
+			}
+			else {
 				drc.shoot(); // System.out.println("shiessen");
+				SoundPlay play = new SoundPlay(fenster, fenster.getSettings().getFile(6));
+			}	
 			break;
 		}
 	}

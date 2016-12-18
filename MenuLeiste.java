@@ -7,6 +7,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -19,8 +20,11 @@ public class MenuLeiste extends JMenuBar {
 	private JMenu mAnsicht, mPosition, mNavigator, mLaF;
 	private JRadioButtonMenuItem rbMenuItem;
 	private JCheckBoxMenuItem cbMenuItem;
+	private JToggleButton jtbMenuItem;
 	private DionaRap_Hauptfenster fenster;
 	private ListenerMenuLeiste listenerMenu;
+	private JMenu mSpiel;
+	private JMenu mSound;
 
 	MenuLeiste(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
@@ -31,13 +35,41 @@ public class MenuLeiste extends JMenuBar {
 		mAnsicht.setMnemonic(KeyEvent.VK_A);
 		this.add(mAnsicht);
 
-		initSubmenuToolbar();
-		initSubmenuNavigator();
-		initSubmenuLaF();
+		initSubmenuAnsichtToolbar();
+		initSubmenuAnsichtNavigator();
+		initSubmenuAnsichtLaF();
 
+		// Menu Spiel
+		mSpiel = new JMenu("Spiel");
+		mSpiel.setMnemonic(KeyEvent.VK_S);
+		this.add(mSpiel);
+
+		initSubmenuSound();
 	}
 
-	private void initSubmenuToolbar() {
+	private void initSubmenuSound() {
+		mSound = new JMenu("Sound On/Off");
+		mSound.setMnemonic(KeyEvent.VK_S);
+		mSpiel.add(mSound);
+
+		// ToggleButton
+		jtbMenuItem = new JToggleButton();
+
+		if (fenster.isSoundOn()) {
+			jtbMenuItem.setText("Sound Enabled");
+			jtbMenuItem.setSelected(true);
+		}
+		else {
+			jtbMenuItem.setText("Sound Disabled");
+			jtbMenuItem.setSelected(false);	
+		}
+		jtbMenuItem.addActionListener(listenerMenu);
+		jtbMenuItem.setActionCommand("Sound");
+		mSound.add(jtbMenuItem);
+		
+	}
+
+	private void initSubmenuAnsichtToolbar() {
 		// Submenu ToolBar
 		mPosition = new JMenu("ToolBar");
 		mPosition.setMnemonic(KeyEvent.VK_T);
@@ -62,7 +94,7 @@ public class MenuLeiste extends JMenuBar {
 
 	}
 
-	private void initSubmenuNavigator() {
+	private void initSubmenuAnsichtNavigator() {
 		// MenuItem Navigator
 		mNavigator = new JMenu("Navigator anzeigen");
 		mNavigator.setMnemonic(KeyEvent.VK_N);
@@ -91,7 +123,7 @@ public class MenuLeiste extends JMenuBar {
 		mNavigator.add(cbMenuItem);
 	}
 
-	private void initSubmenuLaF() {
+	private void initSubmenuAnsichtLaF() {
 		// Menu- Look and Feel
 		mAnsicht.addSeparator();
 		mLaF = new JMenu("Look and Feel");
@@ -117,6 +149,14 @@ public class MenuLeiste extends JMenuBar {
 		rbMenuItem.addActionListener(listenerMenu);
 		group.add(rbMenuItem);
 		return rbMenuItem;
+	}
+
+	public JToggleButton getJtbMenuItem() {
+		return jtbMenuItem;
+	}
+
+	public void setJtbMenuItem(JToggleButton jtbMenuItem) {
+		this.jtbMenuItem = jtbMenuItem;
 	}
 
 }

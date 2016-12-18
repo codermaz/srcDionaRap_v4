@@ -5,7 +5,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,8 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu.Separator;
-import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -41,6 +38,8 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	private JComboBox<String> jcbLevel;
 	private JPanel pButtons;
 	private HashMap<String, String> neuEinstellungen;
+
+	public boolean soundChanged;
   
 
 	DialogSettings(DionaRap_Hauptfenster _fenster) {
@@ -88,7 +87,6 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
         int itemNo= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.levelS)); 
         jcbLevel.setSelectedIndex(itemNo);
         jcbLevel.addActionListener(lSettings);
-
 	}
 
 	private void addComponentsToPanel() {
@@ -118,7 +116,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		// JComboBoxModel
 		pSettings.add(labels[10]);
 		pSettings.add(jcbLevel);
-
+		
 	}
 
 	public void updateWerte(HashMap <String, String> updEinstellungen) {
@@ -194,7 +192,6 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		JSlider source = (JSlider) e.getSource();
 		int value = source.getValue();
 		fenster.setCustomLevel(true);
-		
 		if (source.getName().equals(Settings.oStartWT)) {
 			neuEinstellungen.put(Settings.oStartWT, Integer.toString(value));
 		} else if (source.getName().equals(Settings.oWaitT)) {
