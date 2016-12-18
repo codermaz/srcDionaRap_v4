@@ -16,8 +16,8 @@ public class Settings {
 	public static String THEME="alien";
 	
 	public static int MUNITION_ANZAHL_ZUBEGIN = 3;	//drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
-	public static int MUNITION_ANZAHL_FUREINAMMO = 2; //drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);	
-	public static int MUNITION_ANZAHL_AUFDEMFELD= 5; // drm.addAmmo(new Ammo());
+	public static int MUNITION_ANZAHL_FUREINAMMO = 1; //drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);	
+	public static int MUNITION_ANZAHL_AUFDEMFELD = 5; // drm.addAmmo(new Ammo());
 	// for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++) drm.addAmmo(new Ammo());
 	
 	public static int TOOLBAR_PANEL_ANZAHL=5;

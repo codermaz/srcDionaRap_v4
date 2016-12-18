@@ -10,7 +10,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import de.fhwgt.dionarap.controller.DionaRapController;
-import de.fhwgt.dionarap.model.data.*;
+import de.fhwgt.dionarap.model.data.DionaRapModel;
+import de.fhwgt.dionarap.model.data.MTConfiguration;
 import de.fhwgt.dionarap.model.objects.Ammo;
 
 public class DionaRap_Hauptfenster extends JFrame {
@@ -68,8 +69,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 		// -1 steht fuer eine unbegrenzte Anzahl an Munition.
 		drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
 		// AmmoValue : Setzt die Anzahl der Munition fuer ein Ammo-Objekt
-		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO);
-		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD; i++)
+		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO+ (int)Math.floor(currentLevel/5));
+		int ammoZahlfürCustom = 0;
+		if (customLevel) ammoZahlfürCustom = Integer.parseInt(settings.getEinstellungen().get(Settings.gegnerA));
+		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD + ammoZahlfürCustom; i++)
 			drm.addAmmo(new Ammo());
 
 		// Brett initialisieren
