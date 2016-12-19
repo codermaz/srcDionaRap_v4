@@ -28,7 +28,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 
 	private ToolBarMenu toolBarMenu;
 	private String toolbarLocation = "Oben";
-	private Point fensterLocation = null;
 
 	private DionaRapModel drm;
 	private DionaRapController controller;
@@ -39,12 +38,12 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private Settings settings;
 	public int currentLevel;
 	public final int LEVEL_MAX=9;
-	public static int currentPunkte;
+//	public static int currentPunkte;
 	private boolean customLevel;
 
-	public DionaRap_Hauptfenster(String toolbarLocation, int currentPunkte, 
-			HashMap<String, String> einstellungen, int level, boolean _customLevel, boolean _soundOn) {
-		currentLevel=level;
+	public DionaRap_Hauptfenster(String toolbarLocation, int _currentPunkte, 
+			HashMap<String, String> einstellungen, int _currentLevel, boolean _customLevel, boolean _soundOn) {
+		currentLevel= _currentLevel;
 		customLevel= _customLevel;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("DionaRap");
