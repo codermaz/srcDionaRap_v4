@@ -34,14 +34,14 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private ListenerModel listenerModel;
 	private MTConfiguration conf;
 
-	private Spielfeld spielFeld;
+	private Spielfeld panelSpielFeld;
 	private Settings settings;
 	public int currentLevel;
 	public final int LEVEL_MAX=9;
-//	public static int currentPunkte;
+	public static int currentPunkte;
 	private boolean customLevel;
 
-	public DionaRap_Hauptfenster(String toolbarLocation, int _currentPunkte, 
+	DionaRap_Hauptfenster(String toolbarLocation, int _currentPunkte, 
 			HashMap<String, String> einstellungen, int _currentLevel, boolean _customLevel, boolean _soundOn) {
 		currentLevel= _currentLevel;
 		customLevel= _customLevel;
@@ -79,14 +79,18 @@ public class DionaRap_Hauptfenster extends JFrame {
 		
 		
 		// Brett initialisieren
-		spielFeld = new Spielfeld(this);
-		add(spielFeld.getSpielBrett(), BorderLayout.CENTER);
-
+		panelSpielFeld = new Spielfeld(this);
+		this.add(panelSpielFeld, BorderLayout.CENTER);
+		panelSpielFeld.setzeAllePawns();
+		
 		// Navigator initialisieren
 		navisFenster = new Navigator(this);
 		this.addComponentListener(new ListenerSpielBrett(navisFenster));
-		spielFeld.setzeAllePawns();
-
+		
+		// KeyListener initialisieren
+		ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(this);
+		this.addKeyListener(listenerKeyPressed);
+		
 		// Menuleiste initialisieren
 		menuLeiste = new MenuLeiste(this);
 		this.setJMenuBar(menuLeiste);
@@ -122,7 +126,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 		navisFenster.dispose();
 		this.dispose();
 		controller.deactivateMultiThreading();
-		fensterLocation = getLocation();
 		new DionaRap_Hauptfenster(toolbarLocation, currentPunkte, settings.getEinstellungen(), currentLevel, customLevel, getSettings().isSoundOn());
 
 	}
@@ -165,7 +168,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	}
 
 	public Spielfeld getSpielfeld() {
-		return spielFeld;
+		return panelSpielFeld;
 	}
 
 	public void setToolbarPosition(String aktionBefehl) {

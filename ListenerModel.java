@@ -17,7 +17,7 @@ public class ListenerModel implements DionaRapListener{
 	
 	public ListenerModel(DionaRap_Hauptfenster _fenster) {
 		fenster= _fenster;
-		 gegnerAnfang= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.gegnerA));
+		gegnerAnfang= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.gegnerA));
  	}
 	
 	@Override

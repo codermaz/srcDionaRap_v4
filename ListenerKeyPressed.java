@@ -81,7 +81,7 @@ public class ListenerKeyPressed implements KeyListener {
 			}
 			else {
 				if (fenster.isSoundOn()) fenster.getSettings().getSoundShoot().play();
-				drc.shoot(); // System.out.println("shiessen");
+				drc.shoot();
 			}	
 			break;
 		}

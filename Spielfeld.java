@@ -31,9 +31,7 @@ public class Spielfeld extends JPanel {
 	private static int spaltenA;
 	private static int zeilenA;
 
-	private Container spielFlaeche;
-	private JPanel spielBrett = new JPanel();
-	private static JLabel[][] spielFelder;
+	private static JLabel[][] labelFelder;
 	private static String theme;
 
 	private DionaRap_Hauptfenster fenster;
@@ -44,47 +42,40 @@ public class Spielfeld extends JPanel {
 	 * Erzeugt ein Kindfenster vom Typ JWindow
 	 */
 
-	public Spielfeld(DionaRap_Hauptfenster _fenster) {
+	 Spielfeld(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
 		zeilenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.zeilenA));
 		spaltenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA)); 
-		spielFelder = new JLabel[spaltenA][zeilenA];
+		labelFelder = new JLabel[spaltenA][zeilenA];
 		
 		fenster.setPreferredSize(new Dimension(spaltenA * Settings.LABEL_DIMENSION,
 				zeilenA * Settings.LABEL_DIMENSION));
 		fenster.setLocationRelativeTo(null);
 
-		spielBrett.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
-		spielFlaeche = fenster.getContentPane();
-		spielFlaeche.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(zeilenA, spaltenA, 0, 0));
 
-		zeichneErstesBrett();
-		initListener();
+		listenerMouse = new ListenerMouse(fenster);
+		initSpielFeld();
+		listenerMouse.setLabelFelder(labelFelder);
 	}
 
-	public JPanel getSpielBrett() {
-		return spielBrett;
+	public JPanel getSpielFeld() {
+		return this;
 	}
 
 	public void setTheme(String _theme){
 		theme=_theme;
 	}
 	
-	private void initListener() {
-		listenerMouse = new ListenerMouse(fenster);
-		fenster.addMouseListener(listenerMouse);
-		ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(fenster);
-		fenster.addKeyListener(listenerKeyPressed);
-	}
 
 	public void nullBrett() {
-		spielBrett.removeAll();
+		this.removeAll();
 	}
 
 	public void leereBrett() {
 		for (int i = 0; i < zeilenA; i++) // fuer Zeilen
 			for (int j = 0; j < spaltenA; j++) // fuer Spalten
-				spielFelder[j][i].setIcon(null);
+				labelFelder[j][i].setIcon(null);
 	}
 
 	public void setzeAllePawns() {
@@ -120,31 +111,33 @@ public class Spielfeld extends JPanel {
 		theme = Settings.THEME;
 		ImageIcon image = new ImageIcon(System.getProperty("user.dir") + fs + "images" + fs + theme + fs + figur);
 		if (figur == "vortex.gif")
-			spielFelder[spalteX][spalteY].setBackground(Color.red);
+			labelFelder[spalteX][spalteY].setBackground(Color.red);
 
-		spielFelder[spalteX][spalteY].setIcon(image);
+		labelFelder[spalteX][spalteY].setIcon(image);
 	
 		// spielFelder[spalteX][spalteY].setBorder(BorderFactory.createEtchedBorder());
 		// spielFelder[spalteX][spalteY].setForeground(getInverseFarbe(spielFelder[spalteX][spalteY].getBackground()));
 		// spielFelder[spalteX][spalteY].setText(figur);
 	}
 
-	public void zeichneErstesBrett() {
-		// Lables fuer Brett vorbreiten
+	public void initSpielFeld() {
+		// Labels fuer Brett vorbereiten
 		int farbeWechsel = 0;
 		for (int i = 0; i < zeilenA; i++) { // fuer Zeilen
 			for (int j = 0; j < spaltenA; j++) { // fuer Spalten
-				spielFelder[j][i] = new JLabel("", JLabel.CENTER);
+				labelFelder[j][i] = new JLabel("", JLabel.CENTER);
 				if (farbeWechsel == 1) {
-					spielFelder[j][i].setBackground(Settings.BRETT_COLOR1);
+					labelFelder[j][i].setBackground(Settings.BRETT_COLOR1);
 					farbeWechsel = 0;
 				} else {
-					spielFelder[j][i].setBackground(Settings.BRETT_COLOR2);
+					labelFelder[j][i].setBackground(Settings.BRETT_COLOR2);
 					farbeWechsel = 1;
 				}
-				spielFelder[j][i].setOpaque(true);
-				//spielFelder[j][i].addMouseListener(listenerMouse);
-				spielBrett.add(spielFelder[j][i]);
+				labelFelder[j][i].setOpaque(true);
+				labelFelder[j][i].addMouseListener(listenerMouse);
+
+				this.add(labelFelder[j][i]);
+				
 			}
 
 			// nochmal die Hintergrundfarbe wechseln, wenn die Spaltenanzahl
