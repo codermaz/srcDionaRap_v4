@@ -84,7 +84,7 @@ public class ToolBarMenu extends JToolBar {
 	
 	public void blinkingMunition(Color farbe,int thickness) { 
 		pMunition.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(farbe, thickness),
-				"Munition",
+				"Munition # "+fenster.getSpielfeld().getAmmoMalValue()+"er ",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont,farbe));
 	}
@@ -95,13 +95,10 @@ public class ToolBarMenu extends JToolBar {
 			threadBlinking = new Thread(rbm);
 			threadBlinking.start();
 		}
-		j=0;
 	}
-	int j=0;
 	public void stopBlinking(){
 		if (threadBlinking.isAlive()) {
 			threadBlinking.interrupt();
-			System.out.println("stop blinking:" +(++j));
 		}
 	}
 	
@@ -201,7 +198,7 @@ public class ToolBarMenu extends JToolBar {
 		pMunition.setLayout(new GridLayout(1,3,2,2));
 
 		pMunition.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
-				"Munition",
+				"Munition # "+fenster.getSpielfeld().getAmmoMalValue()+"er ",
 				TitledBorder.CENTER, TitledBorder.TOP, 
 				panelFont, PR_FARBE_blau));
 		pMunition.setPreferredSize(pDim);

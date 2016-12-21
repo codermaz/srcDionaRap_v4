@@ -37,9 +37,11 @@ public class DionaRap_Hauptfenster extends JFrame {
 	private Spielfeld panelSpielFeld;
 	private Settings settings;
 	public int currentLevel;
+
 	public final int LEVEL_MAX=9;
 	public static int currentPunkte;
 	private boolean customLevel;
+	
 
 	DionaRap_Hauptfenster(String toolbarLocation, int _currentPunkte, 
 			HashMap<String, String> einstellungen, int _currentLevel, boolean _customLevel, boolean _soundOn) {
@@ -66,18 +68,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 		conf = new MultiThreadKonfiguration(this).getMTKonfiguration();
 		controller.setMultiThreaded(conf);
 
-		// ShootAmount : Legt fest, wieviele Schuesse der Spieler zu Beginn hat.
-		// -1 steht fuer eine unbegrenzte Anzahl an Munition.
-		drm.setShootAmount(Settings.MUNITION_ANZAHL_ZUBEGIN);
-		// AmmoValue : Setzt die Anzahl der Munition fuer ein Ammo-Objekt
-		drm.setAmmoValue(Settings.MUNITION_ANZAHL_FUREINAMMO+ (int)Math.floor(currentLevel/5));
-		int ammoZahlfürCustom = 0;
-		if (customLevel) ammoZahlfürCustom = Integer.parseInt(settings.getEinstellungen().get(Settings.gegnerA));
-		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD + ammoZahlfürCustom; i++)
-			drm.addAmmo(new Ammo());
-
-		
-		
 		// Brett initialisieren
 		panelSpielFeld = new Spielfeld(this);
 		this.add(panelSpielFeld, BorderLayout.CENTER);
@@ -85,7 +75,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 		
 		// Navigator initialisieren
 		navisFenster = new Navigator(this);
-		this.addComponentListener(new ListenerSpielBrett(navisFenster));
+		this.addComponentListener(new ListenerNavigator(navisFenster));
 		
 		// KeyListener initialisieren
 		ListenerKeyPressed listenerKeyPressed = new ListenerKeyPressed(this);
@@ -100,7 +90,6 @@ public class DionaRap_Hauptfenster extends JFrame {
 		setToolbarPosition(toolbarLocation);
 
 		pack();
-//		if (fensterLocation != null)  setLocation(fensterLocation);  else
 		setLocationRelativeTo(null);
 		setVisible(true);
 
@@ -191,6 +180,10 @@ public class DionaRap_Hauptfenster extends JFrame {
 		this.customLevel = customLevel;
 	}
 
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
+	
 	public boolean isSoundOn() {
 		return getSettings().isSoundOn();
 	}

@@ -6,6 +6,7 @@ public class FragenUndNotizen { FragenUndNotizen () {
  * 
  5.4 Settings Level hinzugefuegt
  5.5 Sounds hinzugefuegt
+ 5.6 Bonus icons 
   
  *
 > jnlp : Whelche Host und wie hochladen?

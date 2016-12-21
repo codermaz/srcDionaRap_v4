@@ -7,17 +7,21 @@ import de.fhwgt.dionarap.controller.DionaRapController;
 
 public class ListenerMouse implements MouseListener {
 
-	DionaRap_Hauptfenster fenster;
-	JLabel[][] labelFelder;
-	int mouseZ; // mouse Zeile
-	int mouseS; // mouse Spalte
+	private DionaRap_Hauptfenster fenster;
+	private JLabel[][] labelFelder;
+	int mouseZ; // Zeile von Mouse
+	int mouseS; // Spalte von Mouse
 	int playerZ; // Zeile von Player
 	int playerS; // Spalte von Player
 	int difZ; // Zeilendifferenz
 	int difS; // Spaltendifferenz
+	private Move move;
+	private Bonus bonus;
 
 	ListenerMouse(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
+		move = new Move(fenster);
+
 	}
 
 	public void setLabelFelder(JLabel[][] _labelFelder) {
@@ -28,27 +32,26 @@ public class ListenerMouse implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 	}
 
-	public void playerMove (int _art) {
-		if (_art==1) {  // if mouse in Umgebung
+	public void playerMove(int _art) {
+		if (_art == 1) { // if mouse in Umgebung
 			if ((Math.abs(difS) < 2) && (Math.abs(difZ) < 2)) {
 				if ((difS == -1) && (difZ == 1))
-					fenster.getController().movePlayer(1);
+					move.act(1);
 				if ((difS == 0) && (difZ == 1))
-					fenster.getController().movePlayer(2);
+					move.act(2);
 				if ((difS == 1) && (difZ == 1))
-					fenster.getController().movePlayer(3);
+					move.act(3);
 				if ((difS == -1) && (difZ == 0))
-					fenster.getController().movePlayer(4);
+					move.act(4);
 				if ((difS == 1) && (difZ == 0))
-					fenster.getController().movePlayer(6);
+					move.act(6);
 				if ((difS == -1) && (difZ == -1))
-					fenster.getController().movePlayer(7);
+					move.act(7);
 				if ((difS == 0) && (difZ == -1))
-					fenster.getController().movePlayer(8);
+					move.act(8);
 				if ((difS == 1) && (difZ == -1))
-					fenster.getController().movePlayer(9);
+					move.act(9);
 				if ((difS == 0) && (difZ == 0)) {
-					DionaRapController drc = fenster.getController();
 					if (fenster.getDrm().getShootAmount() == 0) { // munitionAnzahl
 						if (fenster.isSoundOn())
 							fenster.getSettings().getSoundError().play();
@@ -56,49 +59,40 @@ public class ListenerMouse implements MouseListener {
 					} else {
 						if (fenster.isSoundOn())
 							fenster.getSettings().getSoundShoot().play();
-						drc.shoot();
+						move.schiess();
 					}
 				}
 			}
-		} else { // muss nicht in der Umgebung sein
-				if ((difS < 0) && (difZ > 0))
-					fenster.getController().movePlayer(1);
-				if ((difS == 0) && (difZ >0 ))
-					fenster.getController().movePlayer(2);
-				if ((difS >0) && (difZ >0))
-					fenster.getController().movePlayer(3);
-				if ((difS < 0) && (difZ == 0))
-					fenster.getController().movePlayer(4);
-				if ((difS > 0) && (difZ == 0))
-					fenster.getController().movePlayer(6);
-				if ((difS < 0) && (difZ < 0))
-					fenster.getController().movePlayer(7);
-				if ((difS == 0) && (difZ < 0))
-					fenster.getController().movePlayer(8);
-				if ((difS > 0) && (difZ < 0))
-					fenster.getController().movePlayer(9);
-				if ((difS == 0) && (difZ == 0)) {
-					DionaRapController drc = fenster.getController();
-					if (fenster.getDrm().getShootAmount() == 0) { // munitionAnzahl
-						if (fenster.isSoundOn())
-							fenster.getSettings().getSoundError().play();
-						fenster.getToolBarMenu().startBlinking();
-					} else {
-						if (fenster.isSoundOn())
-							fenster.getSettings().getSoundShoot().play();
-						drc.shoot();
-					}
-				}
+		} else { // MouseClick muss nicht in der Umgebung sein
+			if ((difS < 0) && (difZ > 0))
+				move.act(1);
+			if ((difS == 0) && (difZ > 0))
+				move.act(2);
+			if ((difS > 0) && (difZ > 0))
+				move.act(3);
+			if ((difS < 0) && (difZ == 0))
+				move.act(4);
+			if ((difS > 0) && (difZ == 0))
+				move.act(6);
+			if ((difS < 0) && (difZ < 0))
+				move.act(7);
+			if ((difS == 0) && (difZ < 0))
+				move.act(8);
+			if ((difS > 0) && (difZ < 0))
+				move.act(9);
+			if ((difS == 0) && (difZ == 0)) {
+				move.schiess();
+			}
 		}
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			int zeilenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.zeilenA));
 			int spaltenA = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.spaltenA));
-			// get Player Koordination
+			// get Mouse Koordination
 			for (int i = 0; i < zeilenA; i++) { // fuer Zeilen
 				for (int j = 0; j < spaltenA; j++) { // fuer Spalten
 					if (labelFelder[j][i].equals(e.getSource())) {
@@ -107,20 +101,27 @@ public class ListenerMouse implements MouseListener {
 					}
 				}
 			}
-
 			playerS = fenster.getDrm().getPlayer().getX();
 			playerZ = fenster.getDrm().getPlayer().getY();
 
 			difS = mouseS - playerS;
 			difZ = mouseZ - playerZ;
 
-			playerMove (2);
-
+			playerMove(2); // 2--> es ist nicht noetig, in der Umgebung von
+							// Player zu sein
+			
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
 			PopupMenu menu = new PopupMenu(fenster);
 			menu.show(e.getComponent(), e.getX(), e.getY());
 		}
 
+	}
+
+	private boolean bonusIcon(int _mouseZ, int _mouseS) {
+		if (bonus.getZeile() == _mouseZ || bonus.getSpalte() == _mouseS)
+			return true;
+		else
+			return false;
 	}
 
 	@Override

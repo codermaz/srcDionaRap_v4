@@ -9,52 +9,51 @@ import de.fhwgt.dionarap.controller.DionaRapController;
 
 public class ListenerBewegung implements ActionListener {
 	private DionaRap_Hauptfenster fenster;
-
+	private Move move;
+	
 	public ListenerBewegung(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
+		move = new Move(fenster);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent event) { // Ausloeser des
-														// ActionEvent
-														// besorgen
+	public void actionPerformed(ActionEvent event) { 
+		// Ausloeser des ActionEvent besorgen
 		String befehl = event.getActionCommand();
-		DionaRapController drc = fenster.getController();
-
 		
 		switch (befehl) {
 
 		case "links":
-			drc.movePlayer(4);
+			move.act(4);
 			break;
 		case "oben":
-			drc.movePlayer(8);
+			move.act(8);
 			break;
 		case "unten":
-			drc.movePlayer(2);
+			move.act(2);
 			break;
 		case "rechts":
-			drc.movePlayer(6);
+			move.act(6);
 			break;
 
 		case "links_oben":
-			drc.movePlayer(7);
+			move.act(7);
 			break;
 		case "links_unten":
-			drc.movePlayer(1);
+			move.act(1);
 			break;
 		case "rechts_oben":
-			drc.movePlayer(9);
+			move.act(9);
 			break;
 		case "rechts_unten":
-			drc.movePlayer(3);
+			move.act(3);
 			break;
 
 		case "shiessen":
 			if (fenster.getDrm().getShootAmount() == 0) // munitionAnzahl
 				fenster.getToolBarMenu().startBlinking();
 			else
-				drc.shoot();
+				move.schiess();
 			break;
 
 		}

@@ -57,6 +57,7 @@ public class ListenerModel implements DionaRapListener{
 		if (dwo.getAuswahl()==0) {  // Next Level
 			if (fenster.currentLevel<fenster.LEVEL_MAX) fenster.currentLevel++;
 			DionaRap_Hauptfenster.currentPunkte += drm.getScore(); 
+			fenster.getSpielfeld().stopBlinking(); // Hertz loeschen
 			fenster.spielStart();
 		}
 		else if (dwo.getAuswahl()==1)  // Abbrechen
@@ -64,6 +65,7 @@ public class ListenerModel implements DionaRapListener{
 		else if (dwo.getAuswahl()==2){ // Neues Spiel
 			fenster.currentLevel=0;
 			DionaRap_Hauptfenster.currentPunkte = 0; 
+			fenster.getSpielfeld().stopBlinking(); // Hertz loeschen
 			fenster.spielStart();
 		}
 	}

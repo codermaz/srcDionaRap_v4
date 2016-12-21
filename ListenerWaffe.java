@@ -7,18 +7,18 @@ import de.fhwgt.dionarap.controller.DionaRapController;
 
 public class ListenerWaffe implements ActionListener{
 	private DionaRap_Hauptfenster fenster;
-	DionaRapController drc;
+	private Move move;
 	
 	public ListenerWaffe(DionaRap_Hauptfenster _fenster) {
 		this.fenster= _fenster;
-		drc = fenster.getController();
+		move=new Move(fenster);
 	}
 	
 	@Override
 	public void actionPerformed (ActionEvent event) {
 		String befehl = event.getActionCommand();
 		//System.out.println(befehl);
-		drc.shoot();
+		move.schiess();
 		fenster.requestFocus(); // um KeyListener aktiv zu lassen
 	}
 	

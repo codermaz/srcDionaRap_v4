@@ -21,6 +21,7 @@ DionaRap_Hauptfenster fenster;
 			fenster.spielStart();
 		}
 		if (event.getActionCommand() == "Settings") {
+			fenster.getSpielfeld().stopBlinking(); // fuer Hertz
 			new DialogSettings(fenster);
 		}
 	}
