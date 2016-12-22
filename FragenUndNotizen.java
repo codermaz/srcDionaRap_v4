@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class FragenUndNotizen { FragenUndNotizen () {
 
 /*
@@ -12,7 +10,14 @@ public class FragenUndNotizen { FragenUndNotizen () {
 > jnlp : Whelche Host und wie hochladen?
 
 > validate , repaint, updateUI
+	SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				
+			}
+		});
 > _variable namen
+
 > @SuppressWarnings("unchecked") in DialogSettings
 	neuEinstellungen = ((HashMap<String, String>) fenster.getSettings().getEinstellungen().clone());
 > UTF8 in Eclipse Editor

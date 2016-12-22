@@ -17,7 +17,7 @@ DionaRap_Hauptfenster fenster;
 			fenster.getToolBarMenu().setButtonNeuEnabled(false);
 			// Neues Spiel anfangen
 			fenster.currentLevel=0;
-			DionaRap_Hauptfenster.currentPunkte = 0; 
+			fenster.setCurrentPunkte(0); 
 			fenster.getSpielfeld().stopBlinking(); // Bonus (Hertz) loeschen
 			fenster.spielStart();
 		}

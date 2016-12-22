@@ -22,7 +22,10 @@ public class ListenerSettingsDialog implements ActionListener {
 		String Befehl = e.getActionCommand();
 
 		if ("Level".equals(Befehl)) {  //ComboBox
-			JComboBox jcb = (JComboBox) e.getSource();
+			if (!(e.getSource() instanceof JComboBox<?>)) {
+				return;
+			}
+			JComboBox<String> jcb = (JComboBox<String>) e.getSource();
 			fenster.getSettings().setMapMTKonfig(jcb.getSelectedIndex());
 			fenster.currentLevel= jcb.getSelectedIndex();
 			dSettings.updateWerte(fenster.getSettings().getEinstellungen());

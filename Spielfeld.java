@@ -86,10 +86,10 @@ public class Spielfeld extends JPanel {
 		// AmmoValue : Setzt die Anzahl der Munition fuer ein Ammo-Objekt
 		ammoMalValue = Settings.MUNITION_ANZAHL_FUREINAMMO + (int) Math.floor(fenster.getCurrentLevel() / 3);
 		fenster.getDrm().setAmmoValue(ammoMalValue);
-		int ammoZahlfürCustom = 0;
+		int ammoZahlfuerCustom = 0;
 		if (fenster.isCustomLevel())
-			ammoZahlfürCustom = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.gegnerA));
-		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD + ammoZahlfürCustom; i++)
+			ammoZahlfuerCustom = Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.gegnerA));
+		for (int i = 0; i < Settings.MUNITION_ANZAHL_AUFDEMFELD + ammoZahlfuerCustom; i++)
 			fenster.getDrm().addAmmo(new Ammo());
 
 	}
@@ -142,7 +142,7 @@ public class Spielfeld extends JPanel {
 		if (!hertzAddiert) {
 			markiereAlleFelder();
 			markiereBelegteFelder();
-			bonus = new Bonus(fenster);
+			bonus = new Bonus();
 			// Min + (int)(Math.random() * ((Max - Min) + 1))
 			// int rand = 1 + (int)(Math.random()*2); // random Zahl 1 or 2
 			int randomZ = 1 + (int) (Math.random() * (zeilenA + 1));
@@ -215,7 +215,7 @@ public class Spielfeld extends JPanel {
 		switch (randomZ) {
 		case 0: // Punkte gewonnen
 			int randomP = ((int) (Math.random() * 4) + 1) * 10;
-			DionaRap_Hauptfenster.currentPunkte += randomP;
+			fenster.setCurrentPunkte(fenster.getCurrentPunkte() + randomP);
 			bonus.setText("Punkte + " + randomP);
 			break;
 		case 1: // Ammo auf dem Spielfeld

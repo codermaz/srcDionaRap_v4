@@ -10,9 +10,6 @@ import javax.swing.JPanel;
 
 public class Tastatur extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private DionaRap_Hauptfenster fenster;
 	private JButton[] tastatur = new JButton[9];

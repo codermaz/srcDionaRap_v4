@@ -179,7 +179,7 @@ public class ToolBarMenu extends JToolBar {
 		tPunkte.setHorizontalAlignment(JTextField.CENTER);
 		tPunkte.setForeground(PR_FARBE_blau);
 		tPunkte.setPreferredSize(lDim2);
-		tPunkte.setText(Integer.toString(fenster.currentPunkte));
+		tPunkte.setText(Integer.toString(fenster.getCurrentPunkte()));
         
 		pPunkteStand.setLayout(new BoxLayout(pPunkteStand, BoxLayout.X_AXIS));
 		pPunkteStand.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),

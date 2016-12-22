@@ -1,11 +1,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//fuer sound dateien
-import javax.sound.sampled.*;
-import java.io.*;
-
-import de.fhwgt.dionarap.controller.DionaRapController;
 
 public class ListenerBewegung implements ActionListener {
 	private DionaRap_Hauptfenster fenster;

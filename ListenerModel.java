@@ -30,7 +30,7 @@ public class ListenerModel implements DionaRapListener{
 		// JToolBar tBar = fenster.getSpielSteuern().getToolBarMenu().getToolBar(); nur für Info
 		// ((ToolBarMenu) tBar).setPunkteStand(Integer.toString(Punkte));
 		//PunkteStand bei ToolBarMenu aktualisieren
-		Punkte = drm.getScore() + (fenster.currentPunkte);
+		Punkte = drm.getScore() + (fenster.getCurrentPunkte());
 		tBar.setPunkteStand(Integer.toString(Punkte));		
 		
 		//ProgressStand bei ToolBarMenu aktualisieren
@@ -56,7 +56,7 @@ public class ListenerModel implements DionaRapListener{
 		
 		if (dwo.getAuswahl()==0) {  // Next Level
 			if (fenster.currentLevel<fenster.LEVEL_MAX) fenster.currentLevel++;
-			DionaRap_Hauptfenster.currentPunkte += drm.getScore(); 
+			fenster.setCurrentPunkte(fenster.getCurrentPunkte() + drm.getScore()); 
 			fenster.getSpielfeld().stopBlinking(); // Bonus (Hertz) loeschen
 			fenster.spielStart();
 		}
@@ -64,7 +64,7 @@ public class ListenerModel implements DionaRapListener{
 			fenster.getToolBarMenu().setButtonNeuEnabled(true);
 		else if (dwo.getAuswahl()==2){ // Neues Spiel
 			fenster.currentLevel=0;
-			DionaRap_Hauptfenster.currentPunkte = 0; 
+			fenster.setCurrentPunkte(0); 
 			fenster.getSpielfeld().stopBlinking(); // Bonus (Hertz) loeschen
 			fenster.spielStart();
 		}

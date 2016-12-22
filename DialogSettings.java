@@ -21,8 +21,8 @@ import javax.swing.event.ChangeListener;
 
 public class DialogSettings extends JDialog implements ChangeListener, FocusListener, ItemListener {
 	/*
-	 * ActionListener : für Button/ ChangeListener : für Slider / ItemListener :
-	 * für Checkbox/ TextEvent, FocusListener : für TextField  
+	 * ActionListener : fï¿½r Button/ ChangeListener : fï¿½r Slider / ItemListener :
+	 * fï¿½r Checkbox/ TextEvent, FocusListener : fï¿½r TextField  
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -53,8 +53,10 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	private void initAktuellSettings() {
 		lSettings = new ListenerSettingsDialog(fenster, this);
 		fenster.getController().deactivateMultiThreading();
-		neuEinstellungen = ((HashMap<String, String>) fenster.getSettings().getEinstellungen().clone());
 
+//		neuEinstellungen = ((HashMap<String, String>) fenster.getSettings().getEinstellungen().clone());
+		
+		neuEinstellungen = fenster.getSettings().getEinstellungen();
 		pSettings.setLayout(new GridLayout(11, 2, 5, 7));
 
 		initLabels();
@@ -80,9 +82,9 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 	}
 
 	private void initComboBox() {
-	     // Array für unsere JComboBox
+	     // Array fï¿½r unsere JComboBox
         jcbLevel= new JComboBox<String>(); 
-        jcbLevel.setModel(new DefaultComboBoxModel (fenster.getToolBarMenu().levelListe.toArray()));//###
+        jcbLevel.setModel(new DefaultComboBoxModel(fenster.getToolBarMenu().levelListe.toArray()));//###
         jcbLevel.setActionCommand("Level");
         int itemNo= Integer.parseInt(fenster.getSettings().getEinstellungen().get(Settings.levelS)); 
         jcbLevel.setSelectedIndex(itemNo);
@@ -142,13 +144,13 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 			jcheck[i].setName(Integer.toString(i));
 			jcheck[i].addItemListener(this);
 		}
-		jcheck[0].setText("Zufällige Wartezeit der Gegner");
+		jcheck[0].setText("Zufï¿½llige Wartezeit der Gegner");
 		jcheck[0].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.rOppWT)));
 		jcheck[1].setText("Gegner meiden Kollision mit Hindernis");
 		jcheck[1].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.aColWObs)));
 		jcheck[2].setText("Gegner meiden Kollision mit anderen Gegnern");
 		jcheck[2].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.aColWOpp)));
-		jcheck[3].setText("nicht unbegrenzte Anzahl Schüsse");
+		jcheck[3].setText("nicht unbegrenzte Anzahl Schï¿½sse");
 		jcheck[3].setSelected(Boolean.parseBoolean(neuEinstellungen.get(Settings.sGetsOT)));
 
 	}
@@ -173,7 +175,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		js.setMinimum(0);
 		// Maximalwert wird gesetzt
 		js.setMaximum(10000);
-		// Die Abstände zwischen den Teilmarkierungen werden festgelegt
+		// Die Abstï¿½nde zwischen den Teilmarkierungen werden festgelegt
 		js.setMajorTickSpacing(2000);
 		js.setMinorTickSpacing(500);
 		// Standardmarkierungen werden erzeugt
@@ -186,7 +188,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		js.setValue(value); // <***>
 	}
 
-	// für JSlider
+	// fï¿½r JSlider
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		JSlider source = (JSlider) e.getSource();
@@ -235,7 +237,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 			labels[i].setPreferredSize(prefSize);
 		}
 		labels[0].setText("Wartezeit der Gegner zu Beginn");
-		labels[1].setText("Verzögerung eines Schusses");
+		labels[1].setText("Verzï¿½gerung eines Schusses");
 		labels[2].setText("Wartezeit eines Gegners vor jedem Schritt");
 		labels[3].setText(" ");
 		labels[4].setText(" ");
@@ -260,7 +262,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		int icBox = Integer.parseInt(jcBox.getName());
 		fenster.setCustomLevel(true);
 		switch (icBox) {
-		case 0: // "Zufällige Wartezeit der Gegner"
+		case 0: // "Zufï¿½llige Wartezeit der Gegner"
 			neuEinstellungen.put(Settings.rOppWT, sJCBox);
 			break;
 		case 1: // "Gegner meiden Kollision mit Hindernis"
@@ -269,7 +271,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		case 2: // "Gegner meiden Kollision mit anderen Gegnern"
 			neuEinstellungen.put(Settings.aColWOpp, sJCBox);
 			break;
-		case 3: // "nicht unbegrenzte Anzahl Schüsse"
+		case 3: // "nicht unbegrenzte Anzahl Schï¿½sse"
 			neuEinstellungen.put(Settings.sGetsOT, sJCBox);
 			break;
 		}

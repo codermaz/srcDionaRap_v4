@@ -1,6 +1,5 @@
 
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import javax.swing.UIManager;
 import de.fhwgt.dionarap.controller.DionaRapController;
 import de.fhwgt.dionarap.model.data.DionaRapModel;
 import de.fhwgt.dionarap.model.data.MTConfiguration;
-import de.fhwgt.dionarap.model.objects.Ammo;
 
 public class DionaRap_Hauptfenster extends JFrame {
 
@@ -39,7 +37,7 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public int currentLevel;
 
 	public final int LEVEL_MAX=9;
-	public static int currentPunkte;
+	private int currentPunkte;
 	private boolean customLevel;
 	
 
@@ -72,6 +70,8 @@ public class DionaRap_Hauptfenster extends JFrame {
 		panelSpielFeld = new Spielfeld(this);
 		this.add(panelSpielFeld, BorderLayout.CENTER);
 		panelSpielFeld.setzeAllePawns();
+		
+	
 		
 		// Navigator initialisieren
 		navisFenster = new Navigator(this);
@@ -203,5 +203,13 @@ public class DionaRap_Hauptfenster extends JFrame {
 	public static void main(String[] args) {
 		new DionaRap_Hauptfenster();
 
+	}
+
+	public int getCurrentPunkte() {
+		return currentPunkte;
+	}
+
+	public void setCurrentPunkte(int currentPunkte) {
+		this.currentPunkte = currentPunkte;
 	}
 }

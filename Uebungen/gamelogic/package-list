@@ -1,0 +1,6 @@
+de.fhwgt.dionarap.controller
+de.fhwgt.dionarap.controller.logic
+de.fhwgt.dionarap.model.data
+de.fhwgt.dionarap.model.events
+de.fhwgt.dionarap.model.listener
+de.fhwgt.dionarap.model.objects

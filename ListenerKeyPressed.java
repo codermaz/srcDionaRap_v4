@@ -1,8 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import de.fhwgt.dionarap.controller.DionaRapController;
-
 public class ListenerKeyPressed implements KeyListener {
 
 	DionaRap_Hauptfenster fenster;
