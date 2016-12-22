@@ -104,7 +104,7 @@ public class ListenerMouse implements MouseListener {
 			difZ = mouseZ - playerZ;
 
 			playerMove(2); // 2--> es ist nicht noetig, in der Umgebung von
-							// Player zu sein
+							// Player zu clicken
 			
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
 			PopupMenu menu = new PopupMenu(fenster);

@@ -4,12 +4,13 @@ public class FragenUndNotizen { FragenUndNotizen () {
 
 /*
  * 
- 5.4 Settings Level hinzugefuegt
- 5.5 Sounds hinzugefuegt
- 5.6 Bonus icons 
+ 5.4 Levels 
+ 5.5 Sounds 
+ 5.6 Bonus  
   
  *
 > jnlp : Whelche Host und wie hochladen?
+
 > validate , repaint, updateUI
 > _variable namen
 > @SuppressWarnings("unchecked") in DialogSettings

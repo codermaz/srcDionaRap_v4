@@ -119,6 +119,11 @@ public class Spielfeld extends JPanel {
 					}
 			} else if (allePawns[i] instanceof Opponent) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "opponent.gif");
+				if (bonus != null)
+					if (allePawns[i].getX() == bonus.getSpalte() && allePawns[i].getY() == bonus.getZeile()) {
+						stopBlinking();
+						hertzAddiert = false;
+					}
 			} else if (allePawns[i] instanceof Player) {
 				Player player = (Player) allePawns[i];
 				String dir = Integer.toString(player.getViewDirection());

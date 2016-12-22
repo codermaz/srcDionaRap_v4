@@ -131,7 +131,7 @@ public class ToolBarMenu extends JToolBar {
 	
 	public void setButtonNeuSpiel() {
 		pNeuSpiel.removeAll();
-		pNeuSpiel.setBorder(null);
+		pNeuSpiel.setBorder(BorderFactory.createEmptyBorder());
 		pNeuSpiel.add(Box.createGlue());
 		pNeuSpiel.add(bNeuSpiel);
 		pNeuSpiel.add(Box.createGlue());		
