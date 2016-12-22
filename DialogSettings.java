@@ -236,7 +236,7 @@ public class DialogSettings extends JDialog implements ChangeListener, FocusList
 		}
 		labels[0].setText("Wartezeit der Gegner zu Beginn");
 		labels[1].setText("Verzögerung eines Schusses");
-		labels[2].setText("Wartezeit eines Gegners vor jedem Schnritt");
+		labels[2].setText("Wartezeit eines Gegners vor jedem Schritt");
 		labels[3].setText(" ");
 		labels[4].setText(" ");
 		labels[5].setText(" ");

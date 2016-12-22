@@ -1,9 +1,6 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JLabel;
-
-import de.fhwgt.dionarap.controller.DionaRapController;
 
 public class ListenerMouse implements MouseListener {
 
@@ -16,7 +13,6 @@ public class ListenerMouse implements MouseListener {
 	int difZ; // Zeilendifferenz
 	int difS; // Spaltendifferenz
 	private Move move;
-	private Bonus bonus;
 
 	ListenerMouse(DionaRap_Hauptfenster _fenster) {
 		fenster = _fenster;
@@ -36,21 +32,21 @@ public class ListenerMouse implements MouseListener {
 		if (_art == 1) { // if mouse in Umgebung
 			if ((Math.abs(difS) < 2) && (Math.abs(difZ) < 2)) {
 				if ((difS == -1) && (difZ == 1))
-					move.act(1);
+					move.richtung(1);
 				if ((difS == 0) && (difZ == 1))
-					move.act(2);
+					move.richtung(2);
 				if ((difS == 1) && (difZ == 1))
-					move.act(3);
+					move.richtung(3);
 				if ((difS == -1) && (difZ == 0))
-					move.act(4);
+					move.richtung(4);
 				if ((difS == 1) && (difZ == 0))
-					move.act(6);
+					move.richtung(6);
 				if ((difS == -1) && (difZ == -1))
-					move.act(7);
+					move.richtung(7);
 				if ((difS == 0) && (difZ == -1))
-					move.act(8);
+					move.richtung(8);
 				if ((difS == 1) && (difZ == -1))
-					move.act(9);
+					move.richtung(9);
 				if ((difS == 0) && (difZ == 0)) {
 					if (fenster.getDrm().getShootAmount() == 0) { // munitionAnzahl
 						if (fenster.isSoundOn())
@@ -65,21 +61,21 @@ public class ListenerMouse implements MouseListener {
 			}
 		} else { // MouseClick muss nicht in der Umgebung sein
 			if ((difS < 0) && (difZ > 0))
-				move.act(1);
+				move.richtung(1);
 			if ((difS == 0) && (difZ > 0))
-				move.act(2);
+				move.richtung(2);
 			if ((difS > 0) && (difZ > 0))
-				move.act(3);
+				move.richtung(3);
 			if ((difS < 0) && (difZ == 0))
-				move.act(4);
+				move.richtung(4);
 			if ((difS > 0) && (difZ == 0))
-				move.act(6);
+				move.richtung(6);
 			if ((difS < 0) && (difZ < 0))
-				move.act(7);
+				move.richtung(7);
 			if ((difS == 0) && (difZ < 0))
-				move.act(8);
+				move.richtung(8);
 			if ((difS > 0) && (difZ < 0))
-				move.act(9);
+				move.richtung(9);
 			if ((difS == 0) && (difZ == 0)) {
 				move.schiess();
 			}
@@ -117,12 +113,6 @@ public class ListenerMouse implements MouseListener {
 
 	}
 
-	private boolean bonusIcon(int _mouseZ, int _mouseS) {
-		if (bonus.getZeile() == _mouseZ || bonus.getSpalte() == _mouseS)
-			return true;
-		else
-			return false;
-	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {

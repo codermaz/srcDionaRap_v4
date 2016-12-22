@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -43,6 +44,7 @@ public class ToolBarMenu extends JToolBar {
 	private Font panelFont = new Font("times new roman",Font.PLAIN,12);
 	
 	private JButton bNeuSpiel;
+	private JLabel lBonus;
 	private JButton bSettings = new JButton("Settings");
 	private JTextField tPunkte = new JTextField("0");
 	private JLabel lPunkte = new JLabel();
@@ -107,6 +109,10 @@ public class ToolBarMenu extends JToolBar {
 	}
 
 	private void initPanelNeuSpiel() {
+		lBonus = new JLabel();
+		lBonus.setFont(panelFont);
+		lPunkte.setPreferredSize(new Dimension(80,30));
+		
 		bNeuSpiel = new JButton("Neues Spiel");
 		bNeuSpiel.setActionCommand("NeuSpiel");
 		bNeuSpiel.setEnabled(false);
@@ -120,6 +126,30 @@ public class ToolBarMenu extends JToolBar {
 		pNeuSpiel.add(Box.createGlue());
 		pNeuSpiel.add(bNeuSpiel);
 		pNeuSpiel.add(Box.createGlue());
+				
+	}
+	
+	public void setButtonNeuSpiel() {
+		pNeuSpiel.removeAll();
+		pNeuSpiel.setBorder(null);
+		pNeuSpiel.add(Box.createGlue());
+		pNeuSpiel.add(bNeuSpiel);
+		pNeuSpiel.add(Box.createGlue());		
+		pNeuSpiel.updateUI();
+	}
+	
+	public void setTextForBonus() {
+		pNeuSpiel.removeAll();
+		pNeuSpiel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(PR_FARBE_blau, 1),
+				" Bonuspaket ",
+				TitledBorder.CENTER, TitledBorder.TOP, 
+				panelFont, PR_FARBE_blau));
+		pNeuSpiel.setPreferredSize(pDim);
+		pNeuSpiel.setLayout(new BorderLayout());
+		lBonus.setText(fenster.getSpielfeld().getBonus().getText());
+		lBonus.setHorizontalAlignment(SwingConstants.CENTER);
+		pNeuSpiel.add(lBonus, BorderLayout.CENTER);
+		pNeuSpiel.updateUI();
 	}
 	
 	public void setButtonNeuEnabled(Boolean b) {

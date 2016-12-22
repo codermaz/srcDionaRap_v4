@@ -3,9 +3,8 @@ public class Bonus {
 
 	private DionaRap_Hauptfenster fenster;
 	private int zeile;
-
 	private int spalte;
-	
+	private String text;
 	
 	Bonus (DionaRap_Hauptfenster _fenster) {
 		fenster=_fenster;
@@ -31,6 +30,13 @@ public class Bonus {
 
 	public void setSpalte(int spalte) {
 		this.spalte = spalte;
+	}
+
+	public void setText(String _text) {
+		text= _text;
+	}
+	public String getText() {
+		return text;
 	}
 	
 	

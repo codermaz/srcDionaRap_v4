@@ -23,8 +23,7 @@ public class SoundPlay {
 
 		try {
 			// Audiofileformat aus einer sounddatei bestimmen
-			// AudioFileFormat audioformat =
-			// AudioSystem.getAudioFileFormat(sounddatei);
+			// AudioFileFormat audioformat =  AudioSystem.getAudioFileFormat(sounddatei);
 			// Info: System.out.println(audioformat.toString());
 
 			// AudioInputStream erzeugen

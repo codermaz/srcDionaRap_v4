@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.fhwgt.dionarap.model.data.DionaRapModel;
+import de.fhwgt.dionarap.model.data.MTConfiguration;
 import de.fhwgt.dionarap.model.objects.AbstractPawn;
 import de.fhwgt.dionarap.model.objects.Ammo;
 import de.fhwgt.dionarap.model.objects.Destruction;
@@ -109,11 +110,12 @@ public class Spielfeld extends JPanel {
 		for (int i = 0; i < allePawns.length; i++) {
 			if (allePawns[i] instanceof Obstacle) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "obstacle.gif");
+				// When Opponent unter Bonus geschossen und zum Obstacle
+				// umgewandelt ist
 				if (bonus != null)
 					if (allePawns[i].getX() == bonus.getSpalte() && allePawns[i].getY() == bonus.getZeile()) {
 						stopBlinking();
 						hertzAddiert = false;
-						System.out.println("...................");
 					}
 			} else if (allePawns[i] instanceof Opponent) {
 				setzeFigur(allePawns[i].getX(), allePawns[i].getY(), "opponent.gif");
@@ -191,11 +193,6 @@ public class Spielfeld extends JPanel {
 		}
 	}
 
-	public void deleteHertz() {
-		setzeFigur(bonus.getSpalte(), bonus.getZeile(), "");
-		System.out.println("hertz delete.........................");
-	}
-
 	public void stopBlinking() {
 		if (threadBonus.isAlive()) {
 			rha.terminate();
@@ -205,7 +202,50 @@ public class Spielfeld extends JPanel {
 	public void bonusGewonnen() {
 		stopBlinking();
 		setHertzAddiert(false);
-		System.out.println("Bonus getroffen");
+		if (fenster.isSoundOn())
+			fenster.getSettings().getSoundBonus().play();
+		// Min + (int)(Math.random() * ((Max - Min) + 1))
+		int randomZ = (int) (Math.random() * 4); // 0 oder 1 oder 2 oder 3
+
+		switch (randomZ) {
+		case 0: // Punkte gewonnen
+			int randomP = ((int) (Math.random() * 4) + 1) * 10;
+			DionaRap_Hauptfenster.currentPunkte += randomP;
+			bonus.setText("Punkte + " + randomP);
+			break;
+		case 1: // Ammo auf dem Spielfeld
+			fenster.getDrm().addAmmo(new Ammo());
+			bonus.setText("Neu Munition");
+			break;
+		case 2: // Schnell schiessen
+			MultiThreadKonfiguration mtk = new MultiThreadKonfiguration(fenster);
+			mtk.setFastShot();
+			fenster.getController().setMultiThreaded(mtk.getMTKonfiguration());
+			bonus.setText("Blitz-Shiess");
+			break;
+		case 3: // Wartezeit des Gegners verlaengern
+			MultiThreadKonfiguration mtk2 = new MultiThreadKonfiguration(fenster);
+			mtk2.setSlowOpponent();
+			fenster.getController().setMultiThreaded(mtk2.getMTKonfiguration());
+			bonus.setText("Langsam Gegner");
+			break;
+		}
+
+		Thread t = new Thread() {
+			public void run() {
+				fenster.getToolBarMenu().setTextForBonus();
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				fenster.getToolBarMenu().setButtonNeuSpiel();
+
+			}
+		};
+		t.start();
+
+		System.out.println(" randomZ : " + randomZ);
 	}
 
 	private static Color getInverseFarbe(Color in) {

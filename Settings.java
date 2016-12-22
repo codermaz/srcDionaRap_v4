@@ -46,12 +46,13 @@ public class Settings {
 	private boolean customLevel;
 	private SoundPlay soundError;
 	private SoundPlay soundShoot;
+	private SoundPlay soundBonus;
 	
 	public HashMap<String, String> einstellungen;
 	
 	private boolean soundOn;
 	String[] files = { "Beamer.wav", "Error1.wav", "GameOver.wav", "Gewonnen.wav", "Bewegung.wav",
-			"TreffenHindernis.wav", "Waffe_LASER12-MULTI-BURSTS.wav" };
+			"TreffenHindernis.wav", "Waffe_LASER12-MULTI-BURSTS.wav", "shooting.wav" };
 	String fs = File.separator;
 	String fileDir = System.getProperty("user.dir") + fs + "sounds" + fs ;
 
@@ -73,6 +74,8 @@ public class Settings {
 	public void setSoundDateien() {
 		soundError = new SoundPlay(soundOn, new File (fileDir + files[1]));
 		soundShoot = new SoundPlay(soundOn, new File (fileDir + files[6]));
+		soundBonus = new SoundPlay(soundOn, new File (fileDir + files[7]));
+	
 	}
 
 	public File getFile(int index) {
@@ -283,5 +286,8 @@ public class Settings {
 	public SoundPlay getSoundShoot() {
 		return soundShoot;
 	}
-	
+
+	public SoundPlay getSoundBonus() {
+		return soundBonus;
+	}
 }
